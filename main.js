@@ -25,6 +25,19 @@ app.get('/', function (req, res) {
     res.render('home');
 });
 
+import loginRouter from './routes/login.route.js'
+app.use('/login', loginRouter);
+
+import signupRouter from './routes/signup.route.js'
+app.use('/signup', signupRouter);
+
+import article_listRouter from './routes/article_list.route.js'
+app.use('/article_list', article_listRouter);
+
+import article_detailRouter from './routes/article_detail.route.js'
+app.use('/article_detail', article_detailRouter);
+
+
 app.listen(3000, function () {
     console.log('Server is running at http://localhost:3000');
 });
