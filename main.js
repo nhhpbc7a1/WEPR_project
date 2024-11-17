@@ -19,7 +19,7 @@ app.engine('hbs', engine({
 app.set('view engine', 'hbs');
 app.set('views', './views');
 
-app.use(express.static('public'));
+app.use('/public', express.static('public'));
 
 app.get('/', function (req, res) {
     res.render('home');
