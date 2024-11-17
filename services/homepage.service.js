@@ -8,20 +8,20 @@ export default {
                 title: 'Science and the Universe',
                 category_name: 'Science',
                 published_date: new Date('2024-10-05T04:30:00.000Z'),
-                image_href: '/images/science.jpg'
+                image_href: '/1/main.jpg'
             },
             {
                 title: 'The Future of Technology',
                 category_name: 'Technology',
                 published_date: new Date('2024-10-01T03:00:00.000Z'),
-                image_href: '/images/tech.jpg'
+                image_href: '/2/main.jpg'
             },
             {
                 title: 'Health Tips for 2024',
                 category_name: 'Health',
                 published_date: new Date('2024-09-20T02:00:00.000Z'),
-                image_href: '/images/health.jpg'
-            }
+                image_href: '/3/main.jpg'
+            },
         ];
         return await db('Articles as A')
             .select('A.title', 'C.category_name', 'A.published_date', 'I.image_href')
@@ -40,23 +40,63 @@ export default {
                 title: 'Science and the Universe',
                 category_name: 'Science',
                 published_date: new Date('2024-10-05T04:30:00.000Z'),
-                image_href: '/images/science.jpg',
-                view_count: 1
+                image_href: '/1/main.jpg'
             },
             {
                 title: 'The Future of Technology',
                 category_name: 'Technology',
                 published_date: new Date('2024-10-01T03:00:00.000Z'),
-                image_href: '/images/tech.jpg',
-                view_count: 1
+                image_href: '/2/main.jpg'
             },
             {
                 title: 'Health Tips for 2024',
                 category_name: 'Health',
                 published_date: new Date('2024-09-20T02:00:00.000Z'),
-                image_href: '/images/health.jpg',
-                view_count: 1
-            }
+                image_href: '/3/main.jpg'
+            },
+            {
+                title: 'Science and the Universe',
+                category_name: 'Science',
+                published_date: new Date('2024-10-05T04:30:00.000Z'),
+                image_href: '/1/main.jpg'
+            },
+            {
+                title: 'The Future of Technology',
+                category_name: 'Technology',
+                published_date: new Date('2024-10-01T03:00:00.000Z'),
+                image_href: '/2/main.jpg'
+            },
+            {
+                title: 'Health Tips for 2024',
+                category_name: 'Health',
+                published_date: new Date('2024-09-20T02:00:00.000Z'),
+                image_href: '/3/main.jpg'
+            },
+            {
+                title: 'Science and the Universe',
+                category_name: 'Science',
+                published_date: new Date('2024-10-05T04:30:00.000Z'),
+                image_href: '/1/main.jpg'
+            },
+            {
+                title: 'The Future of Technology',
+                category_name: 'Technology',
+                published_date: new Date('2024-10-01T03:00:00.000Z'),
+                image_href: '/2/main.jpg'
+            },
+            {
+                title: 'Health Tips for 2024',
+                category_name: 'Health',
+                published_date: new Date('2024-09-20T02:00:00.000Z'),
+                image_href: '/3/main.jpg'
+            },
+            {
+                title: 'Science and the Universe',
+                category_name: 'Science',
+                published_date: new Date('2024-10-05T04:30:00.000Z'),
+                image_href: '/1/main.jpg'
+            },
+
         ];
             return await db('Articles as A')
             .select('A.title', 'C.category_name', 'A.published_date', 'I.image_href')
@@ -76,23 +116,63 @@ export default {
                 title: 'Science and the Universe',
                 category_name: 'Science',
                 published_date: new Date('2024-10-05T04:30:00.000Z'),
-                image_href: '/images/science.jpg',
-                view_count: 1
+                image_href: '/1/main.jpg'
             },
             {
                 title: 'The Future of Technology',
                 category_name: 'Technology',
                 published_date: new Date('2024-10-01T03:00:00.000Z'),
-                image_href: '/images/tech.jpg',
-                view_count: 1
+                image_href: '/2/main.jpg'
             },
             {
                 title: 'Health Tips for 2024',
                 category_name: 'Health',
                 published_date: new Date('2024-09-20T02:00:00.000Z'),
-                image_href: '/images/health.jpg',
-                view_count: 1
-            }
+                image_href: '/3/main.jpg'
+            },
+            {
+                title: 'Science and the Universe',
+                category_name: 'Science',
+                published_date: new Date('2024-10-05T04:30:00.000Z'),
+                image_href: '/1/main.jpg'
+            },
+            {
+                title: 'The Future of Technology',
+                category_name: 'Technology',
+                published_date: new Date('2024-10-01T03:00:00.000Z'),
+                image_href: '/2/main.jpg'
+            },
+            {
+                title: 'Health Tips for 2024',
+                category_name: 'Health',
+                published_date: new Date('2024-09-20T02:00:00.000Z'),
+                image_href: '/3/main.jpg'
+            },
+            {
+                title: 'Science and the Universe',
+                category_name: 'Science',
+                published_date: new Date('2024-10-05T04:30:00.000Z'),
+                image_href: '/1/main.jpg'
+            },
+            {
+                title: 'The Future of Technology',
+                category_name: 'Technology',
+                published_date: new Date('2024-10-01T03:00:00.000Z'),
+                image_href: '/2/main.jpg'
+            },
+            {
+                title: 'Health Tips for 2024',
+                category_name: 'Health',
+                published_date: new Date('2024-09-20T02:00:00.000Z'),
+                image_href: '/3/main.jpg'
+            },
+            {
+                title: 'Science and the Universe',
+                category_name: 'Science',
+                published_date: new Date('2024-10-05T04:30:00.000Z'),
+                image_href: '/1/main.jpg'
+            },
+
         ];
 
         return await db('Articles as A')
@@ -110,23 +190,63 @@ export default {
                 title: 'Science and the Universe',
                 category_name: 'Science',
                 published_date: new Date('2024-10-05T04:30:00.000Z'),
-                image_href: '/images/science.jpg',
-                view_count: 1
+                image_href: '/1/main.jpg'
             },
             {
                 title: 'The Future of Technology',
                 category_name: 'Technology',
                 published_date: new Date('2024-10-01T03:00:00.000Z'),
-                image_href: '/images/tech.jpg',
-                view_count: 1
+                image_href: '/2/main.jpg'
             },
             {
                 title: 'Health Tips for 2024',
                 category_name: 'Health',
                 published_date: new Date('2024-09-20T02:00:00.000Z'),
-                image_href: '/images/health.jpg',
-                view_count: 1
-            }
+                image_href: '/3/main.jpg'
+            },
+            {
+                title: 'Science and the Universe',
+                category_name: 'Science',
+                published_date: new Date('2024-10-05T04:30:00.000Z'),
+                image_href: '/1/main.jpg'
+            },
+            {
+                title: 'The Future of Technology',
+                category_name: 'Technology',
+                published_date: new Date('2024-10-01T03:00:00.000Z'),
+                image_href: '/2/main.jpg'
+            },
+            {
+                title: 'Health Tips for 2024',
+                category_name: 'Health',
+                published_date: new Date('2024-09-20T02:00:00.000Z'),
+                image_href: '/3/main.jpg'
+            },
+            {
+                title: 'Science and the Universe',
+                category_name: 'Science',
+                published_date: new Date('2024-10-05T04:30:00.000Z'),
+                image_href: '/1/main.jpg'
+            },
+            {
+                title: 'The Future of Technology',
+                category_name: 'Technology',
+                published_date: new Date('2024-10-01T03:00:00.000Z'),
+                image_href: '/2/main.jpg'
+            },
+            {
+                title: 'Health Tips for 2024',
+                category_name: 'Health',
+                published_date: new Date('2024-09-20T02:00:00.000Z'),
+                image_href: '/3/main.jpg'
+            },
+            {
+                title: 'Science and the Universe',
+                category_name: 'Science',
+                published_date: new Date('2024-10-05T04:30:00.000Z'),
+                image_href: '/1/main.jpg'
+            },
+
         ];
 
         const subquery = db('Articles')

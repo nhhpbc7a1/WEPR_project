@@ -1,26 +1,124 @@
 <div class="container">
     <div class="row">
-        <!-- Swiper -->
-        <div class="swiper mySwiper" style="height: 450px;">
-            <div class="swiper-wrapper">
-                {{#each featuredArticles}}
-                <div class="swiper-slide">
-                    <img class="d-block w-100" src="/public/images/article/1/main.jpg" alt="First slide">
-                    <div class="swiper-caption">
-                        <div class="">
-                            <a href="">{{category_name}}</a>
-                            <a class="ml-3">{{published_date}}</a>
+        <div class="col-8">
+            <div class="row home_slider">
+                <!-- Swiper -->
+                <div class="swiper mySwiper" style="height: 450px;">
+                    <div class="swiper-wrapper">
+                        {{#each featuredArticles}}
+                        <div class="swiper-slide">
+                            <img class="d-block w-100" src="/public/images/article{{image_href}}" alt="First slide">
+                            <div class="swiper-caption">
+                                <div class="">
+                                    <a class="home_slider_category" href="">{{category_name}}</a>
+                                    <a class="ml-3 home_slider_time">{{published_date}}</a>
+                                </div>
+                                <a class="home_slider_title" href="">{{title}}</a>
+                            </div>
                         </div>
-                        <a class="" href="">{{title}}</a>
+                        {{/each}}
+                    </div>
+                    <!-- Navigation buttons -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    <!-- Pagination -->
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+
+            <h1 class="my_sider_title">Tin mới</h1>
+            {{#each newestInCategories}}
+
+            <hr>
+            <div class="container list_grid">
+                <div class="">
+                </div>
+                <div class="row d-flex">
+                    <img class="list_grid_image" src="/public/images/article{{image_href}}" alt="">
+                    <div class="ml-3" style="flex:1;">
+                        <a class="list_grid_title" href="">{{title}}</a>
+                        <p class="list_grid_abstract">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                            Nostrum,
+                            nulla perspiciatis! Nostrum libero doloribus quae aliquam blanditiis. Quaerat quae,
+                            tempora
+                            aliquid magni laboriosam veniam perspiciatis itaque placeat id similique necessitatibus.
+                        </p>
+                        <div class="row ml-3">
+                            <p class="list_grid_date">17-11-2024</p>
+                            <a class="list_grid_category ml-3">{{category_name}}</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            {{/each}}
+
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-header my_sider_title">
+                    Đọc nhiều
+                </div>
+                <div class="card-body">
+                    {{#each mostViewedArticles}}
+                    <div class="row top_article_content d-flex">
+                        <div class="">
+                            <img class="top_article_content_image " src="/public/images/article{{image_href}}" alt="">
+                        </div>
+
+                        <div class="ml-3" style="flex:1;">
+                            <h5 class="top_article_content_title">
+                                {{title}}
+                            </h5>
+                            <div class="row">
+                                <p class="top_article_content_time">17/11/2024</p>
+                                <a class="top_article_content_time ml-3" href="">{{category_name}}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    {{/each}}
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="layout_new">
+        <h1 class="layout_new_head">Top 10 danh mục</h1>
+        <div class="row ">
+
+            {{#each newestInCategories}}
+            <div class="col-6">
+
+                <div class="container top_category">
+                    <div class="row top_category_name">
+                        <a href="">{{category_name}}</a>
+                    </div>
+                    <div class="row top_category_content d-flex">
+                        <div class="">
+                            <img class="top_category_content_image " src="/public/images/article{{image_href}}" alt="">
+                        </div>
+
+                        <div class="ml-3" style="flex: 1;">
+                            <h1 class="top_category_content_title">
+                                Việt Nam không phải chia sẻ sân Việt Trì ở AFF Cup 2024
+                            </h1>
+                            <p class="top_category_content_abstract">
+                                Việt Nam không phải chia sẻ sân Việt Trì, sau khi LĐBĐ Đông Nam Á chấp thuận để Timor Leste
+                                chuyển sang sân ...
+                            </p>
+                            <p class="top_category_content_time">
+                                17/11/2024
+                            </p>
+                        </div>
                     </div>
                 </div>
-                {{/each}}
             </div>
-            <!-- Navigation buttons -->
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-            <!-- Pagination -->
-            <div class="swiper-pagination"></div>
+            <hr>
+            {{/each}}
+
         </div>
     </div>
     <script>
