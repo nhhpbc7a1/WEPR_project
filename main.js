@@ -1,8 +1,9 @@
 import express from 'express';
 import numeral from 'numeral';
-import {dirname, extname} from 'path';
-import {fileURLToPath} from 'url';
+import { dirname, extname } from 'path';
+import { fileURLToPath } from 'url';
 import { engine } from 'express-handlebars';
+import homepageService from './services/homepage.service.js';;
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
@@ -21,8 +22,26 @@ app.set('views', './views');
 
 app.use('/public', express.static('public'));
 
-app.get('/', function (req, res) {
-    res.render('home');
+app.get('/', async function (req, res) {
+    const featuredArticles = await homepageService.getFeaturedArticlesThisWeek();
+    // console.log(featuredArticles);
+
+    const mostViewedArticles = await homepageService.getMostViewedArticles();
+    // console.log(mostViewedArticles);
+
+    const newestArticles = await homepageService.getNewestArticles();
+    // console.log(newestArticles);
+
+    const newestInCategories = await homepageService.getNewestArticleInEachCategory();
+    // console.log(newestInCategories);
+
+    res.render('home', {
+        featuredArticles: featuredArticles,
+        mostViewedArticles: mostViewedArticles,
+        newestArticles: newestArticles,
+        newestInCategories: newestInCategories,
+    });
+
 });
 
 import loginRouter from './routes/login.route.js'

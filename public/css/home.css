@@ -1,0 +1,5 @@
+.my_carousel img{
+    height: 450px;
+    border: 10px solid black;
+    opacity: 0.5;
+}
