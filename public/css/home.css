@@ -1,5 +1,29 @@
-.my_carousel img{
-    height: 450px;
-    border: 10px solid black;
-    opacity: 0.5;
+
+.swiper-slide img {
+    width: 100%;
+    height: 100%; /* Đặt chiều cao hình ảnh bằng chiều cao của slider */
+    object-fit: cover; /* Giúp hình ảnh lấp đầy khung mà không méo */
+}
+
+.swiper {
+    position: relative;
+    height: 450px; /* Đảm bảo chiều cao slider cố định */
+}
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Ẩn phần dư thừa của hình ảnh nếu có */
+}
+
+.swiper-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    color: #fff;
+    border-radius: 5px;
 }
