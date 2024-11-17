@@ -1,86 +1,26 @@
 <div class="container">
     <div class="row">
-        <div class="col-9">
-            <!-- Swiper -->
-            <div class="swiper mySwiper" style="height: 450px;">
-                <div class="swiper-wrapper">
-                    
-                    <div class="swiper-slide">
-                        <img class="d-block w-100" src="/public/images/article/1/main.jpg" alt="First slide">
-                        <div class="swiper-caption">
-                            <h5>Title</h5>
-                            <p>Abstract</p>
+        <!-- Swiper -->
+        <div class="swiper mySwiper" style="height: 450px;">
+            <div class="swiper-wrapper">
+                {{#each featuredArticles}}
+                <div class="swiper-slide">
+                    <img class="d-block w-100" src="/public/images/article/1/main.jpg" alt="First slide">
+                    <div class="swiper-caption">
+                        <div class="">
+                            <a href="">{{category_name}}</a>
+                            <a class="ml-3">{{published_date}}</a>
                         </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <img class="d-block w-100" src="/public/images/article/1/main.jpg" alt="Second slide">
-                        <div class="swiper-caption">
-                            <h5>Title</h5>
-                            <p>Abstract</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <img class="d-block w-100" src="/public/images/article/1/main.jpg" alt="Third slide">
-                        <div class="swiper-caption">
-                            <h5>Title</h5>
-                            <p>Abstract</p>
-                        </div>
+                        <a class="" href="">{{title}}</a>
                     </div>
                 </div>
-                <!-- Navigation buttons -->
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-                <!-- Pagination -->
-                <div class="swiper-pagination"></div>
+                {{/each}}
             </div>
-        </div>
-        <div class="col-3">
-            <!-- Cards (unchanged) -->
-            <div class="card mb-3" style="max-width: 540px;">
-                <div class="row no-gutters">
-                    <div class="col-md-4">
-                        <img src="..." alt="...">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                                additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card mb-3" style="max-width: 540px;">
-                <div class="row no-gutters">
-                    <div class="col-md-4">
-                        <img src="..." alt="...">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                                additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card mb-3" style="max-width: 540px;">
-                <div class="row no-gutters">
-                    <div class="col-md-4">
-                        <img src="..." alt="...">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                                additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- Navigation buttons -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <!-- Pagination -->
+            <div class="swiper-pagination"></div>
         </div>
     </div>
     <script>
