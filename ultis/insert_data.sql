@@ -51,10 +51,10 @@ INSERT INTO Images (image_href) VALUES
     ('/images/travel.jpg');
 
 -- Thêm dữ liệu vào bảng Articles
-INSERT INTO Articles (image_id, title, category_id, published_date, abstract, content, status, is_premium, writer_id) VALUES 
-    (1, 'The Future of Technology', 1, '2024-10-01 10:00:00', 'A look into upcoming tech trends', 'Detailed content about technology trends.', 'published', TRUE, 1),
-    (2, 'Science and the Universe', 2, '2024-10-05 11:30:00', 'Exploring space and beyond', 'In-depth content about scientific discoveries in space.', 'reviewed', FALSE, 1),
-    (3, 'Health Tips for 2024', 3, '2024-09-20 09:00:00', 'Ways to stay healthy', 'Guidance on health and wellness practices.', 'published', FALSE, 1);
+INSERT INTO Articles (image_id, title, category_id, published_date, abstract, content, status, is_premium, writer_id, is_featured) VALUES 
+    (1, 'The Future of Technology', 1, '2024-10-01 10:00:00', 'A look into upcoming tech trends', 'Detailed content about technology trends.', 'published', TRUE, 1, TRUE),
+    (2, 'Science and the Universe', 2, '2024-10-05 11:30:00', 'Exploring space and beyond', 'In-depth content about scientific discoveries in space.', 'reviewed', FALSE, 1, TRUE),
+    (3, 'Health Tips for 2024', 3, '2024-09-20 09:00:00', 'Ways to stay healthy', 'Guidance on health and wellness practices.', 'published', FALSE, 1, TRUE);
 
 -- Thêm dữ liệu vào bảng Article_Tags
 INSERT INTO Article_Tags (tag_id, article_id) VALUES 

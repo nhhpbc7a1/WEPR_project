@@ -1,23 +1,41 @@
 <div class="container">
-    <div class="row" >
+    <div class="row">
         <div class="col-9">
-            <div class="card">
-                <div class="card-header">
-                    Header
+            <!-- Swiper -->
+            <div class="swiper mySwiper" style="height: 450px;">
+                <div class="swiper-wrapper">
+                    
+                    <div class="swiper-slide">
+                        <img class="d-block w-100" src="/public/images/article/1/main.jpg" alt="First slide">
+                        <div class="swiper-caption">
+                            <h5>Title</h5>
+                            <p>Abstract</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <img class="d-block w-100" src="/public/images/article/1/main.jpg" alt="Second slide">
+                        <div class="swiper-caption">
+                            <h5>Title</h5>
+                            <p>Abstract</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <img class="d-block w-100" src="/public/images/article/1/main.jpg" alt="Third slide">
+                        <div class="swiper-caption">
+                            <h5>Title</h5>
+                            <p>Abstract</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <h4 class="card-title">Title</h4>
-                    <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Enim magni corrupti
-                        ipsum. Natus praesentium sequi totam inventore adipisci veritatis recusandae porro, aspernatur a
-                        consequatur voluptates assumenda excepturi voluptate, modi pariatur?
-                    </p>
-                </div>
-                <div class="card-footer text-muted">
-                    Footer
-                </div>
+                <!-- Navigation buttons -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <!-- Pagination -->
+                <div class="swiper-pagination"></div>
             </div>
         </div>
         <div class="col-3">
+            <!-- Cards (unchanged) -->
             <div class="card mb-3" style="max-width: 540px;">
                 <div class="row no-gutters">
                     <div class="col-md-4">
@@ -65,4 +83,23 @@
             </div>
         </div>
     </div>
+    <script>
+        const swiper = new Swiper('.mySwiper', {
+            loop: true,
+            autoplay: {
+                delay: 3000,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            slidesPerView: 1,
+            spaceBetween: 10,
+        });
+    </script>
+
 </div>

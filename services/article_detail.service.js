@@ -1,4 +1,4 @@
-import db from '../utils/db.js';
+import db from '../ultis/db.js';
 export default{
     // findAll(){
     //     return db('products');
