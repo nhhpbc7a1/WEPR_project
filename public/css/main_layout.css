@@ -12,6 +12,26 @@
 
 .huy_navbar {
     background-color: #fff;
-    box-shadow: var(--box-shadow);
+    /* box-shadow: var(--box-shadow); */
 }
 
+.my_footer {
+    margin-top: 60px;
+    border-top: 2px solid #ccc;
+    padding: 24px 0;
+}
+
+.sticky{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    /* box-shadow: var(--box-shadow); */
+    margin-bottom: 20px;
+    /*left: 10px;*/
+    /*right: 20px;*/
+    /*bottom: 10px;*/
+}
