@@ -54,14 +54,15 @@
 .custom_separate_line{
     height: 1px;
     background-color: rgb(175, 170, 170);
-    margin-top: -40px;
+    margin-top: 40px;
+    
 
 }
 .tags{
+    display: flex;
     color: rgb(121, 117, 117);
-    margin-left: 90px;
     margin-top: 20px;
-    margin-right: 4px;
+    margin-left: 15px;
 }
 .tagKeyWord{
     color: black;
