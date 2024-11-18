@@ -1,5 +1,7 @@
-const article_signupRouter = (req, res) => {
-    res.send("Hello from article list");
-};
 
-export default article_signupRouter;
+import express from 'express';
+
+const router = express.Router();
+
+export default router;
+
