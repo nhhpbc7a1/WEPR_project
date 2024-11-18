@@ -1,3 +1,4 @@
+
 import express from 'express';
 import articleDetailService from '../services/article_detail.service.js';
 
@@ -15,3 +16,4 @@ const router = express.Router();
 
 
 export default router;
+
