@@ -3,7 +3,6 @@ import numeral from 'numeral';
 import { dirname, extname } from 'path';
 import { fileURLToPath } from 'url';
 import { engine } from 'express-handlebars';
-import moment from 'moment';
 import homepageService from './services/homepage.service.js';;
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -16,12 +15,6 @@ app.use(express.urlencoded({
 app.engine('hbs', engine({
     extname: '.hbs',
     defaultLayout: 'main',
-    helpers: {
-        formatDate: (date) => {
-            if (!date) return 'Không rõ ngày';
-            return moment(date).format('DD/MM/YYYY'); // Bạn có thể thay đổi format ở đây
-        }
-    },
 }));
 
 app.set('view engine', 'hbs');

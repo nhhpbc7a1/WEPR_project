@@ -75,6 +75,7 @@ CREATE TABLE Articles (
     content TEXT,
     status ENUM('draft', 'reviewed', 'published', 'rejected') NOT NULL,
     is_premium BOOLEAN DEFAULT FALSE,
+    is_featured BOOLEAN DEFAULT FALSE,
     writer_id INT,
     FOREIGN KEY (image_id) REFERENCES Images(image_id),
     FOREIGN KEY (category_id) REFERENCES Categories(category_id),
