@@ -4,6 +4,7 @@ import { dirname, extname } from 'path';
 import { fileURLToPath } from 'url';
 import { engine } from 'express-handlebars';
 import moment from 'moment';
+import homepageService from './services/homepage.service.js';;
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
