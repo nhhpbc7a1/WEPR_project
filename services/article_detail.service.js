@@ -1,19 +1,25 @@
 import db from '../ultis/db.js';
 export default{
-    // findAll(){
-    //     return db('products');
-    // },
-    // findByCatId(catId){
-    //     return db('products').where('CatID',catId);
-    // },
-    // findPageByCatId(catId, limit, offset){
-    //     return db('products').where('CatID',catId).limit(limit).offset(offset);
-    // },
-    // countByCatId(catId){
-    //     return db('products').where('CatID', catId).count('* as total').first();
-    // },
-    // findById(id){
-    //     return db('products'). where('ProID', id).first();
-    // }
+    findAll(){
+        return db('Articles');
+    },
+    findArticleById(id){
+        return db('Articles')
+        .join('Categories','Categories.category_id','Articles.article_id')
+        .join('Writers','Writers.writer_id','Articles.writer_id')
+        .where('article_id', id)
+        .first();
+    },
+    findCommentByArticleId(id){
+        return db('Comments').where('article_id',id);
+    },
+    findTagByArticleId(id){
+        return db('Tags')
+        .join('Article_tags','Tags.tag_id','Article_tags.tag_id')
+        .where('article_id', id)
+    },
+    addComment(entity){
+        return db('Comments').insert(entity);
+    }
 
 }

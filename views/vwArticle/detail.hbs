@@ -1,27 +1,83 @@
 <div class="container">
     <div class="row" >
-        <div class="col-11 mx-auto">
+        <div class="col-9 mx-auto">
             <div class="d-flex justify-content-between mb-3">
-                <div>Thời sự</div>
-                <div>Chủ nhật, 17/11/2024, 12:06 (GMT+7)</div>
+                <div>{{articleDetail.category_name}}</div>
+                <div>{{articleDetail.published_date}}</div>
             </div>
             <div>
                 <div>
-                    <h1 style="font-weight: bold;" >Không khí lạnh đang tràn xuống miền Bắc</h1>
+                    <h1 style="font-weight: bold;" >{{articleDetail.title}}</h1>
                 </div>
                 <div>
-                    Không khí lạnh đang di chuyển xuống miền Bắc sẽ khiến nhiệt độ khu vực núi cao xuống mức rét hại, còn khu vực đồng bằng nhiệt độ thấp nhất 18-20 độ C.
-                    Trung tâm Dự báo Khí tượng Thủy văn quốc gia cho biết khoảng chiều và đêm 17/11, không khí lạnh sẽ ảnh hưởng đến khu vực Đông Bắc Bộ sau đó mở rộng ra đồng bằng và Tây Bắc Bộ.
-                    Trang Accuweather của Mỹ dự báo Hà Nội ngày mai giảm khoảng 3 độ so với hôm nay, xuống mức 21-30 độ C, đến giữa tuần nhiệt độ trong ngày dao động 19-28 độ. Điểm cao trên 1.500 m so với mực nước biển như Sa Pa (Lào Cai) đầu tuần 14-22 độ, đến cuối tuần xuống ngưỡng rét hại (trung bình ngày dưới 13 đô) từ 9-15 độ C
+                    {{articleDetail.content}}
                 </div>
-                <img src="https://i5.walmartimages.com/seo/A-NEW-MY-NEIGHBOR-TOTORO-1988-TONARI-NO-TOTORO-directed-by-HAYAO-MIYAZAKI-Poster-Canvas-Posters-Framed-Unframed_4e105ab7-1643-4a16-97c8-c384c7796ea5.d59d754a68fd8b7fb0e6e03862c0eeb6.jpeg" alt="">
+                <img src="https://th.bing.com/th/id/R.3aca5ddde7a48beb9b317b145f5f8596?rik=6xA%2bwEDGiYtFTg&pid=ImgRaw&r=0" width="100%" alt="" id="article_Pic">
                 <div>
-                    Không khí lạnh đang di chuyển xuống miền Bắc sẽ khiến nhiệt độ khu vực núi cao xuống mức rét hại, còn khu vực đồng bằng nhiệt độ thấp nhất 18-20 độ C.
-                    Trung tâm Dự báo Khí tượng Thủy văn quốc gia cho biết khoảng chiều và đêm 17/11, không khí lạnh sẽ ảnh hưởng đến khu vực Đông Bắc Bộ sau đó mở rộng ra đồng bằng và Tây Bắc Bộ.
-                    Trang Accuweather của Mỹ dự báo Hà Nội ngày mai giảm khoảng 3 độ so với hôm nay, xuống mức 21-30 độ C, đến giữa tuần nhiệt độ trong ngày dao động 19-28 độ. Điểm cao trên 1.500 m so với mực nước biển như Sa Pa (Lào Cai) đầu tuần 14-22 độ, đến cuối tuần xuống ngưỡng rét hại (trung bình ngày dưới 13 đô) từ 9-15 độ C
+                    {{articleDetail.content}}
                 </div>
+                <div class="text-right font-weight-bold mt-3 ">{{articleDetail.pen_name}}</div>
             </div>
-            <hr>
         </div>
     </div>
 </div>
+<div class="container-fluid">
+    <div class="custom_separate_line"></div>
+    <div class="row">
+        <div class="tags d-flex">Tags: 
+            {{#each tags}}
+            <span class="tagKeyWord">{{tag_name}}</span>
+            {{/each}}
+        </div>
+        <div class=" col-11 mx-auto d-flex justify-content-between mb-5 mt-3">
+            <div class="col-6">
+                <h4>Opinions</h4>
+                <form action="" method="post">
+                    <div class="input-group mt-4" >
+                    <input type="text" class="form-control" placeholder="Share your opinions!" name="commentContent" >
+                    <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">       
+                        <i class="bi bi-send-fill " style="color: rgb(76, 168, 243);"></i>               
+                    </button>
+                    </div>
+                    </div>
+                    <div class="input-group mt-4" >
+                        <input type="text" class="form-control" placeholder="Full name" name="commenterName">
+                    </div>
+                </form>
+                <button class="btnComment mt-4">Most interested</button>
+                <button  class="btnComment mt-4">Most recent</button>
+                {{#each comments}}
+                <div class="reader_comment_container mt-5 ">
+                    <img src="https://yt3.googleusercontent.com/RHQEoCGTjz2zH30BSzH5Gpg7m57-IdRb3V8awXUD-Ps3CWxqHPy_oRp1CLltiimp6e0J3kvEJA=s900-c-k-c0x00ffffff-no-rj" alt="" class="reader_profile reader_comment mr-2">
+                    <div class="reader_comment pl-3 pr-3 pt-2">
+                        <div class="font-weight-bold">{{commenter_name}}</div>
+                        <div>{{content}}</div>
+                        <div class="d-flex justify-content-between my-2 ">
+                            <button class="btnLikeComment " type="button">
+                            <i class="bi-heart"></i> Like</button>                       
+                            <div  class="text-right ">{{commented_date}}</div>
+                        </div>
+                    </div>
+                </div>
+
+                {{/each}}
+            </div>
+            <div class="col-6">
+                <h4>Thời sự</h2>
+                {{#each articles}}
+                <div class="five_article_container mt-4">
+                    <img class="article_component article_picture mr-2 " src="https://dhgywazgeek0d.cloudfront.net/watcha/image/upload/c_fill,h_1080,q_80,w_1920/v1526749986/sj454jspuajgnyizhwzv.jpg" alt="">
+                    <div class="article_component">
+                        <div class="font-weight-bold h5 ">{{title}} </div>
+                        <div>{{content}}</div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+2003
