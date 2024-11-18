@@ -79,8 +79,16 @@
                     <div class="row border-bottom py-3">
                     <div class="col-md-8">
                         <h5><a href="#" class="text-dark featured-article-title">{{this.title}}</a></h5>
+                              <span class="badge bg-primary me-1">{{this.tag_name}}</span>
                         <p class="text-muted">{{this.content}}</p>
+                        <p class="text-muted">{{this.abstract}}</p>
+                        <small class="text-muted">
+                        Đăng ngày: {{formatDate this.published_date}}
+                        </small>  
+                        <div>
+
                         <small class="text-muted">{{this.commentsCount}} bình luận</small>
+                        </div>  
                     </div>
                     <div class="col-md-4">
                         <img src="{{this.image}}" alt="Ảnh bài viết" class="img-fluid rounded">
