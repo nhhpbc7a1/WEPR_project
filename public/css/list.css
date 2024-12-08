@@ -2,3 +2,20 @@
     font-size: 1.8rem; /* Điều chỉnh kích thước theo ý muốn */
     font-weight: bold;
 }
+.pagination {
+    justify-content: center;
+}
+
+.page-item a {
+    color: #007bff;
+}
+
+.page-item.active a {
+    background-color: #007bff;
+    color: white;
+}
+
+.page-item a:hover {
+    text-decoration: none;
+    color: #0056b3;
+}
