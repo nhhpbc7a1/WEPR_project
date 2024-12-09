@@ -69,6 +69,9 @@ app.use('/article_list', article_listRouter);
 import article_detailRouter from './routes/article_detail.route.js'
 app.use('/article_detail', article_detailRouter);
 
+import adminRouter from './routes/admin/admin.route.js'
+app.use('/admin', adminRouter);
+
 
 app.listen(3000, function () {
     console.log('Server is running at http://localhost:3000');
