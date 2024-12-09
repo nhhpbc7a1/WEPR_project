@@ -47,18 +47,11 @@
             <a href="">
                 <i class="bi bi-house-fill"></i>
             </a>
-            <a class="" href="">Thời sự</a>
-            <a class="" href="">Góc nhìn</a>
-            <a class="" href="">Thế giới</a>
-            <a class="" href="">Video</a>
-            <a class="" href="">Thời sự</a>
-            <a class="" href="">Góc nhìn</a>
-            <a class="" href="">Thế giới</a>
-            <a class="" href="">Video</a>
-            <a class="" href="">Thời sự</a>
-            <a class="" href="">Góc nhìn</a>
-            <a class="" href="">Thế giới</a>
-            <a class="" href="">Video</a>
+             {{#each categories}}
+                <a class="" href="/category/{{this.category_id}}">
+                    {{this.category_name}}
+                </a>
+                {{/each}}
             <a href="">
                 <i class="bi bi-list"></i>
             </a>

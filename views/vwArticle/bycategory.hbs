@@ -1,0 +1,39 @@
+{{!-- file bycategory.hbs --}}
+<div class="mt-3">
+    <!-- Hiển thị danh sách bài viết -->
+    {{#each articles}}
+        <div class="row border-bottom py-3">
+            <div class="col-md-8">
+                <h5><a href="#" class="text-dark">{{this.title}}</a></h5>
+                <span class="badge bg-primary">{{this.tag_name}}</span>
+                <p>{{this.content}}</p>
+                <small>Đăng ngày: {{formatDate this.published_date}}</small>
+            </div>
+            <div class="col-md-4">
+                <img src="{{this.image}}" class="img-fluid rounded">
+            </div>
+        </div>
+    {{/each}}
+
+    <!-- Phân trang -->
+    <nav>
+        <ul class="pagination">
+            {{#each pageNumbers}}
+                {{#if active}}
+                    <li class="page-item active">
+                        <a class="page-link" href="?id={{../catId}}&page={{value}}">
+                            {{value}}
+                        </a>
+                    </li>
+                {{else}}
+                    <li class="page-item">
+                        <a class="page-link" href="?id={{../catId}}&page={{value}}">
+                            {{value}}
+                        </a>
+                    </li>
+                {{/if}}
+            {{/each}}
+        </ul>
+    </nav>
+</div>
+

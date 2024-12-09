@@ -4,6 +4,7 @@ import { dirname, extname } from 'path';
 import { fileURLToPath } from 'url';
 import { engine } from 'express-handlebars';
 import homepageService from './services/homepage.service.js';;
+import categoryService from './services/category.service.js';
 import moment from 'moment';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -41,12 +42,13 @@ app.get('/', async function (req, res) {
 
     const newestInCategories = await homepageService.getNewestArticleInEachCategory();
     // console.log(newestInCategories);
-
+    const categories = await  categoryService.findAll();
     res.render('home', {
         featuredArticles: featuredArticles,
         mostViewedArticles: mostViewedArticles,
         newestArticles: newestArticles,
         newestInCategories: newestInCategories,
+        categories: categories
     });
 
 });
@@ -56,7 +58,6 @@ app.use('/login', loginRouter);
 
 import signupRouter from './routes/signup.route.js'
 app.use('/signup', signupRouter);
-
 import article_listRouter from './routes/article_list.route.js'
 app.use('/article_list', article_listRouter);
 
