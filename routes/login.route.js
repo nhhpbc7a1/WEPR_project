@@ -2,12 +2,8 @@ import express from 'express';
 
 const router = express.Router();
 
-
-router.get('/', function (req, res) {
-    res.render('login', {
-        layout: false, 
-        title: 'Login Page',
-    });
+router.get('/', (req, res) => {
+  res.render('login', { layout: false }); // Chỉ render file login.hbs
 });
 
 export default router;
