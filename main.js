@@ -3,6 +3,7 @@ import numeral from 'numeral';
 import { dirname, extname } from 'path';
 import { fileURLToPath } from 'url';
 import { engine } from 'express-handlebars';
+import hbs_sections from 'express-handlebars-sections';
 import homepageService from './services/homepage.service.js';;
 import categoryService from './services/category.service.js';
 import moment from 'moment';
@@ -21,7 +22,8 @@ app.engine('hbs', engine({
         formatDate: (date) => {
             if (!date) return 'Không rõ ngày';
             return moment(date).format('DD/MM/YYYY'); // Bạn có thể thay đổi format ở đây
-        }
+        },
+        section: hbs_sections(),
     },
 }));
 
