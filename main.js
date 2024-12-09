@@ -30,6 +30,12 @@ app.set('views', './views');
 
 app.use('/public', express.static('public'));
 
+app.use(async function (req, res, next) {
+    const categories = await categoryService.findAll();
+    res.locals.lcCategories = categories
+    next();
+});
+
 app.get('/', async function (req, res) {
     const featuredArticles = await homepageService.getFeaturedArticlesThisWeek();
     // console.log(featuredArticles);
@@ -42,13 +48,12 @@ app.get('/', async function (req, res) {
 
     const newestInCategories = await homepageService.getNewestArticleInEachCategory();
     // console.log(newestInCategories);
-    const categories = await  categoryService.findAll();
+
     res.render('home', {
         featuredArticles: featuredArticles,
         mostViewedArticles: mostViewedArticles,
         newestArticles: newestArticles,
         newestInCategories: newestInCategories,
-        categories: categories
     });
 
 });
