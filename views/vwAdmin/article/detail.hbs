@@ -1,0 +1,24 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/static/css/detail.css">
+{{/section}}
+
+
+
+<div class="container">
+    <div class="title">
+        {{article.title}}
+    </div>
+    <div class="author mt-3">
+        <img src="" alt="">
+        <span><b>Author: </b>{{article.author}}</span>
+    </div>
+    <div class="content mt-3">
+        {{{article.content}}}
+    </div>
+    <div class="action mt-3">
+        <a name="" id="" class="btn btn-success" href="/articles" role="button">
+            <i class="bi bi-chevron-double-left mr-1"></i>
+            Back_To_List
+        </a>
+    </div>
+</div>

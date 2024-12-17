@@ -46,12 +46,13 @@ CREATE TABLE Subscribers (
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
--- Bảng Categories
+-- Tạo lại bảng Categories hỗ trợ danh mục 2 cấp
 CREATE TABLE Categories (
     category_id INT PRIMARY KEY AUTO_INCREMENT,
-    category_name VARCHAR(100) NOT NULL
+    category_name VARCHAR(100) NOT NULL,
+    parent_category_id INT DEFAULT NULL,
+    FOREIGN KEY (parent_category_id) REFERENCES Categories(category_id)
 );
-
 -- Bảng Tags
 CREATE TABLE Tags (
     tag_id INT PRIMARY KEY AUTO_INCREMENT,
