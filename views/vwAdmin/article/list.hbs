@@ -1,0 +1,86 @@
+<div class="container-fluid">
+    <!-- DataTales Example -->
+    <div id="table-wrapper"></div>
+
+
+</div>
+
+{{#section 'css'}}
+<style>
+    .ellipsis {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 200px;
+        /* Giới hạn chiều rộng tối đa */
+    }
+</style>
+{{/section}}
+
+{{#section 'js'}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gridjs/6.2.0/gridjs.umd.js"
+    integrity="sha512-UxJx7Aa36ndtmns24kdxG3ARmAPPYllynVsgpV18TdQYGhENGkdb+fC8xOjeJ8UR8Rsc5S2xUZ9pCO5ygECnOQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+<script>
+    // Lấy dữ liệu từ this.categorie đã chuyển sang JSON
+    const articleData = {{{ json this.articles }}};
+
+    // Chuyển đổi dữ liệu từ đối tượng thành mảng để sử dụng trong Grid.js
+    const data = articleData.map(item => [item.article_id, item.title, item.pen_name, item.abstract, item.category_name, item.is_premium]);
+
+    console.log(data);
+    // Khởi tạo bảng Grid.js
+    new gridjs.Grid({
+        columns: ["#", "Title", "Author", "Abstract", "Category",
+            {
+                name: "Premium",
+                formatter: (cell, row) => {
+                    if (row.cells[5].data == 1)
+                        return gridjs.html(`
+                            <i class="bi bi-star-fill" style="color: yellow"></i>`);
+                    return gridjs.html('<div></div>');
+                }
+            },
+            {
+                name: "Action",
+                formatter: (cell, row) => {
+                    return gridjs.html(`                        
+                        <a class="btn btn-sm btn-primary" href="/admin/article/edit?id=${row.cells[0].data}" role="button">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>`);
+                }
+            }
+        ],
+        data: data,
+        pagination: {
+            limit: 5
+        },
+        search: true,
+        sort: true,
+        language: {
+            search: {
+                placeholder: 'Tìm kiếm...'
+            },
+            pagination: {
+                previous: 'Trước',
+                next: 'Sau',
+                showing: 'Hiển thị',
+                results: () => 'kết quả'
+            }
+        },
+        style: {
+            th: {
+                background: 'linear-gradient(180deg, #eee 100%, #eee 100%',
+                color: 'black',
+            },
+            td: {
+                height: '120px'
+            }
+
+
+        }
+    }).render(document.getElementById("table-wrapper"));
+
+</script>
+{{/section}}

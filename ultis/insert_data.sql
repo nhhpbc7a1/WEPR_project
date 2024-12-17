@@ -30,12 +30,29 @@ INSERT INTO Subscribers (subscription_expiration, user_id) VALUES
     ('2025-01-01 00:00:00', 4);
 
 -- Thêm dữ liệu vào bảng Categories
-INSERT INTO Categories (category_name) VALUES 
-    ('Technology'),
-    ('Science'),
-    ('Health'),
-    ('Travel');
+INSERT INTO Categories (category_name, parent_category_id)
+VALUES 
+    -- Danh mục cha 1: "Thời sự"
+    ('Thời sự', NULL),
+    ('Chính trị', 1),
+    ('Dân sinh', 1),
+    ('Lao động - Việc làm', 1),
+    ('Giao thông', 1),
 
+    -- Danh mục cha 2: "Góc nhìn"
+    ('Góc nhìn', NULL),
+    ('Bình luận nhiều', 6),
+    ('Chính trị & chính sách', 6),
+    ('Y tế & sức khỏe', 6),
+    ('Kinh doanh & quản trị', 6),
+
+    -- Danh mục cha 3: "Thế giới"
+    ('Thế giới', NULL),
+    ('Tư liệu', 11),
+    ('Phân tích', 11),
+    ('Người Việt 5 châu', 11),
+    ('Cuộc sống đó đây', 11);
+    
 -- Thêm dữ liệu vào bảng Tags
 INSERT INTO Tags (tag_name) VALUES 
     ('Innovation'),

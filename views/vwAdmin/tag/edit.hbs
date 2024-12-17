@@ -1,0 +1,64 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/public/css/admin/manage_product/add.css">
+{{/section}}
+
+{{#section 'js'}}
+</script>
+
+{{/section}}
+
+<form action="" method="post">
+
+    <div class="container-fluid" style="padding: 40px;">
+        <div class="row">
+            <div class="col-12">
+                <div class="card info_part">
+                    <div class="card-header">
+                        <h4>Add Tags Information</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <label for="txtCatID">Tag ID</label>
+                                        <input type="text" name="tag_id" id="txtCatID" class="form-control"
+                                            value="{{tag.tag_id}}" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <label for="txtCatName">Name</label>
+                                        <input type="text" name="tag_name" id="txtCatName" class="form-control"
+                                            value="{{tag.tag_name}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class=" text-muted action_block">
+                    <a name="" id="" class="btn btn-outline-success" href="/admin/tag/list" role="button">
+                        <i class="bi bi-skip-backward-fill"></i>
+                        List
+                    </a>
+                    <button type="submit" class="btn btn-danger ml-3" formaction="/admin/tag/del">
+                        <i class="bi bi-trash"></i>
+                        delete
+                    </button>
+                    <button type="submit" class="btn btn-primary ml-3" formaction="/admin/tag/patch">
+                        <i class="bi bi-check2"></i>
+                        save
+                    </button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>

@@ -19,11 +19,35 @@ app.engine('hbs', engine({
     extname: '.hbs',
     defaultLayout: 'main',
     helpers: {
-        formatDate: (date) => {
-            if (!date) return 'Không rõ ngày';
-            return moment(date).format('DD/MM/YYYY'); // Bạn có thể thay đổi format ở đây
+        format_price(value) {
+            return numeral(value).format('0,000') + ' VNĐ';
+        },
+        format_round(value) {
+            return numeral(value).format('0,000');
+        },
+
+        json(context) {
+            return JSON.stringify(context);
+        },
+        ifEquals(arg1, arg2, options) {
+            return arg1 == arg2 ? options.fn(this) : options.inverse(this);
+        },
+        ifNotEquals(arg1, arg2, options) {
+            return arg1 != arg2 ? options.fn(this) : options.inverse(this);
+        },
+        eq(arg1, arg2) {
+            return arg1 === arg2; // Trả về true nếu 2 giá trị bằng nhau
         },
         section: hbs_sections(),
+        containTopping(array, topping_id) {
+            if (Array.isArray(array)) {
+                return array.some(item => item.topping_id.toString() === topping_id.toString());
+            }
+            return false;
+        },
+        formatDate(date, format) {
+            return moment(date).format('MMMM DD, YYYY, hh:mm a');  // Định dạng ngày theo format
+        }
     },
 }));
 
@@ -70,6 +94,12 @@ app.use('/article_list', article_listRouter);
 
 import article_detailRouter from './routes/article_detail.route.js'
 app.use('/article_detail', article_detailRouter);
+
+// import writerRouter from './routes/writer/writer.route.js'
+// app.use('/writer', writerRouter);
+
+// import editorRouter from './routes/editor/editor.route.js'
+// app.use('/editor', editorRouter);
 
 import adminRouter from './routes/admin/admin.route.js'
 app.use('/admin', adminRouter);
