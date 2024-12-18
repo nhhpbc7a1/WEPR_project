@@ -35,3 +35,86 @@
     /*right: 20px;*/
     /*bottom: 10px;*/
 }
+:root {
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+  }
+  
+  /* Dropdown menu */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(221, 221, 221, 0.5);
+    border-radius: 5px;
+    box-shadow: var(--box-shadow);
+    width: 200px;
+    z-index: 1000;
+    transform: translateY(10px); /* Menu ẩn ở dưới */
+    transition: all 0.3s ease;
+    opacity: 10; /* Menu ban đầu trong suốt */
+    padding: 5px 0;
+  }
+  
+  .dropdown:hover .dropdown-menu {
+    display: block;
+    transform: translateY(0); /* Di chuyển về vị trí ban đầu */
+    border-top: 1px solid red;
+    margin-top: 4px;
+    opacity: 1; /* Hiện menu */
+  }
+  
+  .dropdown-item {
+    padding: 12px 15px;
+    text-decoration: none;
+    color: #000000;
+    font-style: oblique;
+    font-size: 14px;
+    transition: background-color 0.2s ease-in;
+  }
+  
+  .dropdown-item:hover {
+    background-color: #ffc3c3;
+  }
+  
+  .dropdown {
+    background: transparent !important; 
+    border: none !important; 
+    color: #000000; 
+    font-size: 14px;
+    transition: color 0.3s ease-in; 
+  }
+  
+  .dropdown:hover {
+    color: rgb(255, 0, 0);
+    
+  }
+.circle-btn {
+    display: inline-flex; 
+    justify-content: center;
+    align-items: center;
+    width: 35px; 
+    height: 35px; 
+    border-radius: 50%;
+    background-color: #f8f9fa; 
+    color: #000000; 
+    text-decoration: none; 
+    border: 1px solid #dee2e6;
+    transition: background-color 0.3s, color 0.3s; /* Hiệu ứng chuyển đổi */
+}
+
+.circle-btn i {
+    font-size: 15px; /* Kích thước của biểu tượng */
+}
+
+.circle-btn:hover {
+    background-color: #ffbbbb; /* Màu nền khi hover */
+    color: #ffffff; /* Màu biểu tượng khi hover */
+    border-color: #007bff; /* Màu viền khi hover */
+}
