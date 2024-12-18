@@ -22,7 +22,7 @@
         .create(document.querySelector('#editor'), {
             ckfinder: {
                 // Tùy chọn upload hình ảnh (nếu có server xử lý upload)
-                uploadUrl: '/upload-image'
+                uploadUrl: '/admin/article/upload-image'
             },
             toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', 'insertTable', 'mediaEmbed', 'undo', 'redo'],
             mediaEmbed: {
@@ -35,8 +35,7 @@
             // Trước khi submit form, cập nhật dữ liệu CKEditor vào textarea ẩn
             document.querySelector('#frmAddArticle').addEventListener('submit', (e) => {
                 e.preventDefault();
-                alert(editorInstance.getData());
-                document.querySelector('#from_add_content').value = editorInstance.getData();
+                document.querySelector('#form_add_content').value = editorInstance.getData();
                 document.querySelector('#frmAddArticle').submit();
             });
         })
@@ -135,7 +134,7 @@
                                 <select id="category1" style="width: 200px;" class="form-control">
                                     <option value="">-- Chọn cấp 1 --</option>
                                 </select>
-                                <select id="category2" style="width: 200px;" class="form-control">
+                                <select id="category2" style="width: 200px;" class="form-control" name="category_id">
                                     <option value="">-- Chọn cấp 2 --</option>
                                 </select>
                             </div>
@@ -151,7 +150,7 @@
                             </button>
 
                             <!-- Thẻ textarea ẩn để lưu dữ liệu từ CKEditor -->
-                            <textarea id="from_add_content" name="content" style="display:none;"></textarea>
+                            <textarea id="form_add_content" name="content" style="display:none;"></textarea>
                         </form>
                     </div>
                 </div>

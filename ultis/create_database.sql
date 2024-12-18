@@ -8,42 +8,21 @@ CREATE TABLE Roles (
     role_name VARCHAR(50) NOT NULL
 );
 
--- Bảng Accounts
-CREATE TABLE Accounts (
-    account_id INT PRIMARY KEY AUTO_INCREMENT,
-    role_id INT,
-    username VARCHAR(50) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    FOREIGN KEY (role_id) REFERENCES Roles(role_id)
-);
-
 -- Bảng Users
 CREATE TABLE Users (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
-    account_id INT,
-    fullname VARCHAR(100),
-    email VARCHAR(100) NOT NULL,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    fullname VARCHAR(100), -- Thông tin cá nhân dùng chung
+    email VARCHAR(100) NOT NULL UNIQUE,
     phone_number VARCHAR(20),
     birth_date DATE,
+    role_id INT NOT NULL, -- Phân biệt vai trò
+    subscription_expiration TIMESTAMP NULL, -- Chỉ dành cho subscribers
+    pen_name VARCHAR(50) NULL, -- Chỉ dành cho writers
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (account_id) REFERENCES Accounts(account_id)
-);
-
--- Bảng Writers
-CREATE TABLE Writers (
-    writer_id INT PRIMARY KEY AUTO_INCREMENT,
-    pen_name VARCHAR(50),
-    user_id INT,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id)
-);
-
--- Bảng Subscribers
-CREATE TABLE Subscribers (
-    subscriber_id INT PRIMARY KEY AUTO_INCREMENT,
-    subscription_expiration TIMESTAMP,
-    user_id INT,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+    FOREIGN KEY (role_id) REFERENCES Roles(role_id)
 );
 
 -- Tạo lại bảng Categories hỗ trợ danh mục 2 cấp
@@ -77,10 +56,10 @@ CREATE TABLE Articles (
     status ENUM('draft', 'reviewed', 'published', 'rejected') NOT NULL,
     is_premium BOOLEAN DEFAULT FALSE,
     is_featured BOOLEAN DEFAULT FALSE,
-    writer_id INT,
+    writer_id INT DEFAULT 1,
     FOREIGN KEY (image_id) REFERENCES Images(image_id),
     FOREIGN KEY (category_id) REFERENCES Categories(category_id),
-    FOREIGN KEY (writer_id) REFERENCES Writers(writer_id)
+    FOREIGN KEY (writer_id) REFERENCES Users(user_id)
 );
 -- Bảng Tag_lists
 CREATE TABLE Article_Tags (
@@ -116,7 +95,7 @@ CREATE TABLE Subscription_extensions (
     subscriber_id INT,
     extended_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     new_expiration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (subscriber_id) REFERENCES Subscribers(subscriber_id)
+    FOREIGN KEY (subscriber_id) REFERENCES Users(user_id)
 );
 
 -- Bảng Article_History
