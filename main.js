@@ -105,11 +105,11 @@ app.use('/article_list', article_listRouter);
 import article_detailRouter from './routes/article_detail.route.js'
 app.use('/article_detail', article_detailRouter);
 
-// import writerRouter from './routes/writer/writer.route.js'
-// app.use('/writer', writerRouter);
+import writerRouter from './routes/writer/writer.route.js'
+app.use('/writer', writerRouter);
 
-// import editorRouter from './routes/editor/editor.route.js'
-// app.use('/editor', editorRouter);
+import editorRouter from './routes/editor/editor.route.js'
+app.use('/editor', editorRouter);
 
 import adminRouter from './routes/admin/admin.route.js'
 app.use('/admin', adminRouter);
