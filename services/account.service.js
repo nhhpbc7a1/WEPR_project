@@ -12,9 +12,9 @@ export default {
            .first();
     },
 
-    findUserByAccountID(username) {
+    findUserByUserID(user_id) {
         return db('users')
-           .where('username', username)
+           .where('user_id', user_id)
            .first();
     },
     add_user(entity) {
