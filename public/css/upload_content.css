@@ -1,16 +1,16 @@
 .box_newArticle{
-    border: 1px solid rgb(53, 53, 189);
+    border: 1px solid rgb(74, 98, 138);
     border-radius: 3px;
     width: 100px;
     height: 30px;
     text-align: center;
     align-items: center;
-    color: rgb(53, 53, 189);
+    color: rgb(74, 98, 138);
     font-weight: 500;
 }
 .btnAction{
-    background-color: rgb(23, 23, 124);
-    border: 1px solid rgb(23, 23, 124);
+    background-color: rgb(74, 98, 138);
+    border: 1px solid rgb(74, 98, 138);
     border-radius: 5px;
     padding: 15px;
     color: white;
@@ -55,7 +55,7 @@
     height: 80px;
 }
 .custom_chooseFile{
-    background-color: #007BFF;
+    background-color: rgb(122, 178, 211);
     color: white;
     padding: 7px 10px;
     font-size: small;
@@ -63,3 +63,7 @@
 #articleImg{
     display: none;
 }
+/* rgb(223, 242, 235)
+rgb(185, 229, 232)
+rgb(122, 178, 211)
+rgb(74, 98, 138) */
