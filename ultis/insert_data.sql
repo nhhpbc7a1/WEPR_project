@@ -12,16 +12,19 @@ INSERT INTO Roles (role_name) VALUES
 INSERT INTO Users ( username, password, fullname, email, phone_number, birth_date, role_id, subscription_expiration, pen_name)
 VALUES 
     -- Admin
-    ('admin_user', '$2a$12$swQU3Hnqu7E8ZHBm1HC5oeBAlt.81Dc156PVGLzaYj7N0UzJfxYfm', 'Admin User', 'admin@example.com', '1234567890', '1980-01-01', 1, NULL, "RootWriter"),
+    ('admin', '$2a$12$swQU3Hnqu7E8ZHBm1HC5oeBAlt.81Dc156PVGLzaYj7N0UzJfxYfm', 'Admin User', 'admin@example.com', '1234567890', '1980-01-01', 1, NULL, "RootWriter"),
 
     -- Editor
-    ('editor_user', '$2a$12$swQU3Hnqu7E8ZHBm1HC5oeBAlt.81Dc156PVGLzaYj7N0UzJfxYfm', 'Editor User', 'editor@example.com', '0987654321', '1990-02-01', 2, NULL, NULL),
+    ('editor', '$2a$12$swQU3Hnqu7E8ZHBm1HC5oeBAlt.81Dc156PVGLzaYj7N0UzJfxYfm', 'Editor User', 'editor@example.com', '0987654321', '1990-02-01', 2, NULL, NULL),
 
     -- Writer
-    ( 'writer_user', '$2a$12$swQU3Hnqu7E8ZHBm1HC5oeBAlt.81Dc156PVGLzaYj7N0UzJfxYfm', 'Writer User', 'writer@example.com', '1122334455', '1995-03-01', 3, NULL, 'Writer Pen Name'),
+    ( 'writer1', '$2a$12$swQU3Hnqu7E8ZHBm1HC5oeBAlt.81Dc156PVGLzaYj7N0UzJfxYfm', 'Nguyễn Hoàng Huy', '22110036@example.com', '1122334455', '1995-03-01', 3, NULL, 'HoangHuy'),
+    ( 'writer2', '$2a$12$swQU3Hnqu7E8ZHBm1HC5oeBAlt.81Dc156PVGLzaYj7N0UzJfxYfm', 'Lê Thị Thu Hương', '22110040@example.com', '1122334455', '1995-03-01', 3, NULL, 'HuongLe'),
+    ( 'writer3', '$2a$12$swQU3Hnqu7E8ZHBm1HC5oeBAlt.81Dc156PVGLzaYj7N0UzJfxYfm', 'Nguyễn Nguyên Toàn Khoa', '22110044@example.com', '1122334455', '1995-03-01', 3, NULL, 'ToanKhoa'),
+    ( 'writer4', '$2a$12$swQU3Hnqu7E8ZHBm1HC5oeBAlt.81Dc156PVGLzaYj7N0UzJfxYfm', 'Nguyễn Lê Tùng Chi', '221100xx@example.com', '1122334455', '1995-03-01', 3, NULL, 'TungChi'),
 
     -- Subscriber
-    ('subscriber_user', '$2a$12$swQU3Hnqu7E8ZHBm1HC5oeBAlt.81Dc156PVGLzaYj7N0UzJfxYfm','Subscriber User', 'subscriber@example.com', '5566778899', '2000-04-01', 4, '2025-12-31 23:59:59', NULL);
+    ('sub1', '$2a$12$swQU3Hnqu7E8ZHBm1HC5oeBAlt.81Dc156PVGLzaYj7N0UzJfxYfm','Subscriber User', 'subscriber@example.com', '5566778899', '2000-04-01', 4, '2025-12-31 23:59:59', NULL);
 
 -- Thêm dữ liệu vào bảng Categories
 INSERT INTO Categories (category_name, parent_category_id)
@@ -110,53 +113,46 @@ INSERT INTO Tags (tag_name) VALUES
     ('Wellness'),
     ('Adventure');
 
--- Thêm dữ liệu vào bảng Images
-INSERT INTO Images (image_href) VALUES 
-    ('/images/tech.jpg'),
-    ('/images/science.jpg'),
-    ('/images/health.jpg'),
-    ('/images/travel.jpg');
-
 -- Thêm dữ liệu vào bảng Articles
-INSERT INTO Articles (image_url, title, category_id, published_date, abstract, content, status, is_premium, writer_id, is_featured) VALUES 
-    ('https://example.com/images/1.jpg', 'The Future of Technology', 2, '2024-10-01 10:00:00', 'A look into upcoming tech trends', 'Detailed content about technology trends.', 'published', TRUE, 3, TRUE),
-    ('https://example.com/images/2.jpg', 'Science and the Universe', 2, '2024-10-05 11:30:00', 'Exploring space and beyond', 'In-depth content about scientific discoveries in space.', 'reviewed', FALSE, 3, TRUE),
-    ('https://example.com/images/3.jpg', 'Health Tips for 2024', 3, '2024-09-20 09:00:00', 'Ways to stay healthy', 'Guidance on health and wellness practices.', 'published', FALSE, 3, TRUE),
-    ('https://example.com/images/4.jpg', 'Travel Article 1', 4, '2024-10-14 08:15:00', 'Abstract of Travel Article 1', 'Detailed content of Travel Article 1.', 'published', TRUE, 3, TRUE),
-    ('https://example.com/images/5.jpg', 'Tech Article 2', 2, '2024-10-15 10:30:00', 'Abstract of Tech Article 2', 'Detailed content of Tech Article 2.', 'reviewed', FALSE, 3, FALSE),
-    ('https://example.com/images/6.jpg', 'Science Article 2', 2, '2024-10-16 12:00:00', 'Abstract of Science Article 2', 'Detailed content of Science Article 2.', 'draft', FALSE, 3, TRUE),
-    ('https://example.com/images/7.jpg', 'Health Article 2', 3, '2024-10-17 11:00:00', 'Abstract of Health Article 2', 'Detailed content of Health Article 2.', 'published', FALSE, 3, TRUE),
-    ('https://example.com/images/8.jpg', 'Travel Article 2', 4, '2024-10-18 13:00:00', 'Abstract of Travel Article 2', 'Detailed content of Travel Article 2.', 'published', TRUE, 3, FALSE),
-    ('https://example.com/images/9.jpg', 'Tech Article 3', 2, '2024-10-15 10:30:00', 'Abstract of Tech Article 2', 'Detailed content of Tech Article 2.', 'reviewed', FALSE, 3, FALSE),
-    ('https://example.com/images/10.jpg', 'Science Article 3', 2, '2024-10-16 12:00:00', 'Abstract of Science Article 2', 'Detailed content of Science Article 2.', 'draft', FALSE, 3, TRUE),
-    ('https://example.com/images/11.jpg', 'Health Article 3', 3, '2024-10-17 11:00:00', 'Abstract of Health Article 2', 'Detailed content of Health Article 2.', 'published', FALSE, 3, TRUE),
-    ('https://example.com/images/12.jpg', 'Travel Article 3', 4, '2024-10-18 13:00:00', 'Abstract of Travel Article 2', 'Detailed content of Travel Article 2.', 'published', TRUE, 3, FALSE),
-    ('https://example.com/images/13.jpg', 'Tech Article 4', 2, '2024-10-15 10:30:00', 'Abstract of Tech Article 2', 'Detailed content of Tech Article 2.', 'reviewed', FALSE, 3, FALSE),
-    ('https://example.com/images/14.jpg', 'Science Article 4', 2, '2024-10-16 12:00:00', 'Abstract of Science Article 2', 'Detailed content of Science Article 2.', 'draft', FALSE, 3, TRUE),
-    ('https://example.com/images/15.jpg', 'Health Article 4', 3, '2024-10-17 11:00:00', 'Abstract of Health Article 2', 'Detailed content of Health Article 2.', 'published', FALSE, 3, TRUE),
-    ('https://example.com/images/16.jpg', 'Travel Article 4', 4, '2024-10-18 13:00:00', 'Abstract of Travel Article 2', 'Detailed content of Travel Article 2.', 'published', TRUE, 3, FALSE),
-    ('https://example.com/images/17.jpg', 'Tech Article 5', 2, '2024-10-15 10:30:00', 'Abstract of Tech Article 2', 'Detailed content of Tech Article 2.', 'reviewed', FALSE, 3, FALSE),
-    ('https://example.com/images/18.jpg', 'Science Article 5', 2, '2024-10-16 12:00:00', 'Abstract of Science Article 2', 'Detailed content of Science Article 2.', 'draft', FALSE, 3, TRUE),
-    ('https://example.com/images/19.jpg', 'Health Article 5', 3, '2024-10-17 11:00:00', 'Abstract of Health Article 2', 'Detailed content of Health Article 2.', 'published', FALSE, 3, TRUE),
-    ('https://example.com/images/20.jpg', 'Travel Article 5', 4, '2024-10-18 13:00:00', 'Abstract of Travel Article 2', 'Detailed content of Travel Article 2.', 'published', TRUE, 3, FALSE),
-    ('https://example.com/images/21.jpg', 'Tech Article 6', 2, '2024-10-15 10:30:00', 'Abstract of Tech Article 2', 'Detailed content of Tech Article 2.', 'reviewed', FALSE, 3, FALSE),
-    ('https://example.com/images/22.jpg', 'Science Article 6', 2, '2024-10-16 12:00:00', 'Abstract of Science Article 2', 'Detailed content of Science Article 2.', 'draft', FALSE, 3, TRUE),
-    ('https://example.com/images/23.jpg', 'Health Article 6', 3, '2024-10-17 11:00:00', 'Abstract of Health Article 2', 'Detailed content of Health Article 2.', 'published', FALSE, 3, TRUE),
-    ('https://example.com/images/24.jpg', 'Travel Article 6', 4, '2024-10-18 13:00:00', 'Abstract of Travel Article 2', 'Detailed content of Travel Article 2.', 'published', TRUE, 3, FALSE);
+-- INSERT INTO Articles (image_url, title, category_id, published_date, abstract, content, status, is_premium, writer_id, is_featured) VALUES 
+--     ('https://example.com/images/1.jpg', 'The Future of Technology', 2, '2024-10-01 10:00:00', 'A look into upcoming tech trends', 'Detailed content about technology trends.', 'published', TRUE, 3, TRUE),
+--     ('https://example.com/images/2.jpg', 'Science and the Universe', 2, '2024-10-05 11:30:00', 'Exploring space and beyond', 'In-depth content about scientific discoveries in space.', 'reviewed', FALSE, 3, TRUE),
+--     ('https://example.com/images/3.jpg', 'Health Tips for 2024', 3, '2024-09-20 09:00:00', 'Ways to stay healthy', 'Guidance on health and wellness practices.', 'published', FALSE, 3, TRUE),
+--     ('https://example.com/images/4.jpg', 'Travel Article 1', 4, '2024-10-14 08:15:00', 'Abstract of Travel Article 1', 'Detailed content of Travel Article 1.', 'published', TRUE, 3, TRUE),
+--     ('https://example.com/images/5.jpg', 'Tech Article 2', 2, '2024-10-15 10:30:00', 'Abstract of Tech Article 2', 'Detailed content of Tech Article 2.', 'reviewed', FALSE, 3, FALSE),
+--     ('https://example.com/images/6.jpg', 'Science Article 2', 2, '2024-10-16 12:00:00', 'Abstract of Science Article 2', 'Detailed content of Science Article 2.', 'draft', FALSE, 3, TRUE),
+--     ('https://example.com/images/7.jpg', 'Health Article 2', 3, '2024-10-17 11:00:00', 'Abstract of Health Article 2', 'Detailed content of Health Article 2.', 'published', FALSE, 3, TRUE),
+--     ('https://example.com/images/8.jpg', 'Travel Article 2', 4, '2024-10-18 13:00:00', 'Abstract of Travel Article 2', 'Detailed content of Travel Article 2.', 'published', TRUE, 3, FALSE),
+--     ('https://example.com/images/9.jpg', 'Tech Article 3', 2, '2024-10-15 10:30:00', 'Abstract of Tech Article 2', 'Detailed content of Tech Article 2.', 'reviewed', FALSE, 3, FALSE),
+--     ('https://example.com/images/10.jpg', 'Science Article 3', 2, '2024-10-16 12:00:00', 'Abstract of Science Article 2', 'Detailed content of Science Article 2.', 'draft', FALSE, 3, TRUE),
+--     ('https://example.com/images/11.jpg', 'Health Article 3', 3, '2024-10-17 11:00:00', 'Abstract of Health Article 2', 'Detailed content of Health Article 2.', 'published', FALSE, 3, TRUE),
+--     ('https://example.com/images/12.jpg', 'Travel Article 3', 4, '2024-10-18 13:00:00', 'Abstract of Travel Article 2', 'Detailed content of Travel Article 2.', 'published', TRUE, 3, FALSE),
+--     ('https://example.com/images/13.jpg', 'Tech Article 4', 2, '2024-10-15 10:30:00', 'Abstract of Tech Article 2', 'Detailed content of Tech Article 2.', 'reviewed', FALSE, 3, FALSE),
+--     ('https://example.com/images/14.jpg', 'Science Article 4', 2, '2024-10-16 12:00:00', 'Abstract of Science Article 2', 'Detailed content of Science Article 2.', 'draft', FALSE, 3, TRUE),
+--     ('https://example.com/images/15.jpg', 'Health Article 4', 3, '2024-10-17 11:00:00', 'Abstract of Health Article 2', 'Detailed content of Health Article 2.', 'published', FALSE, 3, TRUE),
+--     ('https://example.com/images/16.jpg', 'Travel Article 4', 4, '2024-10-18 13:00:00', 'Abstract of Travel Article 2', 'Detailed content of Travel Article 2.', 'published', TRUE, 3, FALSE),
+--     ('https://example.com/images/17.jpg', 'Tech Article 5', 2, '2024-10-15 10:30:00', 'Abstract of Tech Article 2', 'Detailed content of Tech Article 2.', 'reviewed', FALSE, 3, FALSE),
+--     ('https://example.com/images/18.jpg', 'Science Article 5', 2, '2024-10-16 12:00:00', 'Abstract of Science Article 2', 'Detailed content of Science Article 2.', 'draft', FALSE, 3, TRUE),
+--     ('https://example.com/images/19.jpg', 'Health Article 5', 3, '2024-10-17 11:00:00', 'Abstract of Health Article 2', 'Detailed content of Health Article 2.', 'published', FALSE, 3, TRUE),
+--     ('https://example.com/images/20.jpg', 'Travel Article 5', 4, '2024-10-18 13:00:00', 'Abstract of Travel Article 2', 'Detailed content of Travel Article 2.', 'published', TRUE, 3, FALSE),
+--     ('https://example.com/images/21.jpg', 'Tech Article 6', 2, '2024-10-15 10:30:00', 'Abstract of Tech Article 2', 'Detailed content of Tech Article 2.', 'reviewed', FALSE, 3, FALSE),
+--     ('https://example.com/images/22.jpg', 'Science Article 6', 2, '2024-10-16 12:00:00', 'Abstract of Science Article 2', 'Detailed content of Science Article 2.', 'draft', FALSE, 3, TRUE),
+--     ('https://example.com/images/23.jpg', 'Health Article 6', 3, '2024-10-17 11:00:00', 'Abstract of Health Article 2', 'Detailed content of Health Article 2.', 'published', FALSE, 3, TRUE),
+--     ('https://example.com/images/24.jpg', 'Travel Article 6', 4, '2024-10-18 13:00:00', 'Abstract of Travel Article 2', 'Detailed content of Travel Article 2.', 'published', TRUE, 3, FALSE);
 
 
 
 -- Thêm dữ liệu vào bảng Article_Tags
-INSERT INTO Article_Tags (tag_id, article_id) VALUES 
-    (1, 1),
-    (2, 2),
-    (3, 3);
+-- INSERT INTO Article_Tags (tag_id, article_id) VALUES 
+--     (1, 1),
+--     (2, 2),
+--     (3, 3);
 
 -- Thêm dữ liệu vào bảng Comments
-INSERT INTO Comments (article_id, commented_date, commenter_name, content) VALUES 
-    (1, '2024-10-02 14:00:00', 'John Doe', 'Great article on technology!'),
-    (2, '2024-10-06 15:30:00', 'Jane Smith', 'Amazing insights on space science.'),
-    (3, '2024-09-21 16:45:00', 'Emily White', 'Thanks for the health tips!');
+-- INSERT INTO Comments (article_id, commented_date, commenter_name, content) VALUES 
+--     (1, '2024-10-02 14:00:00', 'John Doe', 'Great article on technology!'),
+--     (2, '2024-10-06 15:30:00', 'Jane Smith', 'Amazing insights on space science.'),
+--     (3, '2024-09-21 16:45:00', 'Emily White', 'Thanks for the health tips!');
 
 -- Thêm dữ liệu vào bảng Assignments
 INSERT INTO Assignments (editor_id, category_id) VALUES 
@@ -168,13 +164,13 @@ INSERT INTO Subscription_extensions (subscriber_id, extended_at, new_expiration_
     (4, '2024-12-01 00:00:00', '2025-12-01 00:00:00');
 
 -- Thêm dữ liệu vào bảng Article_History
-INSERT INTO Article_History (reason, status, article_id, updated_at) VALUES 
-    ('Initial draft', 'draft', 1, '2024-09-15 08:00:00'),
-    ('Reviewed by editor', 'reviewed', 1, '2024-09-18 10:00:00'),
-    ('Published after review', 'published', 1, '2024-10-01 10:00:00');
+-- INSERT INTO Article_History (reason, status, article_id, updated_at) VALUES 
+--     ('Initial draft', 'draft', 1, '2024-09-15 08:00:00'),
+--     ('Reviewed by editor', 'reviewed', 1, '2024-09-18 10:00:00'),
+--     ('Published after review', 'published', 1, '2024-10-01 10:00:00');
 
 -- Thêm dữ liệu vào bảng Article_Views
-INSERT INTO Article_Views (user_id, article_id, viewed_at) VALUES 
-    (4, 1, '2024-10-02 12:30:00'),
-    (4, 2, '2024-10-06 14:00:00'),
-    (4, 3, '2024-09-21 10:00:00');
+-- INSERT INTO Article_Views (user_id, article_id, viewed_at) VALUES 
+--     (4, 1, '2024-10-02 12:30:00'),
+--     (4, 2, '2024-10-06 14:00:00'),
+--     (4, 3, '2024-09-21 10:00:00');
