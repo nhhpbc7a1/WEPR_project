@@ -50,55 +50,63 @@
 
         const parentCatData = {{{ json parent_categories }}}
         const categoriesLevel1 = parentCatData.map(item => ({
-            id: item.category_id,             // ID cần cho Select2
-            text: item.category_name,         // Text hiển thị trên Select2
-            parent_category_id: item.parent_category_id // Thêm parent_category_id
-        }));
-        console.log(categoriesLevel1);
+        id: item.category_id,             // ID cần cho Select2
+        text: item.category_name,         // Text hiển thị trên Select2
+        parent_category_id: item.parent_category_id // Thêm parent_category_id
+    }));
+    console.log(categoriesLevel1);
 
-        const childCatData = {{{ json child_categories }}}
-        // Tạo đối tượng categoriesLevel2
-        const categoriesLevel2 = {};
+    const childCatData = {{{ json child_categories }}}
+    // Tạo đối tượng categoriesLevel2
+    const categoriesLevel2 = {};
 
-        // Lặp qua dữ liệu và nhóm theo parent_category_id
-        childCatData.forEach(item => {
-            // Nếu chưa có parent_category_id trong đối tượng categoriesLevel2, khởi tạo mảng
-            if (!categoriesLevel2[item.parent_category_id]) {
-                categoriesLevel2[item.parent_category_id] = [];
-            }
+    // Lặp qua dữ liệu và nhóm theo parent_category_id
+    childCatData.forEach(item => {
+        // Nếu chưa có parent_category_id trong đối tượng categoriesLevel2, khởi tạo mảng
+        if (!categoriesLevel2[item.parent_category_id]) {
+            categoriesLevel2[item.parent_category_id] = [];
+        }
 
-            // Thêm đối tượng vào mảng theo parent_category_id
-            categoriesLevel2[item.parent_category_id].push({
-                id: item.category_id,    // ID của category
-                text: item.category_name // Tên category
-            });
-        });
-
-        // Khởi tạo Select2
-        $('#category1').select2({
-            data: categoriesLevel1
-        });
-
-        $('#category2').select2({
-            placeholder: "-- Chọn cấp 2 --"
-        });
-
-        // Sự kiện khi thay đổi danh mục cấp 1
-        $('#category1').on('change', function () {
-            const selectedId = $(this).val();
-
-            // Xóa và cập nhật danh mục cấp 2
-            $('#category2').empty().trigger('change');
-
-            if (categoriesLevel2[selectedId]) {
-                $('#category2').select2({
-                    data: categoriesLevel2[selectedId]
-                });
-            }
+        // Thêm đối tượng vào mảng theo parent_category_id
+        categoriesLevel2[item.parent_category_id].push({
+            id: item.category_id,    // ID của category
+            text: item.category_name // Tên category
         });
     });
 
+    // Khởi tạo Select2
+    $('#category1').select2({
+        data: categoriesLevel1
+    });
+
+    $('#category2').select2({
+        placeholder: "-- Chọn cấp 2 --"
+    });
+
+    // Sự kiện khi thay đổi danh mục cấp 1
+    $('#category1').on('change', function () {
+        const selectedId = $(this).val();
+
+        // Xóa và cập nhật danh mục cấp 2
+        $('#category2').empty().trigger('change');
+
+        if (categoriesLevel2[selectedId]) {
+            $('#category2').select2({
+                data: categoriesLevel2[selectedId]
+            });
+        }
+    });
+    });
+
 </script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#my-multiselect').select2();
+    });
+</script>
+
 {{/section}}
 <div class="container-fluid" style="padding: 40px;">
     <div class="row">
@@ -114,36 +122,69 @@
 
                             <div class="form-group">
                                 <label>Tiêu đề:</label>
-                                <input type="text" name="title" required class="form-control"><br><br>
+                                <input type="text" name="title" required class="form-control" value="{{article.title}}">
                             </div>
-                            {{!-- <div class="form-group">
-                                <label>Tác giá</label>
-                                <input type="text" name="author" required class="form-control"><br><br>
-                            </div> --}}
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Ảnh đại diện (5:3)</label>
+                                        <img class="img-thumbnail" src="https://placehold.co/513x313" style="width: 100%; height: 313px;" id="preview_image">
+                                        <input type="file" name="image" class="form-control" id="articleImg" onchange="previewImage(event)">
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Danh mục:</label>
+                                        <select id="category1" style="width: 200px;" class="form-control">
+                                            <option value="">-- Chọn cấp 1 --</option>
+                                        </select>
+                                        <select id="category2" style="width: 200px;" class="form-control"
+                                            name="category_id">
+                                            <option value="">-- Chọn cấp 2 --</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group mt-3">
+                                        <label for="isPremium">
+                                            Is premium
+                                        </label>
+                                        <input type="checkbox" name="is_premium" id="isPremium" {{#ifEquals
+                                            article.is_premium 1}}checked{{/ifEquals}}>
+                                    </div>
+
+                                    <div class="form-group mt-3">
+                                        <label for="isPremium">
+                                            Bài viết tiêu biểu
+                                        </label>
+                                        <input type="checkbox" name="is_featured" id="isFeatured" {{#ifEquals
+                                            article.is_featured 1}}checked{{/ifEquals}}>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="form-group">
+                                <label for="">Tags</label>
+                                <select id="my-multiselect" name="tags[]" multiple="multiple" style="width:100%;">
+                                    {{#each tags}}
+                                    <option value="{{tag_id}}" {{#if (contain_taglink ../oldTags this.tag_id)}}
+                                        selected {{/if}}>
+                                        {{tag_name}}
+                                    </option>
+                                    {{/each}}
+                                </select>
+                            </div>
+
+                            <hr>
+                            <div class="form-group mt-5">
                                 <label>Tóm tắt:</label>
-                                <textarea name="abstract" rows="3" required class="form-control"></textarea><br><br>
+                                <textarea name="abstract" rows="3" required
+                                    class="form-control">{{article.abstract}}</textarea>
                             </div>
 
                             <label>Nội dung:</label>
                             <div id="editor"></div><br>
-
-
-                            <div class="form-group mt-5">
-                                <label>Danh mục:</label>
-                                <select id="category1" style="width: 200px;" class="form-control">
-                                    <option value="">-- Chọn cấp 1 --</option>
-                                </select>
-                                <select id="category2" style="width: 200px;" class="form-control" name="category_id">
-                                    <option value="">-- Chọn cấp 2 --</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group mt-3">
-                                <label for="isPremium">Is premium</label>
-                                <input type="checkbox" name="is_premium" id="isPremium">
-                                <!-- Thêm thẻ input ẩn để gửi giá trị false nếu checkbox không được chọn -->
-                            </div>
 
                             <button type="submit" class="btn btn-primary">
                                 Đăng bài

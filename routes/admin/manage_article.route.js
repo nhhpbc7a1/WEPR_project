@@ -30,10 +30,12 @@ router.get('/detail', async function (req, res) {
 router.get('/add', async function (req, res) {
     const parent_categories = await manage_articleService.findAllParentCategory();
     const child_categories = await manage_articleService.findAllChildCategory();
+    const tags = await manage_articleService.getAllTags();
 
     res.render('vwAdmin/article/add', {
         parent_categories: parent_categories,
         child_categories: child_categories,
+        tags: tags,
     });
 });
 
@@ -42,11 +44,15 @@ router.get('/edit', async function (req, res) {
     const parent_categories = await manage_articleService.findAllParentCategory();
     const child_categories = await manage_articleService.findAllChildCategory();
     const article = await manage_articleService.findByID(id);
+    const tags = await manage_articleService.getAllTags();
+    const oldTags = await manage_articleService.getTagsByArticleID(id);
 
     res.render('vwAdmin/article/edit', {
         article: article,
         parent_categories: parent_categories,
         child_categories: child_categories,
+        tags: tags,
+        oldTags: oldTags,
     });
 });
 
@@ -92,17 +98,24 @@ router.post('/upload-image', upload.single('upload'), (req, res) => {
 router.use(express.json());
 router.post('/add', upload.single('image'), async function (req, res) {
     // Thông tin bài viết
-
     const entity = {
         title: req.body.title,
-        abstract: req.body.abstract,
-        content: req.body.content,
         category_id: +req.body.category_id,
         is_premium: req.body.is_premium === 'on' ? '1' : '0',
+        is_featured: req.body.is_featured === 'on' ? '1' : '0',
         status: "pending",
+        abstract: req.body.abstract,
+        content: req.body.content,
     };
 
-    await manage_articleService.add(entity);
+    const new_id = await manage_articleService.add(entity);
+
+    const tags = req.body.tags || [];
+
+    if (tags.length > 0) {
+        await manage_articleService.updateTags(new_id, tags);
+    }
+
     res.redirect('/admin/article/');
 });
 
@@ -116,10 +129,18 @@ router.post('/edit', upload.single('image'), async function (req, res) {
         content: req.body.content,
         category_id: +req.body.category_id,
         is_premium: req.body.is_premium === 'on' ? '1' : '0',
-        status: "pending",
+        is_featured: req.body.is_featured === 'on' ? '1' : '0',
+        status: req.body.status,
     };
 
     await manage_articleService.patch(id, entity);
+
+    const tags = req.body.tags || [];
+
+    if (tags.length > 0) {
+        await manage_articleService.updateTags(id, tags);
+    }
+
     res.redirect('/admin/article/');
 });
 

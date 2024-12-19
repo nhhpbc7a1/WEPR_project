@@ -39,9 +39,15 @@ app.engine('hbs', engine({
             return arg1 === arg2; // Trả về true nếu 2 giá trị bằng nhau
         },
         section: hbs_sections(),
-        contain(array, id) {
+        contain_assignment(array, id) {
             if (Array.isArray(array)) {
                 return array.some(item => item.category_id.toString() === id.toString());
+            }
+            return false;
+        },
+        contain_taglink(array, id) {
+            if (Array.isArray(array)) {
+                return array.some(item => item.tag_id.toString() === id.toString());
             }
             return false;
         },

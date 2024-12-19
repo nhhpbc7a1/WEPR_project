@@ -132,7 +132,7 @@
                     <label for="">Phân công</label>
                     <select id="my-multiselect" name="categories[]" multiple="multiple" style="width:100%;">
                         {{#each categories}}
-                        <option value="{{category_id}}" {{#if (contain ../oldCategories this.category_id)}} selected
+                        <option value="{{category_id}}" {{#if (contain_assignment ../oldCategories this.category_id)}} selected
                             {{/if}}>
                             {{category_name}}
                         </option>

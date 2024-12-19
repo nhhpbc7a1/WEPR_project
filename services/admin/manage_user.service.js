@@ -32,18 +32,18 @@ export default {
     },
     findUserByID(id) {
         return db('users')
-           .where('user_id', id)
-           .first();
+            .where('user_id', id)
+            .first();
     },
     getOldCategoriesOfEditor(id) {
         return db('assignments')
-           .where('editor_id', id)
-           .join('categories', 'categories.category_id', 'assignments.category_id')
-           .select('categories.category_id', 'categories.category_name');
+            .where('editor_id', id)
+            .join('categories', 'categories.category_id', 'assignments.category_id')
+            .select('categories.category_id', 'categories.category_name');
     },
     edit(id, entity) {
         return db('users')
-           .where('user_id', id)
-           .update(entity);
-    }
+            .where('user_id', id)
+            .update(entity);
+    },
 }
