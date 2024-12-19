@@ -33,16 +33,17 @@
                     </a>
                     <p class="ml-3 mt-3">Thứ 3, 12/11/2024</p>
                 </div>
-                <div class="huy_navbar_right">
-                        <input 
-                    type="text" 
-                    id="myInput" 
-                    placeholder="Search for names.." 
-                    onkeydown="handleSearch(event)">
-                    
-                    <a name="" id="" class="btn btn-primary" href="#" role="button">
-                        <i class="bi bi-person"></i>
-                        Đăng nhập
+                <div class="huy_navbar_right d-flex align-items-center">
+                    <input 
+                        type="text" 
+                        id="myInput" 
+                        placeholder="Tìm kiếm..." 
+                        onkeydown="handleSearch(event)">
+                    <button class="btn btn-primary" onclick="executeSearch()">
+                        <i class="bi bi-search"></i>
+                    </button>
+                    <a name="" id="" class="btn btn-primary ml-2" href="/login" role="button">
+                        <i class="bi bi-person"></i> Đăng nhập
                     </a>
                 </div>
             </div>
@@ -99,20 +100,23 @@
 
 <script>
    function handleSearch(event) {
-      console.log('Key pressed:', event.key);
-      if (event.key === 'Enter') {
-          const searchTerm = document.getElementById('myInput').value.trim();
-          console.log('Search term:', searchTerm);
-          
-          if (searchTerm === '') {
-              alert('Vui lòng nhập từ khóa tìm kiếm');
-              return;
-          }
-          const url = `/article_list/search?title=${encodeURIComponent(searchTerm)}`;
-          console.log('Redirecting to:', url);
-          window.location.href = url;
-      }
-   }
+        if (event.key === 'Enter') {
+            executeSearch();
+        }
+    }
+
+    function executeSearch() {
+        const searchTerm = document.getElementById('myInput').value.trim();
+        console.log('Search term:', searchTerm);
+
+        if (searchTerm === '') {
+            alert('Vui lòng nhập từ khóa tìm kiếm');
+            return;
+        }
+        const url = `/article_list/search?title=${encodeURIComponent(searchTerm)}`;
+        console.log('Redirecting to:', url);
+        window.location.href = url;
+    }
 </script>
 
 
