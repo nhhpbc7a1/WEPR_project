@@ -1,13 +1,13 @@
 <div class="container">
     <div class="row">
-        <div class="col-12 mx-auto">
+        <div class="col-9 mx-auto">
             <div class="d-flex justify-content-between mb-3">
                 <div>{{articleDetail.category_name}}</div>
                 <div>{{articleDetail.published_date}}</div>
             </div>
             <div>
                 <div>
-                    <h1 style="font-weight: bold;">{{articleDetail.title}}</h1>
+                    <h1 style="font-weight: bold;" class="text-center">{{articleDetail.title}}</h1>
                 </div>
                 <div class="">
                     {{{articleDetail.content}}}
@@ -29,30 +29,29 @@
             <h4>Opinions</h4>
             <form action="" method="post">
                 <div class="input-group mt-4">
-                    <input type="text" class="form-control" placeholder="Share your opinions!" name="commentContent">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">
-                            <i class="bi bi-send-fill " style="color: rgb(76, 168, 243);"></i>
-                        </button>
-                    </div>
+                    <input type="text" class="form-control" placeholder="Full name" name="commenterName">
                 </div>
                 <div class="input-group mt-4">
-                    <input type="text" class="form-control" placeholder="Full name" name="commenterName">
+                    <input type="text" class="form-control" placeholder="Share your opinions!" name="commentContent">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary text-center" type="submit" id="button-addon2">Send
+                        </button>
+                    </div>
                 </div>
             </form>
             <button class="btnComment mt-4">Most interested</button>
             <button class="btnComment mt-4">Most recent</button>
             {{#each comments}}
-            <div class="reader_comment_container mt-5 ">
+            <div class="reader_comment_container mt-3 ">
                 <img src="https://yt3.googleusercontent.com/RHQEoCGTjz2zH30BSzH5Gpg7m57-IdRb3V8awXUD-Ps3CWxqHPy_oRp1CLltiimp6e0J3kvEJA=s900-c-k-c0x00ffffff-no-rj"
                     alt="" class="reader_profile reader_comment mr-2">
-                <div class="reader_comment pl-3 pr-3 pt-2">
+                <div class="reader_comment pl-3 pr-3 pt-2 col-10">
                     <div class="font-weight-bold">{{commenter_name}}</div>
-                    <div>{{content}}</div>
+                    <div  class="commentContent">{{content}}</div>
                     <div class="d-flex justify-content-between my-2 ">
                         <button class="btnLikeComment " type="button">
                             <i class="bi-heart"></i> Like</button>
-                        <div class="text-right ">{{commented_date}}</div>
+                        <div class="text-right commented-date " data-timestamp="{{commented_date}}">{{commented_date}}</div>
                     </div>
                 </div>
             </div>
@@ -75,6 +74,44 @@
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/dayjs/dayjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dayjs/plugin/relativeTime.js"></script>
+<script>
+    dayjs.extend(dayjs_plugin_relativeTime);
+    document.addEventListener("DOMContentLoaded", function () {
+        const commentDates = document.querySelectorAll('.commented-date');
+        commentDates.forEach(dateElement => {
+            const timestamp = dateElement.dataset.timestamp; // Lấy giá trị timestamp từ thuộc tính `data-timestamp`
+            const timeAgo = dayjs(timestamp).fromNow();
+            dateElement.innerText = timeAgo;
+        });
+    });
+</script>
+<script>
+    const buttons = document.querySelectorAll('.btnComment');
+    buttons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            buttons.forEach(function(btn) {
+            btn.classList.remove('active');
+    });
+    this.classList.add('active');});
+    });
+</script>
+<script>
+    const likeButtons = document.querySelectorAll('.btnLikeComment');
+    likeButtons.forEach(function(button) {
+    button.addEventListener('click', function() {
+        const icon = this.querySelector('i'); // Lấy biểu tượng trong nút được nhấn
+        if (icon.classList.contains('bi-heart')) {
+            icon.classList.remove('bi-heart');
+            icon.classList.add('bi-heart-fill');
+        } else {
+            icon.classList.remove('bi-heart-fill');
+            icon.classList.add('bi-heart');
+        }
+    });
+        });
+</script>
 
 <style>
     figure {
