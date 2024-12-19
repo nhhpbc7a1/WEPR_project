@@ -39,14 +39,20 @@ app.engine('hbs', engine({
             return arg1 === arg2; // Trả về true nếu 2 giá trị bằng nhau
         },
         section: hbs_sections(),
-        containTopping(array, topping_id) {
+        contain_assignment(array, id) {
             if (Array.isArray(array)) {
-                return array.some(item => item.topping_id.toString() === topping_id.toString());
+                return array.some(item => item.category_id.toString() === id.toString());
             }
             return false;
         },
-        formatDate(date, format) {
-            return moment(date).format('MMMM DD, YYYY, hh:mm a');  // Định dạng ngày theo format
+        contain_taglink(array, id) {
+            if (Array.isArray(array)) {
+                return array.some(item => item.tag_id.toString() === id.toString());
+            }
+            return false;
+        },
+        formatYMD(date) {
+            return moment(date).format('MMMM DD, YYYY');  // Định dạng ngày theo format
         }
     },
 }));
@@ -55,6 +61,7 @@ app.set('view engine', 'hbs');
 app.set('views', './views');
 
 app.use('/public', express.static('public'));
+app.use('/uploads', express.static('uploads'));
 
 app.use(async function (req, res, next) {
     const categories = await categoryService.findAll();
@@ -103,6 +110,9 @@ app.use('/article_detail', article_detailRouter);
 
 import adminRouter from './routes/admin/admin.route.js'
 app.use('/admin', adminRouter);
+
+import accountRouter from './routes/account.route.js'
+app.use('/account', accountRouter);
 
 
 app.listen(3000, function () {

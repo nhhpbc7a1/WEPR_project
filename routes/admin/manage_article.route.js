@@ -2,13 +2,14 @@ import express from 'express';
 import manage_articleService from '../../services/admin/manage_article.service.js';
 const router = express.Router();
 
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const __dirname = process.cwd();
 import multer from 'multer';
+import fs from 'fs';
+import path from 'path';
+
 
 router.get('/', function (req, res) {
-    res.redirect('/list');
+    res.redirect('/admin/article/list');
 });
 
 router.get('/list', async function (req, res) {
@@ -29,10 +30,12 @@ router.get('/detail', async function (req, res) {
 router.get('/add', async function (req, res) {
     const parent_categories = await manage_articleService.findAllParentCategory();
     const child_categories = await manage_articleService.findAllChildCategory();
+    const tags = await manage_articleService.getAllTags();
 
     res.render('vwAdmin/article/add', {
         parent_categories: parent_categories,
         child_categories: child_categories,
+        tags: tags,
     });
 });
 
@@ -41,61 +44,111 @@ router.get('/edit', async function (req, res) {
     const parent_categories = await manage_articleService.findAllParentCategory();
     const child_categories = await manage_articleService.findAllChildCategory();
     const article = await manage_articleService.findByID(id);
-    res.render('vwAdmin/article/add', {
+    const tags = await manage_articleService.getAllTags();
+    const oldTags = await manage_articleService.getTagsByArticleID(id);
+
+    res.render('vwAdmin/article/edit', {
         article: article,
         parent_categories: parent_categories,
         child_categories: child_categories,
+        tags: tags,
+        oldTags: oldTags,
     });
 });
 
 
 // ===== ================================ Xử lý upload ảnh
-import fs from 'fs';
-import path from 'path';
 
-// Kiểm tra và tạo thư mục uploads nếu chưa có
+// Tạo thư mục lưu trữ nếu chưa có
 const uploadDir = path.join(__dirname, 'uploads');
 if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-// Multer configuration
+// Cấu hình Multer để lưu file hình ảnh
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, uploadDir); // Chỉ định thư mục tải lên
+        cb(null, uploadDir); // Thư mục lưu hình
     },
     filename: (req, file, cb) => {
-        cb(null, Date.now() + '-' + file.originalname);
+        cb(null, Date.now() + '-' + file.originalname); // Đặt tên file không trùng
     }
 });
 const upload = multer({ storage });
 
-// API upload hình ảnh
+// Endpoint xử lý upload hình ảnh
 router.post('/upload-image', upload.single('upload'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({
+            uploaded: false,
+            error: { message: 'No file uploaded' }
+        });
+    }
+
+    // Trả về đường dẫn hình ảnh đã upload
     res.json({
-        url: `/uploads/${req.file.filename}`
+        uploaded: true,
+        url: `/uploads/${req.file.filename}` // URL cho CKEditor
     });
 });
+
+// Phục vụ file tĩnh trong thư mục uploads
 // =================================================================
 
 router.use(express.json());
 router.post('/add', upload.single('image'), async function (req, res) {
     // Thông tin bài viết
-    console.log(req.body);
-    console.log(req.body.content);
-    res.redirect('/articles');
-    return;
     const entity = {
         title: req.body.title,
-        author: req.body.author,
+        category_id: +req.body.category_id,
+        is_premium: req.body.is_premium === 'on' ? '1' : '0',
+        is_featured: req.body.is_featured === 'on' ? '1' : '0',
+        status: "pending",
+        abstract: req.body.abstract,
+        content: req.body.content,
+    };
+
+    const new_id = await manage_articleService.add(entity);
+
+    const tags = req.body.tags || [];
+
+    if (tags.length > 0) {
+        await manage_articleService.updateTags(new_id, tags);
+    }
+
+    res.redirect('/admin/article/');
+});
+
+router.post('/edit', upload.single('image'), async function (req, res) {
+    // Thông tin bài viết
+    const id = +req.body.article_id || 0;
+
+    const entity = {
+        title: req.body.title,
         abstract: req.body.abstract,
         content: req.body.content,
         category_id: +req.body.category_id,
         is_premium: req.body.is_premium === 'on' ? '1' : '0',
+        is_featured: req.body.is_featured === 'on' ? '1' : '0',
+        status: req.body.status,
     };
 
-    await manage_articleService.add(entity);
-    res.redirect('/articles');
+    await manage_articleService.patch(id, entity);
+
+    const tags = req.body.tags || [];
+
+    if (tags.length > 0) {
+        await manage_articleService.updateTags(id, tags);
+    }
+
+    res.redirect('/admin/article/');
+});
+
+router.get('/del', upload.single('image'), async function (req, res) {
+    const id = +req.query.id || 0;
+    console.log(id);
+    await manage_articleService.del(id);
+    res.redirect('/admin/article');
 });
 
 

@@ -27,19 +27,28 @@
     const articleData = {{{ json this.articles }}};
 
     // Chuyển đổi dữ liệu từ đối tượng thành mảng để sử dụng trong Grid.js
-    const data = articleData.map(item => [item.article_id, item.title, item.pen_name, item.abstract, item.category_name, item.is_premium]);
+    const data = articleData.map(item => [item.article_id, item.category_name, item.title, item.pen_name, item.status, item.is_featured, item.is_premium]);
 
     console.log(data);
     // Khởi tạo bảng Grid.js
     new gridjs.Grid({
-        columns: ["#", "Title", "Author", "Abstract", "Category",
+        columns: ["#", "Category", "Title", "Author", "Status", 
             {
-                name: "Premium",
+                name: "Tiêu biểu",
                 formatter: (cell, row) => {
                     if (row.cells[5].data == 1)
                         return gridjs.html(`
+                            <i class="bi bi-pin-angle-fill" style="color: blue"></i>`);
+                    return gridjs.html('<div>-</div>');
+                }
+            },
+            {
+                name: "Premium",
+                formatter: (cell, row) => {
+                    if (row.cells[6].data == 1)
+                        return gridjs.html(`
                             <i class="bi bi-star-fill" style="color: yellow"></i>`);
-                    return gridjs.html('<div></div>');
+                    return gridjs.html('<div>-</div>');
                 }
             },
             {
