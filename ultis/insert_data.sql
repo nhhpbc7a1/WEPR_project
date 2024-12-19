@@ -12,16 +12,16 @@ INSERT INTO Roles (role_name) VALUES
 INSERT INTO Users ( username, password, fullname, email, phone_number, birth_date, role_id, subscription_expiration, pen_name)
 VALUES 
     -- Admin
-    ('admin_user', 'hashed_password_admin', 'Admin User', 'admin@example.com', '1234567890', '1980-01-01', 1, NULL, "RootWriter"),
+    ('admin_user', '$2a$12$swQU3Hnqu7E8ZHBm1HC5oeBAlt.81Dc156PVGLzaYj7N0UzJfxYfm', 'Admin User', 'admin@example.com', '1234567890', '1980-01-01', 1, NULL, "RootWriter"),
 
     -- Editor
-    ('editor_user', 'hashed_password_editor', 'Editor User', 'editor@example.com', '0987654321', '1990-02-01', 2, NULL, NULL),
+    ('editor_user', '$2a$12$swQU3Hnqu7E8ZHBm1HC5oeBAlt.81Dc156PVGLzaYj7N0UzJfxYfm', 'Editor User', 'editor@example.com', '0987654321', '1990-02-01', 2, NULL, NULL),
 
     -- Writer
-    ( 'writer_user', 'hashed_password_writer', 'Writer User', 'writer@example.com', '1122334455', '1995-03-01', 3, NULL, 'Writer Pen Name'),
+    ( 'writer_user', '$2a$12$swQU3Hnqu7E8ZHBm1HC5oeBAlt.81Dc156PVGLzaYj7N0UzJfxYfm', 'Writer User', 'writer@example.com', '1122334455', '1995-03-01', 3, NULL, 'Writer Pen Name'),
 
     -- Subscriber
-    ('subscriber_user', 'hashed_password_subscriber','Subscriber User', 'subscriber@example.com', '5566778899', '2000-04-01', 4, '2025-12-31 23:59:59', NULL);
+    ('subscriber_user', '$2a$12$swQU3Hnqu7E8ZHBm1HC5oeBAlt.81Dc156PVGLzaYj7N0UzJfxYfm','Subscriber User', 'subscriber@example.com', '5566778899', '2000-04-01', 4, '2025-12-31 23:59:59', NULL);
 
 -- Thêm dữ liệu vào bảng Categories
 INSERT INTO Categories (category_name, parent_category_id)
