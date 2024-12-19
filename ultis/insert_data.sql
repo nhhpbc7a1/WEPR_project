@@ -51,7 +51,63 @@ VALUES
     ('Tư liệu', 11),
     ('Phân tích', 11),
     ('Người Việt 5 châu', 11),
-    ('Cuộc sống đó đây', 11);
+    ('Cuộc sống đó đây', 11),
+
+     ('Nông Thôn', NULL),
+    ('Nông nghiệp', 16),
+    ('Kinh tế nông thôn', 16),
+    ('Đời sống làng quê', 16),
+    ('Môi trường nông thôn', 16),
+    ('Văn hóa làng xã', 16),
+
+    -- Danh mục cha 2: "Thành thị"
+    ('Thành thị', NULL),
+    ('Hạ tầng đô thị', 22),
+    ('Giao thông đô thị', 22),
+    ('Nhịp sống thành phố', 22),
+    ('Kinh tế đô thị', 22),
+    ('Văn hóa đô thị', 22),
+
+    -- Danh mục cha 3: "Bản tin"
+    ('Bản tin', NULL),
+    ('Tin nóng', 28),
+    ('Thời sự trong nước', 28),
+    ('Thời sự quốc tế', 28),
+    ('Sự kiện nổi bật', 28),
+    ('Phân tích chuyên sâu', 28),
+
+    -- Danh mục cha 4: "Khoa học"
+    ('Khoa học', NULL),
+    ('Công nghệ mới', 34),
+    ('Khám phá vũ trụ', 34),
+    ('Khoa học đời sống', 34),
+    ('Phát minh và sáng chế', 34),
+    ('Nghiên cứu môi trường', 34),
+
+    -- Danh mục cha 5: "Giải trí"
+    ('Giải trí', NULL),
+    ('Âm nhạc', 40),
+    ('Phim ảnh', 40),
+    ('Sự kiện giải trí', 40),
+    ('Trò chơi điện tử', 40),
+    ('Nghệ thuật biểu diễn', 40),
+
+    -- Danh mục cha 6: "Thể thao"
+    ('Thể thao', NULL),
+    ('Bóng đá', 46),
+    ('Thể thao điện tử',46),
+    ('Bóng chuyền', 46),
+    ('Điền kinh', 46),
+    ('Thể thao quốc tế', 46),
+
+    -- Danh mục cha 7: "Sức khỏe"
+    ('Sức khỏe', NULL),
+    ('Dinh dưỡng', 52),
+    ('Làm đẹp', 52),
+    ('Tập luyện thể dục', 52),
+    ('Phòng ngừa bệnh', 52),
+    ('Tâm lý và sức khỏe tinh thần', 52);
+
     
 -- Thêm dữ liệu vào bảng Tags
 INSERT INTO Tags (tag_name) VALUES 
