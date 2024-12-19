@@ -111,7 +111,7 @@
     });
 
     $('#category2').select2({
-        placeholder: "-- Chọn cấp 2 --"
+        placeholder: "Choose level 2"
     });
 
     // Sự kiện khi thay đổi danh mục cấp 1
@@ -159,92 +159,104 @@
     <div class="row">
         <div class="col-12">
             <div class="card info_part">
-                <div class="card-header">
-                    <h4>Add Article</h4>
+                <div class="card-header d-flex">
+                    <h4 class="title_page">Upload article</h4>
+                    <div class="box_newArticle ml-2">New article</div>
                 </div>
                 <div class="card-body">
 
                     <div class="container mt-3" style="margin-bottom: 100px;">
                         <form id="frmAddArticle" action="" method="post" enctype="multipart/form-data">
-
-                            <div class="form-group">
-                                <label>Tiêu đề:</label>
-                                <input type="text" name="title" required class="form-control" value="{{article.title}}">
-                            </div>
-
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label>Ảnh đại diện (5:3)</label>
-                                        <img class="img-thumbnail" src="https://placehold.co/513x313"
-                                            style="width: 100%; height: 313px;" id="preview_image">
-                                        <input type="file" name="main_image" class="form-control" id="articleImg"
+                                        <label>Article's image (5:3)</label>
+                                        <div class="btnUploadImage">
+                                            <img class="custom_image" src="/public/images/icon/icons8-upload-image-64.png"
+                                                style="width: 12%;" id="preview_image">
+                                            <span>Upload new image by</span> 
+                                            <label for="" class="custom_chooseFile">Choosing file</label>
+                                            <input type="file" name="main_image"  id="articleImg"
                                             onchange="previewImage(event)">
+                                        </div>
+                                       
                                     </div>
                                 </div>
-
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label>Danh mục:</label>
-                                        <select id="category1" style="width: 200px;" class="form-control">
-                                            <option value="">-- Chọn cấp 1 --</option>
-                                        </select>
-                                        <select id="category2" style="width: 200px;" class="form-control"
-                                            name="category_id">
-                                            <option value="">-- Chọn cấp 2 --</option>
-                                        </select>
+                                        <label>Title</label>
+                                        <input type="text" name="title" required class="form-control custom_title" value="{{article.title}}">
                                     </div>
-
-                                    <div class="form-group mt-3">
-                                        <label for="isPremium">
-                                            Is premium
-                                        </label>
-                                        <input type="checkbox" name="is_premium" id="isPremium" {{#ifEquals
-                                            article.is_premium 1}}checked{{/ifEquals}}>
-                                    </div>
-
-                                    <div class="form-group mt-3">
-                                        <label for="isPremium">
-                                            Bài viết tiêu biểu
-                                        </label>
-                                        <input type="checkbox" name="is_featured" id="isFeatured" {{#ifEquals
-                                            article.is_featured 1}}checked{{/ifEquals}}>
+                                    <div class="form-group">
+                                        <label for="">Tags</label>
+                                        <select id="my-multiselect" name="tags[]" multiple="multiple" style="width:100%;">
+                                            {{#each tags}}
+                                            <option value="{{tag_id}}" {{#if (contain_taglink ../oldTags this.tag_id)}} selected
+                                                {{/if}}>
+                                                {{tag_name}}
+                                            </option>
+                                            {{/each}}
+                                        </select>
                                     </div>
 
                                     <div class="form-group">
+                                        <label class="mr-4">Category</label></br>
+                                        <div class="mb-3">
+                                            <select id="category1" class="form-control custom_select">
+                                                <option value="" class="pt-2">Choose level 1</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <select id="category2"  class="form-control custom_select "
+                                                name="category_id">
+                                                <option value="">Choose level 2</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+
+                                        <div class="form-group mt-3">
+                                            <label for="isPremium" class="mr-3">
+                                                Premium article
+                                            </label>
+                                            <input type="checkbox" name="is_premium" id="isPremium" {{#ifEquals
+                                                article.is_premium 1}}checked{{/ifEquals}} class="custom_checkbox">
+                                        </div> 
+
+                                        <div class="form-group mt-3">
+                                            <label for="isPremium"class="mr-3">
+                                                Featured article
+                                            </label>
+                                            <input type="checkbox" name="is_featured" id="isFeatured" {{#ifEquals
+                                                article.is_featured 1}}checked{{/ifEquals}} class="custom_checkbox">
+                                        </div>
+                                    </div>
+                                    {{!-- <div class="form-group">
                                         <label for="txtPublishedDate">Published Date</label>
                                         <input type="text" name="raw_published_date" id="txtPublishedDate" class="form-control">
-                                    </div>
-
+                                    </div> --}}
 
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <label for="">Tags</label>
-                                <select id="my-multiselect" name="tags[]" multiple="multiple" style="width:100%;">
-                                    {{#each tags}}
-                                    <option value="{{tag_id}}" {{#if (contain_taglink ../oldTags this.tag_id)}} selected
-                                        {{/if}}>
-                                        {{tag_name}}
-                                    </option>
-                                    {{/each}}
-                                </select>
-                            </div>
-
                             <hr>
                             <div class="form-group mt-5">
-                                <label>Tóm tắt:</label>
+                                <label>Abstract</label>
                                 <textarea name="abstract" rows="3" required
                                     class="form-control">{{article.abstract}}</textarea>
                             </div>
 
-                            <label>Nội dung:</label>
+                            <label>Content</label>
                             <div id="editor"></div><br>
 
-                            <button type="submit" class="btn btn-primary">
-                                Đăng bài
-                            </button>
+                            <div class="text-right">
+                                {{!-- <button class="btnSaveArticle btnAction" type="button">
+                                    <i class="bi bi-file-earmark-arrow-down-fill"></i>
+                                    Save your content
+                                </button> --}}
+                                <button class="btnPublish btnAction" type="button">
+                                    <i class="bi bi-file-earmark-arrow-up-fill mr-2"></i>
+                                    Publish your article</button>
+                            </div>
 
                             <!-- Thẻ textarea ẩn để lưu dữ liệu từ CKEditor -->
                             <textarea id="form_add_content" name="content" style="display:none;"></textarea>
