@@ -118,31 +118,31 @@ INSERT INTO Images (image_href) VALUES
     ('/images/travel.jpg');
 
 -- Thêm dữ liệu vào bảng Articles
-INSERT INTO Articles (image_id, title, category_id, published_date, abstract, content, status, is_premium, writer_id, is_featured) VALUES 
-    (1, 'The Future of Technology', 2, '2024-10-01 10:00:00', 'A look into upcoming tech trends', 'Detailed content about technology trends.', 'published', TRUE, 3, TRUE),
-    (2, 'Science and the Universe', 2, '2024-10-05 11:30:00', 'Exploring space and beyond', 'In-depth content about scientific discoveries in space.', 'reviewed', FALSE, 3, TRUE),
-    (3, 'Health Tips for 2024', 3, '2024-09-20 09:00:00', 'Ways to stay healthy', 'Guidance on health and wellness practices.', 'published', FALSE, 3, TRUE),
-    (4, 'Travel Article 1', 4, '2024-10-14 08:15:00', 'Abstract of Travel Article 1', 'Detailed content of Travel Article 1.', 'published', TRUE, 3, TRUE),
-    (1, 'Tech Article 2', 2, '2024-10-15 10:30:00', 'Abstract of Tech Article 2', 'Detailed content of Tech Article 2.', 'reviewed', FALSE, 3, FALSE),
-    (2, 'Science Article 2', 2, '2024-10-16 12:00:00', 'Abstract of Science Article 2', 'Detailed content of Science Article 2.', 'draft', FALSE, 3, TRUE),
-    (3, 'Health Article 2', 3, '2024-10-17 11:00:00', 'Abstract of Health Article 2', 'Detailed content of Health Article 2.', 'published', FALSE, 3, TRUE),
-    (4, 'Travel Article 2', 4, '2024-10-18 13:00:00', 'Abstract of Travel Article 2', 'Detailed content of Travel Article 2.', 'published', TRUE, 3, FALSE),
-    (1, 'Tech Article 3', 2, '2024-10-15 10:30:00', 'Abstract of Tech Article 2', 'Detailed content of Tech Article 2.', 'reviewed', FALSE, 3, FALSE),
-    (2, 'Science Article 3', 2, '2024-10-16 12:00:00', 'Abstract of Science Article 2', 'Detailed content of Science Article 2.', 'draft', FALSE, 3, TRUE),
-    (3, 'Health Article 3', 3, '2024-10-17 11:00:00', 'Abstract of Health Article 2', 'Detailed content of Health Article 2.', 'published', FALSE, 3, TRUE),
-    (4, 'Travel Article 3', 4, '2024-10-18 13:00:00', 'Abstract of Travel Article 2', 'Detailed content of Travel Article 2.', 'published', TRUE, 3, FALSE),
-    (1, 'Tech Article 4', 2, '2024-10-15 10:30:00', 'Abstract of Tech Article 2', 'Detailed content of Tech Article 2.', 'reviewed', FALSE, 3, FALSE),
-    (2, 'Science Article 4', 2, '2024-10-16 12:00:00', 'Abstract of Science Article 2', 'Detailed content of Science Article 2.', 'draft', FALSE, 3, TRUE),
-    (3, 'Health Article 4', 3, '2024-10-17 11:00:00', 'Abstract of Health Article 2', 'Detailed content of Health Article 2.', 'published', FALSE, 3, TRUE),
-    (4, 'Travel Article 4', 4, '2024-10-18 13:00:00', 'Abstract of Travel Article 2', 'Detailed content of Travel Article 2.', 'published', TRUE, 3, FALSE),
-    (1, 'Tech Article 5', 2, '2024-10-15 10:30:00', 'Abstract of Tech Article 2', 'Detailed content of Tech Article 2.', 'reviewed', FALSE, 3, FALSE),
-    (2, 'Science Article 5', 2, '2024-10-16 12:00:00', 'Abstract of Science Article 2', 'Detailed content of Science Article 2.', 'draft', FALSE, 3, TRUE),
-    (3, 'Health Article 5', 3, '2024-10-17 11:00:00', 'Abstract of Health Article 2', 'Detailed content of Health Article 2.', 'published', FALSE, 3, TRUE),
-    (4, 'Travel Article 5', 4, '2024-10-18 13:00:00', 'Abstract of Travel Article 2', 'Detailed content of Travel Article 2.', 'published', TRUE, 3, FALSE),
-    (1, 'Tech Article 6', 2, '2024-10-15 10:30:00', 'Abstract of Tech Article 2', 'Detailed content of Tech Article 2.', 'reviewed', FALSE, 3, FALSE),
-    (2, 'Science Article 6', 2, '2024-10-16 12:00:00', 'Abstract of Science Article 2', 'Detailed content of Science Article 2.', 'draft', FALSE, 3, TRUE),
-    (3, 'Health Article 6', 3, '2024-10-17 11:00:00', 'Abstract of Health Article 2', 'Detailed content of Health Article 2.', 'published', FALSE, 3, TRUE),
-    (4, 'Travel Article 6', 4, '2024-10-18 13:00:00', 'Abstract of Travel Article 2', 'Detailed content of Travel Article 2.', 'published', TRUE, 3, FALSE);
+INSERT INTO Articles (image_url, title, category_id, published_date, abstract, content, status, is_premium, writer_id, is_featured) VALUES 
+    ('https://example.com/images/1.jpg', 'The Future of Technology', 2, '2024-10-01 10:00:00', 'A look into upcoming tech trends', 'Detailed content about technology trends.', 'published', TRUE, 3, TRUE),
+    ('https://example.com/images/2.jpg', 'Science and the Universe', 2, '2024-10-05 11:30:00', 'Exploring space and beyond', 'In-depth content about scientific discoveries in space.', 'reviewed', FALSE, 3, TRUE),
+    ('https://example.com/images/3.jpg', 'Health Tips for 2024', 3, '2024-09-20 09:00:00', 'Ways to stay healthy', 'Guidance on health and wellness practices.', 'published', FALSE, 3, TRUE),
+    ('https://example.com/images/4.jpg', 'Travel Article 1', 4, '2024-10-14 08:15:00', 'Abstract of Travel Article 1', 'Detailed content of Travel Article 1.', 'published', TRUE, 3, TRUE),
+    ('https://example.com/images/5.jpg', 'Tech Article 2', 2, '2024-10-15 10:30:00', 'Abstract of Tech Article 2', 'Detailed content of Tech Article 2.', 'reviewed', FALSE, 3, FALSE),
+    ('https://example.com/images/6.jpg', 'Science Article 2', 2, '2024-10-16 12:00:00', 'Abstract of Science Article 2', 'Detailed content of Science Article 2.', 'draft', FALSE, 3, TRUE),
+    ('https://example.com/images/7.jpg', 'Health Article 2', 3, '2024-10-17 11:00:00', 'Abstract of Health Article 2', 'Detailed content of Health Article 2.', 'published', FALSE, 3, TRUE),
+    ('https://example.com/images/8.jpg', 'Travel Article 2', 4, '2024-10-18 13:00:00', 'Abstract of Travel Article 2', 'Detailed content of Travel Article 2.', 'published', TRUE, 3, FALSE),
+    ('https://example.com/images/9.jpg', 'Tech Article 3', 2, '2024-10-15 10:30:00', 'Abstract of Tech Article 2', 'Detailed content of Tech Article 2.', 'reviewed', FALSE, 3, FALSE),
+    ('https://example.com/images/10.jpg', 'Science Article 3', 2, '2024-10-16 12:00:00', 'Abstract of Science Article 2', 'Detailed content of Science Article 2.', 'draft', FALSE, 3, TRUE),
+    ('https://example.com/images/11.jpg', 'Health Article 3', 3, '2024-10-17 11:00:00', 'Abstract of Health Article 2', 'Detailed content of Health Article 2.', 'published', FALSE, 3, TRUE),
+    ('https://example.com/images/12.jpg', 'Travel Article 3', 4, '2024-10-18 13:00:00', 'Abstract of Travel Article 2', 'Detailed content of Travel Article 2.', 'published', TRUE, 3, FALSE),
+    ('https://example.com/images/13.jpg', 'Tech Article 4', 2, '2024-10-15 10:30:00', 'Abstract of Tech Article 2', 'Detailed content of Tech Article 2.', 'reviewed', FALSE, 3, FALSE),
+    ('https://example.com/images/14.jpg', 'Science Article 4', 2, '2024-10-16 12:00:00', 'Abstract of Science Article 2', 'Detailed content of Science Article 2.', 'draft', FALSE, 3, TRUE),
+    ('https://example.com/images/15.jpg', 'Health Article 4', 3, '2024-10-17 11:00:00', 'Abstract of Health Article 2', 'Detailed content of Health Article 2.', 'published', FALSE, 3, TRUE),
+    ('https://example.com/images/16.jpg', 'Travel Article 4', 4, '2024-10-18 13:00:00', 'Abstract of Travel Article 2', 'Detailed content of Travel Article 2.', 'published', TRUE, 3, FALSE),
+    ('https://example.com/images/17.jpg', 'Tech Article 5', 2, '2024-10-15 10:30:00', 'Abstract of Tech Article 2', 'Detailed content of Tech Article 2.', 'reviewed', FALSE, 3, FALSE),
+    ('https://example.com/images/18.jpg', 'Science Article 5', 2, '2024-10-16 12:00:00', 'Abstract of Science Article 2', 'Detailed content of Science Article 2.', 'draft', FALSE, 3, TRUE),
+    ('https://example.com/images/19.jpg', 'Health Article 5', 3, '2024-10-17 11:00:00', 'Abstract of Health Article 2', 'Detailed content of Health Article 2.', 'published', FALSE, 3, TRUE),
+    ('https://example.com/images/20.jpg', 'Travel Article 5', 4, '2024-10-18 13:00:00', 'Abstract of Travel Article 2', 'Detailed content of Travel Article 2.', 'published', TRUE, 3, FALSE),
+    ('https://example.com/images/21.jpg', 'Tech Article 6', 2, '2024-10-15 10:30:00', 'Abstract of Tech Article 2', 'Detailed content of Tech Article 2.', 'reviewed', FALSE, 3, FALSE),
+    ('https://example.com/images/22.jpg', 'Science Article 6', 2, '2024-10-16 12:00:00', 'Abstract of Science Article 2', 'Detailed content of Science Article 2.', 'draft', FALSE, 3, TRUE),
+    ('https://example.com/images/23.jpg', 'Health Article 6', 3, '2024-10-17 11:00:00', 'Abstract of Health Article 2', 'Detailed content of Health Article 2.', 'published', FALSE, 3, TRUE),
+    ('https://example.com/images/24.jpg', 'Travel Article 6', 4, '2024-10-18 13:00:00', 'Abstract of Travel Article 2', 'Detailed content of Travel Article 2.', 'published', TRUE, 3, FALSE);
 
 
 

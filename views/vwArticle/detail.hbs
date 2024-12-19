@@ -9,13 +9,8 @@
                 <div>
                     <h1 style="font-weight: bold;">{{articleDetail.title}}</h1>
                 </div>
-                <div>
-                    {{articleDetail.content}}
-                </div>
-                <img src="https://th.bing.com/th/id/R.3aca5ddde7a48beb9b317b145f5f8596?rik=6xA%2bwEDGiYtFTg&pid=ImgRaw&r=0"
-                    width="100%" alt="" id="article_Pic">
-                <div>
-                    {{articleDetail.content}}
+                <div class="">
+                    {{{articleDetail.content}}}
                 </div>
                 <div class="text-right font-weight-bold mt-3 ">{{articleDetail.pen_name}}</div>
             </div>
@@ -80,3 +75,9 @@
         </div>
     </div>
 </div>
+
+<style>
+    figure {
+        text-align: center;
+    }
+</style>

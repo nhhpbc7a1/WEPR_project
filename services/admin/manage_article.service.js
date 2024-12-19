@@ -13,7 +13,16 @@ export default {
             .where('article_id', ID).first();
     },
     add(entity) {
-        return db('articles').insert(entity);
+        return db('articles')
+            .insert(entity)
+            .then(() => {
+                return db('articles')
+                    .max('article_id as id')
+                    .first();
+            })
+            .then(result => {
+                return result.id;  // Trả về article_id của bản ghi mới
+            });
     },
     patch(id, entity) {
         return db('articles')
