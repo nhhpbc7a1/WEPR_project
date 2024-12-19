@@ -7,6 +7,8 @@ import hbs_sections from 'express-handlebars-sections';
 import homepageService from './services/homepage.service.js';;
 import categoryService from './services/category.service.js';
 import moment from 'moment';
+import session from 'express-session';
+import {authAdmin} from './middlewares/auth.route.js';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
@@ -39,14 +41,23 @@ app.engine('hbs', engine({
             return arg1 === arg2; // Trả về true nếu 2 giá trị bằng nhau
         },
         section: hbs_sections(),
-        containTopping(array, topping_id) {
+        contain_assignment(array, id) {
             if (Array.isArray(array)) {
-                return array.some(item => item.topping_id.toString() === topping_id.toString());
+                return array.some(item => item.category_id.toString() === id.toString());
             }
             return false;
         },
-        formatDate(date, format) {
-            return moment(date).format('MMMM DD, YYYY, hh:mm a');  // Định dạng ngày theo format
+        contain_taglink(array, id) {
+            if (Array.isArray(array)) {
+                return array.some(item => item.tag_id.toString() === id.toString());
+            }
+            return false;
+        },
+        formatDate(date) {
+            return moment(date).format('MMMM DD, YYYY');  // Định dạng ngày theo format
+        },
+        formatYMD(date) {
+            return moment(date).format('MMMM DD, YYYY');  // Định dạng ngày theo format
         }
     },
 }));
@@ -55,6 +66,29 @@ app.set('view engine', 'hbs');
 app.set('views', './views');
 
 app.use('/public', express.static('public'));
+app.use('/uploads', express.static('uploads'));
+
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {}
+}))
+
+app.use(async function (req, res, next) {
+    if (!req.session.auth) {
+        req.session.auth = false;
+    }
+    else {
+        console.log(req.session.auth);
+        console.log(req.session.authUser);
+    }
+    res.locals.auth = req.session.auth;
+    res.locals.authUser = req.session.authUser;
+    next();
+});
+
 
 app.use(async function (req, res, next) {
     const categories = await categoryService.findAll();
@@ -84,25 +118,23 @@ app.get('/', async function (req, res) {
 
 });
 
-import loginRouter from './routes/login.route.js'
-app.use('/login', loginRouter);
-
-import signupRouter from './routes/signup.route.js'
-app.use('/signup', signupRouter);
 import article_listRouter from './routes/article_list.route.js'
 app.use('/article_list', article_listRouter);
 
 import article_detailRouter from './routes/article_detail.route.js'
 app.use('/article_detail', article_detailRouter);
 
-// import writerRouter from './routes/writer/writer.route.js'
-// app.use('/writer', writerRouter);
+import writerRouter from './routes/writer/writer.route.js'
+app.use('/writer', writerRouter);
 
-// import editorRouter from './routes/editor/editor.route.js'
-// app.use('/editor', editorRouter);
+import editorRouter from './routes/editor/editor.route.js'
+app.use('/editor', editorRouter);
 
 import adminRouter from './routes/admin/admin.route.js'
 app.use('/admin', adminRouter);
+
+import accountRouter from './routes/account.route.js'
+app.use('/account', accountRouter);
 
 
 app.listen(3000, function () {

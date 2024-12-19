@@ -6,7 +6,7 @@ export default{
     findArticleById(id){
         return db('Articles')
         .join('Categories','Categories.category_id','Articles.article_id')
-        .join('Writers','Writers.writer_id','Articles.writer_id')
+        .join('users','users.user_id','Articles.writer_id')
         .where('article_id', id)
         .first();
     },

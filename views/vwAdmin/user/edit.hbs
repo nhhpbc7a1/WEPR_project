@@ -1,0 +1,107 @@
+{{#section 'js'}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var employeeEmail = "{{this.employee.email}}";
+
+        $('#frmEditEmployee').on('submit', function (e) {
+            e.preventDefault();  // Ngừng hành động submit mặc định để xử lý trong script
+
+            const email = $('#txtEmail').val();
+            const password = $('#txtPassword').val();
+            const passwordConfirm = $('#txtPasswordConfirm').val();
+            const formAction = $('button[type="submit"]:focus').attr('formaction');  // Lấy formaction từ nút đang được nhấn
+
+            // Kiểm tra nếu người dùng nhấn Save (formaction chứa /patch)
+            if (formAction && formAction.includes('patch')) {
+                // Kiểm tra email
+                if (email.length === 0) {
+                    alert('Email is required');
+                    return;
+                }
+
+                if (password !== passwordConfirm) {
+                    alert('Mật khẩu và xác nhận mật khẩu không khớp.');
+                    return;
+                }
+
+                $.getJSON('/account/is-available?email=' + email, function (data) {
+                    if (data && email != employeeEmail) {
+                        alert('This email has been used for another account. Please try another email.');
+                    } else {
+                        $('#frmEditEmployee').attr('action', formAction);  // Cập nhật action của form với formaction của nút Save
+                        $('#frmEditEmployee')[0].submit();  // Thực hiện submit form khi không có lỗi
+                    }
+                });
+            } else if (formAction && formAction.includes('del')) {
+                // Nếu là nút Delete (formaction chứa /del), không kiểm tra email và thực hiện submit ngay
+                $('#frmEditEmployee').attr('action', formAction);  // Cập nhật action của form với formaction của nút Delete
+                $('#frmEditEmployee')[0].submit();  // Thực hiện submit form
+            }
+        });
+    });
+</script>
+{{/section}}
+
+<form id="frmEditEmployee" action="" method="post">
+    <div class="container-fluid" style="padding: 40px;">
+        <div class="card">
+            <div class="card-header">
+                <h4>Cập nhật nhân viên</h4>
+            </div>
+            <div class="card-body">
+
+                <div class="form-group">
+                    <label for="txtName">ID</label>
+                    <input class="form-control mb-3" type="text" placeholder="Readonly input here..." readonly
+                        value={{this.employee.employee_id}} name="employee_id">
+                </div>
+
+                <div class="form-group">
+                    <label for="txtName">Tên</label>
+                    <input type="text" name="employee_name" id="txtName" class="form-control" placeholder=""
+                        value="{{this.employee.employee_name}}">
+                </div>
+
+                <div class="form-group">
+                    <label for="txtName">Mã tài khoản</label>
+                    <input class="form-control mb-3" type="text" placeholder="Readonly input here..." readonly
+                        value={{this.employee.account_id}} name="account_id">
+                </div>
+
+                <div class="form-group">
+                    <label for="txtEmail">Email</label>
+                    <input type="text" name="email" id="txtEmail" class="form-control" placeholder=""
+                        value="{{this.employee.email}}">
+                </div>
+
+                <div class="form-group">
+                    <label for="txtPassword">Mật khẩu</label>
+                    <input type="password" name="password" id="txtPassword" class="form-control" placeholder=""
+                        value="{{this.employee.password}}">
+                </div>
+
+                <div class="form-group">
+                    <label for="txtPasswordConfirm">Xác nhận mật khẩu</label>
+                    <input type="password" name="password_confirm" id="txtPasswordConfirm" class="form-control"
+                        placeholder="" value="{{this.employee.password}}">
+                </div>
+
+            </div>
+            <div class="card-footer text-muted">
+                <a name="" id="" class="btn btn-outline-success" href="/manager/employee" role="button">
+                    <i class="bi bi-skip-backward-fill"></i>
+                </a>
+                <button type="submit" class="btn btn-danger" formaction="/manager/employee/del">
+                    <i class="bi bi-trash"></i>
+                    Delete
+                </button>
+                <button type="submit" class="btn btn-primary" formaction="/manager/employee/patch">
+                    <i class="bi bi-check2"></i>
+                    Save
+                </button>
+
+            </div>
+        </div>
+    </div>
+</form>

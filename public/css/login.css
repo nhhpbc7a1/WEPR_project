@@ -1,3 +1,4 @@
+/* Tổng thể giao diện */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -6,74 +7,144 @@ body {
 }
 
 .container {
-    width: 100%;
-    max-width: 400px;
+    display: flex;
+    max-width: 800px;
     margin: 50px auto;
     background: white;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     border-radius: 8px;
+    overflow: hidden;
 }
 
-.header {
-    text-align: center;
+.left-column,
+.right-column {
+    width: 50%;
+    padding: 30px;
+}
+
+.left-column {
+    border-right: 1px solid #ddd;
+}
+
+.left-column h2 {
+    font-size: 24px;
+    color: #333;
     margin-bottom: 20px;
 }
 
-.header h1 {
-    color: #d4351c;
-    font-size: 24px;
+.left-column p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
 }
 
-.header p {
-    color: #333;
-    margin-top: 8px;
+.left-column .form-group {
+    margin-bottom: 20px;
 }
 
-.login-form {
-    text-align: center;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-label {
-    display: block;
-    text-align: left;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #333;
-}
-
-input[type="text"],
-input[type="password"] {
+.left-column input[type="email"],
+.left-column input[type="password"] {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
 }
 
-.btn {
-    background-color: #d4351c;
+.left-column button {
+    width: 100%;
+    padding: 10px;
+    background-color: #888;
     color: white;
-    padding: 10px 20px;
+    font-size: 14px;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
 }
 
-.btn:hover {
-    background-color: #a12818;
+.left-column p {
+    font-size: 12px;
+    color: #888;
+    margin-top: 15px;
 }
 
-.error {
-    color: red;
-    margin-bottom: 10px;
+.left-column a {
+    color: #007bff;
+    text-decoration: none;
 }
 
-.success {
-    color: green;
-    margin-bottom: 10px;
+.left-column a:hover {
+    text-decoration: underline;
+}
+
+/* Cột bên phải */
+.right-column {
+    background-color: #f8f9fa;
+}
+
+.right-column h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.social-btn {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.social-btn.facebook {
+    background-color: #4267B2;
+    color: white;
+}
+
+.social-btn.google {
+    background-color: #DB4437;
+    color: white;
+}
+
+.social-btn.apple {
+    background-color: #333;
+    color: white;
+}
+
+.social-btn:hover {
+    opacity: 0.9;
+}
+.btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn i {
+    font-size: 20px; /* Tăng kích thước logo */
+    margin-right: 10px; /* Khoảng cách giữa logo và chữ */
+}
+
+.btn.facebook {
+    background-color: #4267B2;
+    color: white;
+}
+
+.btn.google {
+    background-color: #DB4437;
+    color: white;
+}
+
+.btn.apple {
+    background-color: #333;
+    color: white;
 }

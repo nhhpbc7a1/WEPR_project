@@ -1,0 +1,72 @@
+<div class="container-fluid" style="padding: 40px;">
+    <div class="row d-flex align-items-center justify-content-end">
+        <div class="col-12">
+            <img src="/admin/images/homepage_admin/ecom_logo.png" alt="" style="width: 50px;">
+        </div>
+        <div class="col-2">
+            <a name="" id="" class="btn btn-primary" href="/admin/user/add/admin" role="button">Thêm admin</a>
+        </div>
+        <div class="col-2">
+            <a name="" id="" class="btn btn-primary" href="/admin/user/add/editor" role="button">Thêm editor</a>
+        </div>
+        <div class="col-2">
+            <a name="" id="" class="btn btn-primary" href="/admin/user/add/writer" role="button">Thêm writer</a>
+        </div>
+        <div class="col-2">
+            <a name="" id="" class="btn btn-primary" href="/admin/user/add/subscriber" role="button">Thêm subscriber</a>
+        </div>
+    </div>
+    <hr>
+    <div id="table-wrapper"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gridjs/6.2.0/gridjs.umd.js"
+        integrity="sha512-UxJx7Aa36ndtmns24kdxG3ARmAPPYllynVsgpV18TdQYGhENGkdb+fC8xOjeJ8UR8Rsc5S2xUZ9pCO5ygECnOQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        // Lấy dữ liệu từ this.user đã chuyển sang JSON
+        const userList = {{{ json this.users }}};
+
+        // Chuyển đổi dữ liệu từ đối tượng thành mảng để sử dụng trong Grid.js
+        const data = userList.map(item => [item.user_id, item.fullname, item.role_name, item.email]);
+
+        // Khởi tạo bảng Grid.js
+        new gridjs.Grid({
+            columns: ["ID", "Tên", "Vai trò", "Email",
+                {
+                    name: "Hành động",
+                    formatter: (cell, row) => {
+                        return gridjs.html(`                        
+                        <a class="btn btn-sm btn-primary" href="/admin/user/edit/${row.cells[2].data}?id=${row.cells[0].data}" role="button">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>`);
+                    }
+                }
+            ],
+            data: data,
+            pagination: {
+                limit: 10
+            },
+            search: true,
+            sort: true,
+            language: {
+                search: {
+                    placeholder: 'Tìm kiếm...'
+                },
+                pagination: {
+                    previous: 'Trước',
+                    next: 'Sau',
+                    showing: 'Hiển thị',
+                    results: () => 'kết quả'
+                }
+            },
+            style: {
+                th: {
+                    background: 'linear-gradient(180deg, #eee 100%, #eee 100%',
+                    color: 'black',
+                },
+            }
+        }).render(document.getElementById("table-wrapper"));
+
+    </script>
+
+</div>

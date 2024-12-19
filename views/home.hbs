@@ -13,13 +13,15 @@
                     <div class="swiper-wrapper">
                         {{#each featuredArticles}}
                         <div class="swiper-slide">
-                            <img class="d-block w-100" src="/public/images/article{{image_href}}" alt="First slide">
-                            <div class="swiper-caption">
+                            <a href="/article_detail?id={{article_id}}" style="width: 100%; height: 100%;">
+                                <img class="d-block w-100" src="{{image_url}}" alt="First slide">
+                            </a>
+                            <div class="swiper-caption" style="height: 120px;">
                                 <div class="">
-                                    <a class="home_slider_category" href="">{{category_name}}</a>
+                                    <a class="home_slider_category" href="#">{{category_name}}</a>
                                     <a class="ml-3 home_slider_time">{{published_date}}</a>
                                 </div>
-                                <a class="home_slider_title" href="">{{title}}</a>
+                                <a class="home_slider_title" href="/article_detail?id={{article_id}}">{{title}}</a>
                             </div>
                         </div>
                         {{/each}}
@@ -40,9 +42,11 @@
                 <div class="">
                 </div>
                 <div class="row d-flex">
-                    <img class="list_grid_image" src="/public/images/article{{image_href}}" alt="">
+                    <a href="/article_detail?id={{article_id}}">
+                        <img class="list_grid_image" src="{{image_url}}" alt="">
+                    </a>
                     <div class="ml-3" style="flex:1;">
-                        <a class="list_grid_title" href="">{{title}}</a>
+                        <a class="list_grid_title" href="/article_detail?id={{article_id}}">{{title}}</a>
                         <p class="list_grid_abstract">Lorem ipsum dolor sit amet consectetur adipisicing elit.
                             Nostrum,
                             nulla perspiciatis! Nostrum libero doloribus quae aliquam blanditiis. Quaerat quae,
@@ -70,7 +74,7 @@
                     {{#each mostViewedArticles}}
                     <div class="row top_article_content d-flex">
                         <div class="">
-                            <img class="top_article_content_image " src="/public/images/article{{image_href}}" alt="">
+                            <img class="top_article_content_image " src="{{image_url}}" alt="">
                         </div>
 
                         <div class="ml-3" style="flex:1;">
@@ -106,7 +110,7 @@
                     </div>
                     <div class="row top_category_content d-flex">
                         <div class="">
-                            <img class="top_category_content_image " src="/public/images/article{{image_href}}" alt="">
+                            <img class="top_category_content_image " src="{{image_url}}" alt="">
                         </div>
 
                         <div class="ml-3" style="flex: 1;">

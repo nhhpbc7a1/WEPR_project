@@ -1,0 +1,65 @@
+.box_newArticle{
+    border: 1px solid rgb(53, 53, 189);
+    border-radius: 3px;
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    align-items: center;
+    color: rgb(53, 53, 189);
+    font-weight: 500;
+}
+.btnAction{
+    background-color: rgb(23, 23, 124);
+    border: 1px solid rgb(23, 23, 124);
+    border-radius: 5px;
+    padding: 15px;
+    color: white;
+    font-weight: 500;
+    font-size: large;
+    margin-top: 40px ;
+    margin-bottom: 40px;
+    margin-left: 30px;
+    align-items: center;
+    text-align: center;
+}
+.btnSaveArticle{
+    background-color: white;
+    color:  rgb(23, 23, 124) ;
+    border: 1px solid  rgb(23, 23, 124) ;
+}
+
+.custom_checkbox {
+    width: 20px; /* Độ rộng của checkbox */
+    height: 20px; /* Chiều cao của checkbox */
+    accent-color: #007BFF; /* Màu checkbox (hỗ trợ trình duyệt hiện đại) */
+    cursor: pointer; /* Thêm hiệu ứng con trỏ */
+    margin: 0 10px 0 0; /* Tùy chỉnh khoảng cách xung quanh */
+    border-radius: 5px; /* Tạo góc bo tròn (nếu muốn) */
+}
+.btnUploadImage{
+    background-color: #ecf0f0;
+    width: 450px;
+    height: 313px;
+    border: 2px dashed rgb(94, 89, 89);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex; /* Sử dụng Flexbox */
+    flex-direction: column; /* Xếp các phần tử theo cột */
+    align-items: center; /* Căn giữa theo chiều ngang */
+    justify-content: center; /* Căn giữa theo chiều dọc */
+    text-align: center; /* Căn chữ giữa */   
+    gap: 5px; 
+}
+.custom_title{
+    height: 80px;
+}
+.custom_chooseFile{
+    background-color: #007BFF;
+    color: white;
+    padding: 7px 10px;
+    font-size: small;
+}
+#articleImg{
+    display: none;
+}
