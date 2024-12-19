@@ -9,9 +9,7 @@ router.use((req, res, next) => {
   });
 
 router.get('/',async function (req, res){
-    res.render('vwWriter/dashboard', {
-        layout: 'writer',
-    });
+    res.redirect('/writer/article');
 });
 
 router.use('/article', manage_articleRouter);

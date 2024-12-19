@@ -12,9 +12,7 @@ router.use((req, res, next) => {
   });
 
 router.get('/',async function (req, res){
-    res.render('vwAdmin/dashboard', {
-        layout: 'admin',
-    });
+    res.redirect('/article');
 });
 
 router.use('/category', manage_categoryRouter);

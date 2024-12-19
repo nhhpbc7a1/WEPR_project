@@ -18,7 +18,8 @@ router.get('/', function (req, res) {
 });
 
 router.get('/list', async function (req, res) {
-    const articles = await manage_articleService.findAll();
+    const writer_id = req.session.authUser.user_id;
+    const articles = await manage_articleService.findAllOfWriterID(writer_id);
     res.render('vwWriter/article/list', {
         articles: articles
     });
@@ -113,7 +114,8 @@ router.post('/add', upload_main_img.single('main_image'), async function (req, r
         status: req.body.status,
         abstract: req.body.abstract,
         content: req.body.content,
-        published_date: ymd_published_date
+        published_date: ymd_published_date,
+        writer_id: req.session.authUser.user_id
     };
 
     const new_id = await manage_articleService.add(entity);
@@ -145,7 +147,8 @@ router.post('/edit', upload_main_img.single('main_image'), async function (req, 
         is_premium: req.body.is_premium === 'on' ? '1' : '0',
         is_featured: req.body.is_featured === 'on' ? '1' : '0',
         status: req.body.status,
-        published_date: ymd_published_date
+        published_date: ymd_published_date,
+        writer_id: req.session.authUser.user_id
     };
     console.log(entity);
 
