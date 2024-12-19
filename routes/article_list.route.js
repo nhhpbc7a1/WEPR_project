@@ -66,5 +66,56 @@ router.get('/byCategory', async function (req, res) {
     }
 });
 
+router.get('/search', async function(req, res) {
+    const limit = 4;
+    const currentPage = parseInt(req.query.page, 10) || 1;
+    const offset = (currentPage - 1) * limit;
+
+    const title = req.query.title ? req.query.title.trim() : null; 
+
+    try {
+        if (!title) {
+            return res.render('vwArticle/search', {
+                articles: [],
+                empty: true,
+                searchTerm: '',
+                pageNumbers: [],
+                currentPage,
+                prevPage: null,
+                nextPage: null,
+                title: ''
+            });
+        }
+
+        const totalRows = await articleService.searchArticlesByTitleCount(title);
+        const articles = await articleService.findPageBySearchTitle(title, limit, offset);
+        const totalPages = Math.ceil(totalRows / limit);
+
+        const pageNumbers = [];
+        for (let i = 1; i <= totalPages; i++) {
+            pageNumbers.push({
+                value: i,
+                active: i === currentPage
+            });
+        }
+
+        res.render('vwArticle/search', {
+            articles,
+            empty: articles.length === 0,
+            searchTerm: title,
+            pageNumbers,
+            currentPage,
+            prevPage: currentPage > 1 ? currentPage - 1 : null,
+            nextPage: currentPage < totalPages ? currentPage + 1 : null,
+            title
+        });
+        console.log('Search term:', title);
+    } catch (error) {
+        console.error('Error in search pagination', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
 export default router;
 

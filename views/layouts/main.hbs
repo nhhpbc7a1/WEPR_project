@@ -34,7 +34,12 @@
                     <p class="ml-3 mt-3">Thứ 3, 12/11/2024</p>
                 </div>
                 <div class="huy_navbar_right">
-                    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+                        <input 
+                    type="text" 
+                    id="myInput" 
+                    placeholder="Search for names.." 
+                    onkeydown="handleSearch(event)">
+                    
                     <a name="" id="" class="btn btn-primary" href="#" role="button">
                         <i class="bi bi-person"></i>
                         Đăng nhập
@@ -43,21 +48,72 @@
             </div>
         </div>
     </div>
-    <div class="row sticky">
-        <div class="container d-flex justify-content-between p-3">
-            <a href="">
-                <i class="bi bi-house-fill"></i>
+  
+  <div class="row sticky">
+  <div class="container d-flex justify-content-between p-2">
+      <a href="/" class="circle-btn">
+    <i class="bi bi-house-fill"></i>
+</a>
+    
+    {{#each lcCategories}}
+    <div class="dropdown">
+      <a class="btn btn-primary dropdown" href="#">
+        {{this.category_name}}
+      </a>
+      
+      <div class="dropdown-menu">
+        {{#if this.children}}
+          {{#each this.children}}
+            <a class="dropdown-item" href="/category/{{this.category_id}}">
+              {{this.category_name}}
             </a>
-            {{#each lcCategories}}
-            <a class="" href="/category/{{this.category_id}}">
-                {{this.category_name}}
-            </a>
-            {{/each}}
-            <a href="">
-                <i class="bi bi-list"></i>
-            </a>
-        </div>
+          {{/each}}
+        {{else}}
+          <span class="dropdown-item text-muted">Không có danh mục con</span>
+        {{/if}}
+      </div>
     </div>
+    {{/each}}
+    <a href="#">
+      <i class="bi bi-list"></i>
+    </a>
+  </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const dropdowns = document.querySelectorAll('.dropdown');
+
+    dropdowns.forEach(dropdown => {
+      dropdown.addEventListener('mouseenter', function () {
+        const menu = this.querySelector('.dropdown-menu');
+        if (menu) menu.style.display = 'block';
+      });
+
+      dropdown.addEventListener('mouseleave', function () {
+        const menu = this.querySelector('.dropdown-menu');
+        if (menu) menu.style.display = 'none';
+      });
+    });
+  });
+</script>
+
+<script>
+   function handleSearch(event) {
+      console.log('Key pressed:', event.key);
+      if (event.key === 'Enter') {
+          const searchTerm = document.getElementById('myInput').value.trim();
+          console.log('Search term:', searchTerm);
+          
+          if (searchTerm === '') {
+              alert('Vui lòng nhập từ khóa tìm kiếm');
+              return;
+          }
+          const url = `/article_list/search?title=${encodeURIComponent(searchTerm)}`;
+          console.log('Redirecting to:', url);
+          window.location.href = url;
+      }
+   }
+</script>
 
 
     {{{body}}}
