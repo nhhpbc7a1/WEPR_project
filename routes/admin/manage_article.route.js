@@ -1,11 +1,16 @@
 import express from 'express';
 import manage_articleService from '../../services/admin/manage_article.service.js';
+import moment from 'moment';
 const router = express.Router();
 
 const __dirname = process.cwd();
 import multer from 'multer';
 import fs from 'fs';
 import path from 'path';
+
+import handleFileUpload from '../../services/handleFileUpload.service.js';
+const upload_main_img = multer({ dest: 'uploads/' });
+
 
 
 router.get('/', function (req, res) {
@@ -96,22 +101,31 @@ router.post('/upload-image', upload.single('upload'), (req, res) => {
 // =================================================================
 
 router.use(express.json());
-router.post('/add', upload.single('image'), async function (req, res) {
+router.post('/add', upload_main_img.single('main_image'), async function (req, res) {
+    const ymd_published_date = moment(req.body.raw_expiration, 'DD/MM/YYYY HH:mm').format('YYYY-MM-DD HH:mm');
+    
     // Thông tin bài viết
     const entity = {
         title: req.body.title,
         category_id: +req.body.category_id,
         is_premium: req.body.is_premium === 'on' ? '1' : '0',
         is_featured: req.body.is_featured === 'on' ? '1' : '0',
-        status: "pending",
+        status: req.body.status,
         abstract: req.body.abstract,
         content: req.body.content,
+        published_date: ymd_published_date
     };
 
     const new_id = await manage_articleService.add(entity);
 
-    const tags = req.body.tags || [];
+    const image = req.file; // Ảnh tải lên
+    const imagePath = await handleFileUpload(req, 'articles', new_id);
+    if (image) {
+        entity.image_url = imagePath;
+        await manage_articleService.patch(new_id, entity);
+    }
 
+    const tags = req.body.tags || [];
     if (tags.length > 0) {
         await manage_articleService.updateTags(new_id, tags);
     }
@@ -119,10 +133,10 @@ router.post('/add', upload.single('image'), async function (req, res) {
     res.redirect('/admin/article/');
 });
 
-router.post('/edit', upload.single('image'), async function (req, res) {
+router.post('/edit', upload_main_img.single('main_image'), async function (req, res) {
     // Thông tin bài viết
     const id = +req.body.article_id || 0;
-
+    const ymd_published_date = moment(req.body.raw_expiration, 'DD/MM/YYYY HH:mm').format('YYYY-MM-DD HH:mm');
     const entity = {
         title: req.body.title,
         abstract: req.body.abstract,
@@ -131,9 +145,17 @@ router.post('/edit', upload.single('image'), async function (req, res) {
         is_premium: req.body.is_premium === 'on' ? '1' : '0',
         is_featured: req.body.is_featured === 'on' ? '1' : '0',
         status: req.body.status,
+        published_date: ymd_published_date
     };
 
     await manage_articleService.patch(id, entity);
+    const image = req.file; // Ảnh tải lên
+    const imagePath = await handleFileUpload(req, 'articles', id);
+    if (image) {
+        entity.image_url = imagePath;
+        await manage_articleService.patch(id, entity);
+    }
+
 
     const tags = req.body.tags || [];
 
@@ -146,7 +168,6 @@ router.post('/edit', upload.single('image'), async function (req, res) {
 
 router.get('/del', upload.single('image'), async function (req, res) {
     const id = +req.query.id || 0;
-    console.log(id);
     await manage_articleService.del(id);
     res.redirect('/admin/article');
 });

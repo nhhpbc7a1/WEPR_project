@@ -51,6 +51,9 @@ app.engine('hbs', engine({
             }
             return false;
         },
+        formatDate(date) {
+            return moment(date).format('MMMM DD, YYYY');  // Định dạng ngày theo format
+        },
         formatYMD(date) {
             return moment(date).format('MMMM DD, YYYY');  // Định dạng ngày theo format
         }

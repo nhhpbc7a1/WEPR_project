@@ -47,7 +47,7 @@ CREATE TABLE Images (
 -- Bảng Articles
 CREATE TABLE Articles (
     article_id INT PRIMARY KEY AUTO_INCREMENT,
-    image_id INT,
+    image_url TEXT,
     title VARCHAR(255) NOT NULL,
     category_id INT,
     published_date TIMESTAMP,
@@ -57,7 +57,7 @@ CREATE TABLE Articles (
     is_premium BOOLEAN DEFAULT FALSE,
     is_featured BOOLEAN DEFAULT FALSE,
     writer_id INT DEFAULT 1,
-    FOREIGN KEY (image_id) REFERENCES Images(image_id),
+    -- FOREIGN KEY (image_id) REFERENCES Images(image_id),
     FOREIGN KEY (category_id) REFERENCES Categories(category_id),
     FOREIGN KEY (writer_id) REFERENCES Users(user_id)
 );
