@@ -186,6 +186,32 @@
                                     <div class="form-group">
                                         <label>Title</label>
                                         <input type="text" name="title" required class="form-control custom_title" value="{{article.title}}">
+                                        <label>Danh mục:</label>
+                                        <div class="d-flex">
+                                            <select id="category1" style="" class="col-6 form-control">
+                                                <option value="">-- Chọn cấp 1 --</option>
+                                            </select>
+                                            <select id="category2" style="" class="col-6 form-control"
+                                                name="category_id">
+                                                <option value="">-- Chọn cấp 2 --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mt-3">
+                                        <label for="isPremium">
+                                            Is premium
+                                        </label>
+                                        <input type="checkbox" name="is_premium" id="isPremium" {{#ifEquals
+                                            article.is_premium 1}}checked{{/ifEquals}}>
+                                    </div>
+
+                                    <div class="form-group mt-3">
+                                        <label for="isPremium">
+                                            Bài viết tiêu biểu
+                                        </label>
+                                        <input type="checkbox" name="is_featured" id="isFeatured" {{#ifEquals
+                                            article.is_featured 1}}checked{{/ifEquals}}>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Tags</label>

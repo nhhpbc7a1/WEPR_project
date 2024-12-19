@@ -7,6 +7,8 @@ import hbs_sections from 'express-handlebars-sections';
 import homepageService from './services/homepage.service.js';;
 import categoryService from './services/category.service.js';
 import moment from 'moment';
+import session from 'express-session';
+import {authAdmin} from './middlewares/auth.route.js';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
@@ -66,6 +68,28 @@ app.set('views', './views');
 app.use('/public', express.static('public'));
 app.use('/uploads', express.static('uploads'));
 
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {}
+}))
+
+app.use(async function (req, res, next) {
+    if (!req.session.auth) {
+        req.session.auth = false;
+    }
+    else {
+        console.log(req.session.auth);
+        console.log(req.session.authUser);
+    }
+    res.locals.auth = req.session.auth;
+    res.locals.authUser = req.session.authUser;
+    next();
+});
+
+
 app.use(async function (req, res, next) {
     const categories = await categoryService.findAll();
     res.locals.lcCategories = categories
@@ -94,11 +118,6 @@ app.get('/', async function (req, res) {
 
 });
 
-import loginRouter from './routes/login.route.js'
-app.use('/login', loginRouter);
-
-import signupRouter from './routes/signup.route.js'
-app.use('/signup', signupRouter);
 import article_listRouter from './routes/article_list.route.js'
 app.use('/article_list', article_listRouter);
 

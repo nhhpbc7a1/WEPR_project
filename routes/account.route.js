@@ -6,38 +6,26 @@ import moment from 'moment';
 
 const router = express.Router();
 
-router.get('/register', async function (req, res) {
-    res.render('vwAccount/register');
+router.get('/signup', async function (req, res) {
+    res.render('signup');
 });
 
-router.post('/register', async function (req, res) {
-    const hashed_password = bcrypt.hashSync(req.body.raw_password, 8);
-    const ymd_dob = moment(req.body.raw_dob, 'DD/MM/YYYY').format('YYYY-MM-DD');
-    const account = {
-        username: req.body.username,
-        hashed_password: hashed_password,
-        role_id: 2,
-    }
-    const account_id = await accountService.add_account(account);
-    account.account_id = account_id;
+router.post('/signup', async function (req, res) {
+    const password = bcrypt.hashSync(req.body.raw_password, 8);
     const user = {
-        account_id: account_id,
-        full_name: req.body.full_name,
-        phone_number: req.body.phone_number,
-        address: req.body.address,
-        email: req.body.email,
-        birthday: ymd_dob,
-        gender: req.body.gender
+        username: req.body.username,
+        password: password,
+        role_id: 4,
     }
     req.session.user_id = await accountService.add_user(user);
     req.session.auth = true;
-    req.session.authAccount = account;
+    req.session.authUser = user;
     res.redirect('/');
 });
 
 
 router.get('/login', async function (req, res) {
-    res.render('vwAccount/login');
+    res.render('login');
 });
 
 
@@ -69,36 +57,34 @@ router.get('/is-available-email', async function (req, res) {
 
 
 router.post('/login', async function (req, res) {
-    const account = await accountService.findByUsername(req.body.username);
+    const user = await accountService.findByUsername(req.body.username);
     console.log(req.body.raw_password);
-    if (!account) {
-        return res.render('vwAccount/login', {
+    if (!user) {
+        return res.render('login', {
             showErrors: true
         });
     }
-    if (!bcrypt.compareSync(req.body.raw_password, account.hashed_password)) {
-        return res.render('vwAccount/login', {
+    if (!bcrypt.compareSync(req.body.raw_password, user.password)) {
+        return res.render('login', {
             showErrors: true
         });
     }
 
-    req.session.authAccount = account;
     req.session.auth = true;
-    const user = await accountService.findUserByAccountID(account.account_id);
-    req.session.user_id = user.user_id;
+    req.session.authUser = user;
     const retUrl = req.session.retUrl || '/';
     res.redirect(retUrl);
 });
 
 router.get('/profile', check, function (req, res) {
-    res.render('vwAccount/profile', {
-        user: req.session.authAccount
+    res.render('profile', {
+        user: req.session.authUser
     });
 });
 
 router.post('/logout', check, function (req, res) {
     req.session.auth = false;
-    req.session.authAccount = null;
+    req.session.authUser = null;
     req.session.user_id = null;
     res.redirect('/');
     console.log('logged out');
