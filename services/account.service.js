@@ -28,5 +28,10 @@ export default {
            .then(result => {
                 return result.id;  // Trả về user_id của bản ghi mới
             });
+    },
+    editUserByID(id, entity) {
+        return db('users')
+           .where('user_id', id)
+           .update(entity);
     }
 };

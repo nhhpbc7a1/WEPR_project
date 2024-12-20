@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Admin Page</title>
 
     <!-- Custom fonts for this template-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
@@ -45,17 +45,20 @@
             <a class="sidebar-brand d-flex align-items-center justify-content-center mt-5" href="index.html">
                 <div class="mt-5 mb-5">
                     <img src="/public/images/icon/image-removebg-preview (6).png" alt="" width="250px">
+
                 </div>
             </a>
 
             <!-- Divider -->
 
             <!-- Nav Item - Dashboard -->
+
             <li class="nav-item active mt-5 ">
                 <a class="nav-link" href="/admin/">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
+
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -183,13 +186,13 @@
                         <div class="dropdown mr-3" style="margin-top: 16px;">
                             <button class="dropdown-toggle btn btn-secondary mb-3" type="button" data-toggle="dropdown"
                                 aria-expanded="false" style="background-color: transparent; color:black;border:none;">
-                                Hello <b>{{authAccount.username}}</b>
+                                Hello <b>{{authUser.username}}</b>
                             </button>
                             <div class="dropdown-menu">
                                 <button class="dropdown-item" type="button">
-                                    <a class="" href="/">
+                                    <a class="" href="/admin/profile">
                                         <i class="bi bi-shop-window"></i>
-                                        Shop view
+                                        Profile
                                     </a>
                                 </button>
                                 <button class="dropdown-item" type="button">

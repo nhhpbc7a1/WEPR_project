@@ -12,7 +12,6 @@ import handleFileUpload from '../../services/handleFileUpload.service.js';
 const upload_main_img = multer({ dest: 'uploads/' });
 
 
-
 router.get('/', function (req, res) {
     res.redirect('/editor/article/list');
 });
@@ -29,18 +28,6 @@ router.get('/detail', async function (req, res) {
     const article = await manage_articleService.findByID(id);
     res.render('vwEditor/article/detail', {
         article: article
-    });
-});
-
-router.get('/add', async function (req, res) {
-    const parent_categories = await manage_articleService.findAllParentCategory();
-    const child_categories = await manage_articleService.findAllChildCategory();
-    const tags = await manage_articleService.getAllTags();
-
-    res.render('vwEditor/article/add', {
-        parent_categories: parent_categories,
-        child_categories: child_categories,
-        tags: tags,
     });
 });
 
@@ -101,49 +88,11 @@ router.post('/upload-image', upload.single('upload'), (req, res) => {
 // =================================================================
 
 router.use(express.json());
-router.post('/add', upload_main_img.single('main_image'), async function (req, res) {
-    const ymd_published_date = moment(req.body.raw_published_date, 'DD/MM/YYYY HH:mm').format('YYYY-MM-DD HH:mm');
-    
-    // Thông tin bài viết
-    const entity = {
-        title: req.body.title,
-        category_id: +req.body.category_id,
-        is_premium: req.body.is_premium === 'on' ? '1' : '0',
-        is_featured: req.body.is_featured === 'on' ? '1' : '0',
-        status: req.body.status,
-        abstract: req.body.abstract,
-        content: req.body.content,
-        published_date: ymd_published_date
-    };
-
-    const new_id = await manage_articleService.add(entity);
-
-    const image = req.file; // Ảnh tải lên
-    const imagePath = await handleFileUpload(req, 'articles', new_id);
-    if (image) {
-        entity.image_url = imagePath;
-        await manage_articleService.patch(new_id, entity);
-    }
-
-    const tags = req.body.tags || [];
-    if (tags.length > 0) {
-        await manage_articleService.updateTags(new_id, tags);
-    }
-
-    res.redirect('/editor/article/');
-});
-
 router.post('/edit', upload_main_img.single('main_image'), async function (req, res) {
     // Thông tin bài viết
     const id = +req.body.article_id || 0;
     const ymd_published_date = moment(req.body.raw_published_date, 'DD/MM/YYYY HH:mm').format('YYYY-MM-DD HH:mm');
     const entity = {
-        title: req.body.title,
-        abstract: req.body.abstract,
-        content: req.body.content,
-        category_id: +req.body.category_id,
-        is_premium: req.body.is_premium === 'on' ? '1' : '0',
-        is_featured: req.body.is_featured === 'on' ? '1' : '0',
         status: req.body.status,
         published_date: ymd_published_date
     };
@@ -151,27 +100,8 @@ router.post('/edit', upload_main_img.single('main_image'), async function (req, 
 
 
     await manage_articleService.patch(id, entity);
-    const image = req.file; // Ảnh tải lên
-    const imagePath = await handleFileUpload(req, 'articles', id);
-    if (image) {
-        entity.image_url = imagePath;
-        await manage_articleService.patch(id, entity);
-    }
-
-
-    const tags = req.body.tags || [];
-
-    if (tags.length > 0) {
-        await manage_articleService.updateTags(id, tags);
-    }
 
     res.redirect('/editor/article/');
-});
-
-router.get('/del', upload.single('image'), async function (req, res) {
-    const id = +req.query.id || 0;
-    await manage_articleService.del(id);
-    res.redirect('/editor/article');
 });
 
 

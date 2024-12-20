@@ -9,6 +9,8 @@ import categoryService from './services/category.service.js';
 import moment from 'moment';
 import session from 'express-session';
 import {authAdmin} from './middlewares/auth.route.js';
+import {authEditor} from './middlewares/auth.route.js';
+import {authWriter} from './middlewares/auth.route.js';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
@@ -125,13 +127,13 @@ import article_detailRouter from './routes/article_detail.route.js'
 app.use('/article_detail', article_detailRouter);
 
 import writerRouter from './routes/writer/writer.route.js'
-app.use('/writer', writerRouter);
+app.use('/writer', authWriter, writerRouter);
 
 import editorRouter from './routes/editor/editor.route.js'
-app.use('/editor', editorRouter);
+app.use('/editor', authEditor, editorRouter);
 
 import adminRouter from './routes/admin/admin.route.js'
-app.use('/admin', adminRouter);
+app.use('/admin', authAdmin, adminRouter);
 
 import accountRouter from './routes/account.route.js'
 app.use('/account', accountRouter);
