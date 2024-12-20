@@ -108,7 +108,6 @@
     display: block;
     transform: translateY(0); /* Di chuyển về vị trí ban đầu */
     border-top: 1px solid red;
-    margin-top: 4px;
     opacity: 1; /* Hiện menu */
   }
   
@@ -137,6 +136,12 @@
     color: rgb(255, 0, 0);
     
   }
+  .hidden-space {
+    display: block;
+    height: 9px; 
+    width: 100%; 
+  } 
+  
 .circle-btn {
     display: inline-flex; 
     justify-content: center;

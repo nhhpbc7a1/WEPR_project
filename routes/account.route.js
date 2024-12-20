@@ -3,6 +3,7 @@ import accountService from '../services/account.service.js';
 import bcrypt from 'bcryptjs';
 import check from '../middlewares/auth.route.js'
 import moment from 'moment';
+import googleAuthService from '../services/googleAuthService.js';
 
 const router = express.Router();
 
@@ -88,6 +89,71 @@ router.post('/logout', check, function (req, res) {
     req.session.user_id = null;
     res.redirect('/');
     console.log('logged out');
+});
+router.post('/auth/google', async function (req, res) {
+    const { id_token } = req.body;  
+    console.log(id_token);
+
+    try {
+        const userPayload = await googleAuthService.verifyGoogleToken(id_token);
+        console.log(userPayload);
+        let user = await accountService.findByEmail(userPayload.email);
+        
+        if (!user) {
+            // Nếu chưa có người dùng, tạo mới
+            const newUser = {
+                username: userPayload.name,
+                email: userPayload.email,
+                password: '', 
+                role_id: 4,   
+            };
+            const userId = await accountService.add_user(newUser);
+            user = { ...newUser, id: userId };
+        }
+
+        req.session.auth = true;
+        req.session.authUser = user;
+
+        const retUrl = req.session.retUrl || '/';
+        res.redirect(retUrl);
+
+    } catch (error) {
+        console.error('Lỗi xác thực Google:', error);
+        return res.status(400).render('login', { showErrors: true });
+    }
+});
+router.get('/auth/google/callback', async function (req, res) {
+    const { code } = req.query;
+    try {
+
+        const tokenResponse = await googleAuthService.getTokenFromCode(code);
+        const userPayload = await googleAuthService.verifyGoogleToken(tokenResponse.id_token);
+
+        console.log('Google User Payload (Callback):', userPayload);
+
+    
+        let user = await accountService.findByEmail(userPayload.email);
+
+        if (!user) {
+            const newUser = {
+                username: userPayload.name,
+                email: userPayload.email,
+                password: '',
+                role_id: 4,
+            };
+            const userId = await accountService.add_user(newUser);
+            user = { ...newUser, id: userId };
+        }
+
+        req.session.auth = true;
+        req.session.authUser = user;
+
+        const retUrl = req.session.retUrl || '/';
+        res.redirect(retUrl);
+    } catch (error) {
+        console.error('Lỗi xác thực Google Callback:', error);
+        res.status(400).render('login', { showErrors: true });
+    }
 });
 
 export default router;

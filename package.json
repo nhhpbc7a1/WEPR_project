@@ -16,6 +16,7 @@
     "express-handlebars": "^8.0.1",
     "express-handlebars-sections": "^1.0.1",
     "express-session": "^1.18.1",
+    "google-auth-library": "^9.15.0",
     "i": "^0.3.7",
     "knex": "^3.1.0",
     "moment": "^2.30.1",
