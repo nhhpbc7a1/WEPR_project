@@ -1,16 +1,43 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/public/css/article_detail.css">
+{{/section}}
+
 <div class="container">
     <div class="row">
         <div class="col-9 mx-auto">
             <div class="d-flex justify-content-between mb-3">
-                <div>{{articleDetail.category_name}}</div>
-                <div>{{articleDetail.published_date}}</div>
+                <div>
+                    <a href="#">{{parentCat.category_name}}</a>
+                    >
+                    <a
+                        href="/article_list/byCategory?id={{articleDetail.category_id}}">{{articleDetail.category_name}}</a>
+                </div>
+                <div>{{formatDate_x articleDetail.published_date 'dddd, D/M/YYYY, HH:mm (Z)'}}</div>
             </div>
             <div>
                 <div>
-                    <h1 style="font-weight: bold;" class="text-center">{{articleDetail.title}}</h1>
+                    <h1 style="font-weight: bold;" class="text-center">{{articleDetail.title}}
+                        {{#if articleDetail.is_premium}}
+                        <span class="premium_block">
+                            <i class="fa-solid fa-crown"></i> Premium
+                        </span>
+                        {{/if}}
+                    </h1>
                 </div>
                 <div class="">
+                    {{#if error}}
+                    <div class="container">
+                        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                            <strong>Không đủ quyền truy cập!</strong> {{errorMessage}}
+                        </div>
+                    </div>
+                    {{else}}
                     {{{articleDetail.content}}}
+                    {{/if}}
                 </div>
                 <div class="text-right font-weight-bold mt-3 ">{{articleDetail.pen_name}}</div>
             </div>
@@ -21,7 +48,9 @@
     <div class="row custom_separate_line"></div>
     <div class="row tags">Tags:
         {{#each tags}}
-        <span class="tagKeyWord">{{tag_name}}</span>
+        <span class="tagKeyWord">
+            {{tag_name}}
+        </span>
         {{/each}}
     </div>
     <div class="row mx-auto d-flex justify-content-between mb-5 mt-3">
@@ -47,11 +76,12 @@
                     alt="" class="reader_profile reader_comment mr-2">
                 <div class="reader_comment pl-3 pr-3 pt-2 col-10">
                     <div class="font-weight-bold">{{commenter_name}}</div>
-                    <div  class="commentContent">{{content}}</div>
+                    <div class="commentContent">{{content}}</div>
                     <div class="d-flex justify-content-between my-2 ">
                         <button class="btnLikeComment " type="button">
                             <i class="bi-heart"></i> Like</button>
-                        <div class="text-right commented-date " data-timestamp="{{commented_date}}">{{commented_date}}</div>
+                        <div class="text-right commented-date " data-timestamp="{{commented_date}}">{{commented_date}}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -59,18 +89,44 @@
             {{/each}}
         </div>
         <div class="col-6">
-            <h4>Thời sự</h4>
-            {{#each articles}}
-            <div class="five_article_container mt-4">
-                <img class="article_component article_picture mr-2 "
-                    src="https://dhgywazgeek0d.cloudfront.net/watcha/image/upload/c_fill,h_1080,q_80,w_1920/v1526749986/sj454jspuajgnyizhwzv.jpg"
-                    alt="">
-                <div class="article_component">
-                    <div class="font-weight-bold h5 ">{{title}} </div>
-                    <div>{{content}}</div>
+            <div class="card">
+                <div class="card-header my_sider_title">
+                    Mới nhất
+                </div>
+                <div class="card-body">
+                    {{#each articles}}
+                    <div class="row top_article_content d-flex">
+                        <div class="col-5">
+                            <a href="/article_detail?id={{article_id}}">
+                                <img class="top_article_content_image " src="{{image_url}}" alt=""
+                                    style="width: 100%;height:100%;">
+                            </a>
+                        </div>
+
+                        <div class="ml-3" style="flex:1;">
+                            <h5 class="top_article_content_title">
+                                <a href="/article_detail?id={{article_id}}">
+                                    {{title}}
+                                    {{#if is_premium}}
+                                    <span class="premium_block_mini">
+                                        <i class="fa-solid fa-crown"></i> Premium
+                                    </span>
+                                    {{/if}}
+                                </a>
+                            </h5>
+
+                            <div class="row ml-1">
+                                <p class="top_article_content_time">{{formatDate_nothu published_date}}</p>
+                                <a class="top_article_content_time ml-3"
+                                    href="/article_list/byCategory?id={{category_id}}">{{category_name}}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    {{/each}}
+
                 </div>
             </div>
-            {{/each}}
         </div>
     </div>
 </div>
@@ -89,28 +145,29 @@
 </script>
 <script>
     const buttons = document.querySelectorAll('.btnComment');
-    buttons.forEach(function(button) {
-        button.addEventListener('click', function() {
-            buttons.forEach(function(btn) {
-            btn.classList.remove('active');
-    });
-    this.classList.add('active');});
+    buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            buttons.forEach(function (btn) {
+                btn.classList.remove('active');
+            });
+            this.classList.add('active');
+        });
     });
 </script>
 <script>
     const likeButtons = document.querySelectorAll('.btnLikeComment');
-    likeButtons.forEach(function(button) {
-    button.addEventListener('click', function() {
-        const icon = this.querySelector('i'); // Lấy biểu tượng trong nút được nhấn
-        if (icon.classList.contains('bi-heart')) {
-            icon.classList.remove('bi-heart');
-            icon.classList.add('bi-heart-fill');
-        } else {
-            icon.classList.remove('bi-heart-fill');
-            icon.classList.add('bi-heart');
-        }
-    });
+    likeButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            const icon = this.querySelector('i'); // Lấy biểu tượng trong nút được nhấn
+            if (icon.classList.contains('bi-heart')) {
+                icon.classList.remove('bi-heart');
+                icon.classList.add('bi-heart-fill');
+            } else {
+                icon.classList.remove('bi-heart-fill');
+                icon.classList.add('bi-heart');
+            }
         });
+    });
 </script>
 
 <style>

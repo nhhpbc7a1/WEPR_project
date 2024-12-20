@@ -1,10 +1,11 @@
 import express from 'express';
-import articleService from '../services/reader/article_list.service.js'; 
+import articleService from '../services/reader/article_list.service.js';
 const router = express.Router();
-router.get('/', async function(req, res) {
+router.get('/', async function (req, res) {
     const limit = 4;
     const currentPage = parseInt(req.query.page, 10) || 1;
     const offset = (currentPage - 1) * limit;
+    const newestArticles = await articleService.getNewestArticles();
 
     try {
         const totalRows = await articleService.countAll();
@@ -24,7 +25,8 @@ router.get('/', async function(req, res) {
             articles,
             empty: articles.length === 0,
             pageNumbers,
-            currentPage
+            currentPage,
+            newestArticles: newestArticles,
         });
     } catch (error) {
         console.error('Error fetching paginated articles', error);
@@ -37,7 +39,7 @@ router.get('/byCategory', async function (req, res) {
     const limit = 4;
     const currentPage = parseInt(req.query.page, 10) || 1;
     const offset = (currentPage - 1) * limit;
-
+    const newestArticles = await articleService.getNewestArticles();
     try {
         // Đếm tổng số bài viết trong danh mục
         const totalRows = await articleService.countByCategoryId(categoryId);
@@ -57,8 +59,9 @@ router.get('/byCategory', async function (req, res) {
             articles,
             empty: articles.length === 0,
             pageNumbers,
-            catId: categoryId,
-            currentPage
+            categoryId: categoryId,
+            currentPage,
+            newestArticles: newestArticles,
         });
     } catch (error) {
         console.error('Error fetching paginated articles by category:', error);
@@ -66,16 +69,16 @@ router.get('/byCategory', async function (req, res) {
     }
 });
 
-router.get('/search', async function(req, res) {
+router.get('/search', async function (req, res) {
     const limit = 4;
     const currentPage = parseInt(req.query.page, 10) || 1;
     const offset = (currentPage - 1) * limit;
-
-    const title = req.query.title ? req.query.title.trim() : null; 
+    const newestArticles = await articleService.getNewestArticles();
+    const title = req.query.title ? req.query.title.trim() : null;
 
     try {
         if (!title) {
-            return res.render('vwArticle/search', {
+            res.render('vwArticle/search', {
                 articles: [],
                 empty: true,
                 searchTerm: '',
@@ -83,7 +86,8 @@ router.get('/search', async function(req, res) {
                 currentPage,
                 prevPage: null,
                 nextPage: null,
-                title: ''
+                title: '',
+                newestArticles: newestArticles,
             });
         }
 
@@ -107,7 +111,8 @@ router.get('/search', async function(req, res) {
             currentPage,
             prevPage: currentPage > 1 ? currentPage - 1 : null,
             nextPage: currentPage < totalPages ? currentPage + 1 : null,
-            title
+            title,
+            newestArticles: newestArticles,
         });
         console.log('Search term:', title);
     } catch (error) {

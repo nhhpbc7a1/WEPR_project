@@ -1,9 +1,10 @@
 import db from '../../ultis/db.js';
 
 export default {
-    findAll() {
+    findAllOfWriterID(writer_id) {
         return db('articles')
             .join('categories', 'categories.category_id', 'articles.category_id')
+            .where('articles.writer_id', writer_id)
             .leftJoin('users', 'users.user_id', 'articles.writer_id');
     },
     findByID(ID) {
