@@ -27,7 +27,7 @@
 
       $.getJSON('/account/is-available?username=' + username, function (data) {
         if (data) {
-          alert('This username have been used for another account. Please try another email.');
+          alert('Username đã có người sử dụng. Vui lòng dùng username khác.');
         } else {
           $('#frmSignUp').off('submit').submit();  // Corrected selector syntax
         }

@@ -29,7 +29,7 @@ export default {
     async getNewestArticles() {
         return await db('Articles as A')
             .where('A.published_date', '>=', db.raw('DATE_SUB(NOW(), INTERVAL 10000 DAY)'))
-            .select('A.title', 'C.category_name', 'A.published_date', 'A.image_url', 'A.article_id', 'A.abstract', 'A.category_id')
+            .select('A.title', 'C.category_name', 'A.published_date', 'A.image_url', 'A.article_id', 'A.abstract', 'A.category_id','A.is_premium')
             .join('Categories as C', 'A.category_id', 'C.category_id')
             .orderBy('A.published_date', 'desc')
             .limit(5);

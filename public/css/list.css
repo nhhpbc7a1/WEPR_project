@@ -19,3 +19,15 @@
     text-decoration: none;
     color: #0056b3;
 }
+
+.my_tags {
+    color: #aaa;
+    border: solid 1px #aaa;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.my_tags i{
+    margin-right: 4px;
+}

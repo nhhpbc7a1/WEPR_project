@@ -4,7 +4,7 @@ export default {
     // 1. Hiển thị 3-4 bài viết nổi bật nhất trong tuần qua
     async getFeaturedArticlesThisWeek() {
         return await db('Articles as A')
-            .select('A.title', 'C.category_name', 'A.published_date', 'A.image_url', 'A.article_id','A.category_id')
+            .select('A.title', 'C.category_name', 'A.published_date', 'A.image_url', 'A.article_id','A.category_id','A.is_premium')
             .join('Categories as C', 'A.category_id', 'C.category_id')
             .where('A.is_featured', true)
             .andWhere('A.published_date', '>=', db.raw('DATE_SUB(NOW(), INTERVAL 10000 DAY)'))
@@ -16,7 +16,7 @@ export default {
     async getMostViewedArticles() {
         return await db('Articles as A')
             .where('A.published_date', '>=', db.raw('DATE_SUB(NOW(), INTERVAL 10000 DAY)'))
-            .select('A.title', 'C.category_name', 'A.published_date', 'A.image_url', 'A.article_id', 'A.abstract','A.category_id')
+            .select('A.title', 'C.category_name', 'A.published_date', 'A.image_url', 'A.article_id', 'A.abstract','A.category_id','A.is_premium')
             .count('V.view_id as view_count')
             .join('Categories as C', 'A.category_id', 'C.category_id')
             .leftJoin('Article_Views as V', 'A.article_id', 'V.article_id')
@@ -30,7 +30,7 @@ export default {
 
         return await db('Articles as A')
             .where('A.published_date', '>=', db.raw('DATE_SUB(NOW(), INTERVAL 10000 DAY)'))
-            .select('A.title', 'C.category_name', 'A.published_date', 'A.image_url', 'A.article_id', 'A.abstract','A.category_id')
+            .select('A.title', 'C.category_name', 'A.published_date', 'A.image_url', 'A.article_id', 'A.abstract','A.category_id','A.is_premium')
             .join('Categories as C', 'A.category_id', 'C.category_id')
             .orderBy('A.published_date', 'desc')
             .limit(10);
@@ -46,7 +46,7 @@ export default {
 
         return await db('Articles as A')
             .where('A.published_date', '>=', db.raw('DATE_SUB(NOW(), INTERVAL 10000 DAY)'))
-            .select('A.title', 'C.category_name', 'A.published_date', 'A.image_url', 'A.article_id', 'A.abstract','A.category_id')
+            .select('A.title', 'C.category_name', 'A.published_date', 'A.image_url', 'A.article_id', 'A.abstract','A.category_id','A.is_premium')
             .join('Categories as C', 'A.category_id', 'C.category_id')
             .whereIn(['A.category_id', 'A.published_date'], subquery)
             .orderBy('C.category_name', 'asc')
