@@ -85,7 +85,6 @@ export default {
   async searchArticlesByTitleCount(title) {
     try {
       const result = await db('Articles')
-        .leftJoin('Comments', 'Articles.article_id', 'Comments.article_id')
         .where('Articles.title', 'like', `%${title}%`)
         .count('* as total')
         .first();
@@ -97,6 +96,7 @@ export default {
   },
   async findPageBySearchTitle(title, limit, offset) {
     try {
+      // Truy vấn danh sách bài viết và đếm số lượng bình luận
       const articles = await db('Articles')
         .leftJoin('Comments', 'Articles.article_id', 'Comments.article_id')
         .select(
@@ -104,17 +104,40 @@ export default {
           db.raw('COUNT(Comments.comment_id) as commentsCount')
         )
         .where('Articles.title', 'like', `%${title}%`)
+        .groupBy('Articles.article_id') // Đảm bảo GROUP BY cho COUNT
         .limit(limit)
         .offset(offset);
-      for (let article of articles)
-        article.tags = await db('tags').join('Article_tags','article_tags.tag_id','tags.tag_id').where('article_tags.article_id', article.article_id);
+  
+      if (articles.length === 0) {
+        return [];
+      }
+  
+      // Lấy tất cả article_id từ danh sách bài viết
+      const articleIds = articles.map(article => article.article_id);
+  
+      // Truy vấn tất cả tags liên quan đến các bài viết
+      const tags = await db('tags')
+        .join('Article_tags', 'Article_tags.tag_id', 'tags.tag_id')
+        .whereIn('Article_tags.article_id', articleIds)
+        .select('Article_tags.article_id', 'tags.tag_id', 'tags.tag_name'); // Lấy article_id, tag_id và tag_name
+  
+      // Gán tags vào từng bài viết
+      articles.forEach(article => {
+        article.tags = tags
+          .filter(tag => tag.article_id === article.article_id)
+          .map(tag => ({
+            tag_id: tag.tag_id,
+            tag_name: tag.tag_name
+          })); // Tạo đối tượng tag gồm tag_id và tag_name
+      });
+  
       return articles;
-
+  
     } catch (error) {
       console.error('Error fetching paginated articles by search title:', error);
       throw new Error('Unable to fetch paginated articles');
     }
   }
-
+      
 
 }

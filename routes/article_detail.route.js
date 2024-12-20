@@ -11,7 +11,8 @@ router.get('/',async function (req, res)
     const article = await articleDetailService.findArticleById(id);
     const tagList = await articleDetailService.findTagByArticleId(id);
     // console.log(list);
-    const commentList = await articleDetailService.findCommentByArticleId(id)
+    const commentList = await articleDetailService.findCommentByArticleId(id);
+    const parentCat = await articleDetailService.findParentCategory(article.parent_category_id);
     // console.log(article);
     // console.log(commentList);
     // console.log(tagList);
@@ -21,7 +22,7 @@ router.get('/',async function (req, res)
         articleDetail: article,
         comments: commentList,
         tags : tagList,
-
+        parentCat: parentCat,
     })
 });
 // router.get('/add', function(req, res){

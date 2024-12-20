@@ -58,6 +58,12 @@ app.engine('hbs', engine({
         formatDate(date) {
             return moment(date).format('MMMM DD, YYYY');  // Định dạng ngày theo format
         },
+        formatDate_x(inputDate, format) {
+            moment.locale('vi'); 
+            const date = moment(inputDate);
+            const formattedDate = date.format(format);
+            return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
+        },
         formatYMD(date) {
             return moment(date).format('MMMM DD, YYYY');  // Định dạng ngày theo format
         },
@@ -67,6 +73,14 @@ app.engine('hbs', engine({
             const formattedDate = date.format('dddd, DD/MM/YYYY');
             return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
         },
+        formatDate_thumuoi(inputDate) {
+            moment.locale('vi'); // Thiết lập ngôn ngữ là tiếng Việt
+            const date = moment(inputDate);
+            // Định dạng theo yêu cầu
+            const formattedDate = date.format('dddd, D/M/YYYY, HH:mm (Z)');
+            // Viết hoa chữ cái đầu
+            return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
+        },        
         formatDate_nothu(inputDate) {
             const date = moment(inputDate);
             const formattedDate = date.format('DD/MM/YYYY');

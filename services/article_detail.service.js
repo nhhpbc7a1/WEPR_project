@@ -10,6 +10,11 @@ export default{
         .where('article_id', id)
         .first();
     },
+    findParentCategory(category_id) {
+        return db('Categories')
+        .where('category_id', category_id)
+       .first();
+    },
     findCommentByArticleId(id){
         return db('Comments').where('article_id',id);
     },

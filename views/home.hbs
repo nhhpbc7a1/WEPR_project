@@ -18,7 +18,7 @@
                             </a>
                             <div class="swiper-caption" style="height: 120px;">
                                 <div class="">
-                                    <a class="home_slider_category" href="#">{{category_name}}</a>
+                                    <a class="home_slider_category" href="/article_list/byCategory?id={{category_id}}">{{category_name}}</a>
                                     <a class="ml-3 home_slider_time">{{formatDate_thu published_date}}</a>
                                 </div>
                                 <a class="home_slider_title" href="/article_detail?id={{article_id}}">{{title}}</a>
@@ -52,7 +52,7 @@
                         </p>
                         <div class="row ml-3">
                             <p class="list_grid_date">{{formatDate_nothu published_date}}</p>
-                            <a class="list_grid_category ml-3">{{category_name}}</a>
+                            <a class="list_grid_category ml-3" href="/article_list/byCategory?id={{category_id}}">{{category_name}}</a>
                         </div>
                     </div>
 
@@ -81,7 +81,7 @@
 
                             <div class="row ml-1">
                                 <p class="top_article_content_time">{{formatDate_nothu published_date}}</p>
-                                <a class="top_article_content_time ml-3" href="">{{category_name}}</a>
+                                <a class="top_article_content_time ml-3" href="/article_list/byCategory?id={{category_id}}">{{category_name}}</a>
                             </div>
                         </div>
                     </div>
@@ -102,7 +102,7 @@
 
                 <div class="container top_category">
                     <div class="row top_category_name">
-                        <a href="">{{category_name}}</a>
+                        <a href="/article_list/byCategory?id={{category_id}}">{{category_name}}</a>
                     </div>
                     <div class="row top_category_content d-flex">
                         <div class="">

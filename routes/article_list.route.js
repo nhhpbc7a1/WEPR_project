@@ -1,7 +1,7 @@
 import express from 'express';
-import articleService from '../services/reader/article_list.service.js'; 
+import articleService from '../services/reader/article_list.service.js';
 const router = express.Router();
-router.get('/', async function(req, res) {
+router.get('/', async function (req, res) {
     const limit = 4;
     const currentPage = parseInt(req.query.page, 10) || 1;
     const offset = (currentPage - 1) * limit;
@@ -57,7 +57,7 @@ router.get('/byCategory', async function (req, res) {
             articles,
             empty: articles.length === 0,
             pageNumbers,
-            catId: categoryId,
+            categoryId: categoryId,
             currentPage
         });
     } catch (error) {
@@ -66,16 +66,16 @@ router.get('/byCategory', async function (req, res) {
     }
 });
 
-router.get('/search', async function(req, res) {
+router.get('/search', async function (req, res) {
     const limit = 4;
     const currentPage = parseInt(req.query.page, 10) || 1;
     const offset = (currentPage - 1) * limit;
 
-    const title = req.query.title ? req.query.title.trim() : null; 
+    const title = req.query.title ? req.query.title.trim() : null;
 
     try {
         if (!title) {
-            return res.render('vwArticle/search', {
+            res.render('vwArticle/search', {
                 articles: [],
                 empty: true,
                 searchTerm: '',
