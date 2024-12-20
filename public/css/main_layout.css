@@ -23,10 +23,10 @@
 .huy_navbar_left .have_border,
 .huy_navbar_right input#myInput {
   width: 200px;
-  padding: 10px 15px;
+  padding: 5px 15px;
   border: 2px solid #ccc;
   /* Border styling */
-  border-radius: 15px;
+  border-radius: 5px;
   outline: none;
   /* Remove default outline */
   transition: all 0.3s ease;
@@ -47,8 +47,8 @@
 /* Styling for search button */
 .huy_navbar_right .btn-primary {
   margin-left: 10px;
-  padding: 10px 15px;
-  border-radius: 20px;
+  padding: 5px 15px;
+  border-radius: 5px;
   background-color: #ffffff;
   border: none;
   color: rgb(0, 0, 0);
@@ -199,9 +199,9 @@
 }
 
 .premium_block {
-  color: yellow;
+  color: orange;
   font-size: 24px;
-  border: 1px solid yellow;
+  border: 1px solid orange;
   padding: 4px 8px;
   border-radius: 4px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05), 0 6px 20px 0 rgba(0, 0, 0, 0.05);
@@ -212,7 +212,7 @@
 }
 
 .premium_block i {
-  margin-right: 6px;
+  /* margin-right: 6px; */
 }
 
 .premium_block_mini {
