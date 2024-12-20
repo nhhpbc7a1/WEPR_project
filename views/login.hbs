@@ -1,57 +1,21 @@
-{{#section 'js'}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-  $(document).ready(function () {
-
-    $('#frmLogin').on('submit', function (e) {
-      e.preventDefault();
-      const username = $('#txtUsername').val();
-      const password = $('#txtPassword').val();
-      //const passwordConfirm = $('#txtPasswordConfirm').val();
-
-      if (username.length === 0) {
-        alert('username is required');
-        return;
-      }
-
-      if (password.length === 0) {
-        alert('password is required');
-        return;
-      }
-
-      /*
-      if (password !== passwordConfirm) {
-        alert('Mật khẩu và xác nhận mật khẩu không khớp.');
-        return;
-      }*/
-
-
-      $('#frmLogin').off('submit').submit();  // Corrected selector syntax
-    })
-  });
-</script>
-
-{{/section}}
 <div class="container">
   {{#if showErrors}}
   <div class="alert alert-danger" role="alert">
     Sai tên tài khoản hoặc mật khẩu!
   </div>
   {{/if}}
-  <div
-    style="font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; display: flex; background: #fff; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+  <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; display: flex; background: #fff; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
     <!-- Cột bên trái -->
     <div style="width: 50%; padding: 30px; border-right: 1px solid #ddd;">
       <h2 style="color: #333; font-size: 24px; margin-bottom: 20px;">Đăng nhập VnExpress</h2>
-      <p style="font-size: 14px; color: #555; margin-bottom: 20px;">Để sử dụng đầy đủ tính năng đọc báo và tham gia cộng
-        đồng hơn 8 triệu thành viên</p>
+      <p style="font-size: 14px; color: #555; margin-bottom: 20px;">Để sử dụng đầy đủ tính năng đọc báo và tham gia cộng đồng hơn 8 triệu thành viên</p>
       <form id="frmLogin" action="/account/login" method="POST">
         <div style="margin-bottom: 20px;">
           <input id="txtUsername" type="text" name="username" placeholder="Nhập username" required
             style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; box-sizing: border-box;">
         </div>
         <div style="margin-bottom: 20px;">
-          <input id="txtPassword" type="password" name="raw_password" placeholder="Tạo mật khẩu" required
+          <input id="txtPassword" type="password" name="raw_password" placeholder="Nhập mật khẩu" required
             style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; box-sizing: border-box;">
         </div>
         <button type="submit"
@@ -76,10 +40,15 @@
         style="width: 100%; padding: 10px; margin-bottom: 15px; background-color: #4267B2; color: white; font-size: 14px; border: none; border-radius: 4px; cursor: pointer;">
         Facebook
       </button>
-      <button
-        style="width: 100%; padding: 10px; margin-bottom: 15px; background-color: #DB4437; color: white; font-size: 14px; border: none; border-radius: 4px; cursor: pointer;">
-        Google
-      </button>
+      
+      <!-- Nút Google Login (Google Identity Services sẽ render nó) -->
+      <div id="google-login" style="padding: 10px; margin-bottom: 15px; background-color: #DB4437; color: white; font-size: 14px; border: none; border-radius: 4px;"></div>
+
+      <!-- Form ẩn để xử lý Google Login -->
+      <form id="frmGoogleLogin" action="/account/auth/google" method="POST" style="display: none;">
+        <input type="hidden" name="id_token" id="google-id-token">
+      </form>
+
       <button
         style="width: 100%; padding: 10px; background-color: #333; color: white; font-size: 14px; border: none; border-radius: 4px; cursor: pointer;">
         Apple
@@ -87,3 +56,52 @@
     </div>
   </div>
 </div>
+
+{{#section 'js'}}
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+  // Xử lý phản hồi từ Google Identity Services
+  function handleCredentialResponse(response) {
+    console.log('Encoded JWT ID token:', response.credential);
+
+    // Gửi token tới backend
+    const idTokenInput = document.getElementById('google-id-token');
+    idTokenInput.value = response.credential;
+
+    const googleLoginForm = document.getElementById('frmGoogleLogin');
+    googleLoginForm.submit();
+  }
+
+  // Khởi tạo Google Identity Services khi trang tải xong
+  window.onload = function () {
+    google.accounts.id.initialize({
+      client_id: '27591522593-3vh6610g3n58hreubc5o3eatbv52ohi7.apps.googleusercontent.com',
+      callback: handleCredentialResponse
+    });
+
+    // Hiển thị nút Google Sign-In
+    google.accounts.id.renderButton(
+      document.getElementById('google-login'),
+      { 
+        theme: '',  // Chỉ hiển thị nút outline mà không có ảnh đại diện
+        size: 'large',     // Kích thước lớn cho nút
+        text: 'Đăng nhập bằng google', // Hiển thị "Sign in with Google"
+        width: '100%'   
+      }
+    );
+  };
+
+  // Xử lý form đăng nhập thông thường
+  document.getElementById('frmLogin').addEventListener('submit', function (event) {
+    const username = document.getElementById('txtUsername').value.trim();
+    const password = document.getElementById('txtPassword').value.trim();
+
+    if (!username || !password) {
+      alert('Vui lòng nhập đầy đủ thông tin.');
+      event.preventDefault(); // Ngăn form gửi dữ liệu
+    }
+  });
+</script>
+{{/section}}
