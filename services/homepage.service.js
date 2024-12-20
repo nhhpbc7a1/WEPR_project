@@ -15,7 +15,8 @@ export default {
     // 2. Hiển thị 10 bài viết được xem nhiều nhất (mọi chuyên mục)
     async getMostViewedArticles() {
         return await db('Articles as A')
-            .select('A.title', 'C.category_name', 'A.published_date', 'A.image_url', 'A.article_id')
+            .where('A.published_date', '>=', db.raw('DATE_SUB(NOW(), INTERVAL 10000 DAY)'))
+            .select('A.title', 'C.category_name', 'A.published_date', 'A.image_url', 'A.article_id', 'A.abstract')
             .count('V.view_id as view_count')
             .join('Categories as C', 'A.category_id', 'C.category_id')
             .leftJoin('Article_Views as V', 'A.article_id', 'V.article_id')
@@ -28,7 +29,8 @@ export default {
     async getNewestArticles() {
 
         return await db('Articles as A')
-            .select('A.title', 'C.category_name', 'A.published_date', 'A.image_url', 'A.article_id')
+            .where('A.published_date', '>=', db.raw('DATE_SUB(NOW(), INTERVAL 10000 DAY)'))
+            .select('A.title', 'C.category_name', 'A.published_date', 'A.image_url', 'A.article_id', 'A.abstract')
             .join('Categories as C', 'A.category_id', 'C.category_id')
             .orderBy('A.published_date', 'desc')
             .limit(10);
@@ -43,7 +45,8 @@ export default {
             .groupBy('category_id');
 
         return await db('Articles as A')
-            .select('A.title', 'C.category_name', 'A.published_date', 'A.image_url', 'A.article_id')
+            .where('A.published_date', '>=', db.raw('DATE_SUB(NOW(), INTERVAL 10000 DAY)'))
+            .select('A.title', 'C.category_name', 'A.published_date', 'A.image_url', 'A.article_id', 'A.abstract')
             .join('Categories as C', 'A.category_id', 'C.category_id')
             .whereIn(['A.category_id', 'A.published_date'], subquery)
             .orderBy('C.category_name', 'asc')

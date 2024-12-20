@@ -19,7 +19,7 @@
                             <div class="swiper-caption" style="height: 120px;">
                                 <div class="">
                                     <a class="home_slider_category" href="#">{{category_name}}</a>
-                                    <a class="ml-3 home_slider_time">{{published_date}}</a>
+                                    <a class="ml-3 home_slider_time">{{formatDate_thu published_date}}</a>
                                 </div>
                                 <a class="home_slider_title" href="/article_detail?id={{article_id}}">{{title}}</a>
                             </div>
@@ -47,14 +47,11 @@
                     </a>
                     <div class="ml-3" style="flex:1;">
                         <a class="list_grid_title" href="/article_detail?id={{article_id}}">{{title}}</a>
-                        <p class="list_grid_abstract">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Nostrum,
-                            nulla perspiciatis! Nostrum libero doloribus quae aliquam blanditiis. Quaerat quae,
-                            tempora
-                            aliquid magni laboriosam veniam perspiciatis itaque placeat id similique necessitatibus.
+                        <p class="list_grid_abstract">
+                            {{abstract}}
                         </p>
                         <div class="row ml-3">
-                            <p class="list_grid_date">17-11-2024</p>
+                            <p class="list_grid_date">{{formatDate_nothu published_date}}</p>
                             <a class="list_grid_category ml-3">{{category_name}}</a>
                         </div>
                     </div>
@@ -83,8 +80,7 @@
                             </h5>
 
                             <div class="row ml-1">
-
-                                <p class="top_article_content_time">17/11/2024</p>
+                                <p class="top_article_content_time">{{formatDate_nothu published_date}}</p>
                                 <a class="top_article_content_time ml-3" href="">{{category_name}}</a>
                             </div>
                         </div>
@@ -115,14 +111,13 @@
 
                         <div class="ml-3" style="flex: 1;">
                             <h1 class="top_category_content_title">
-                                Việt Nam không phải chia sẻ sân Việt Trì ở AFF Cup 2024
+                                {{title}}
                             </h1>
                             <p class="top_category_content_abstract">
-                                Việt Nam không phải chia sẻ sân Việt Trì, sau khi LĐBĐ Đông Nam Á chấp thuận để Timor Leste
-                                chuyển sang sân ...
+                                {{abstract}}
                             </p>
                             <p class="top_category_content_time">
-                                17/11/2024
+                                {{formatDate_nothu published_date}}
                             </p>
                         </div>
                     </div>

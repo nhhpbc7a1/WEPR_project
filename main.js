@@ -8,9 +8,9 @@ import homepageService from './services/homepage.service.js';;
 import categoryService from './services/category.service.js';
 import moment from 'moment';
 import session from 'express-session';
-import {authAdmin} from './middlewares/auth.route.js';
-import {authEditor} from './middlewares/auth.route.js';
-import {authWriter} from './middlewares/auth.route.js';
+import { authAdmin } from './middlewares/auth.route.js';
+import { authEditor } from './middlewares/auth.route.js';
+import { authWriter } from './middlewares/auth.route.js';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
@@ -60,7 +60,19 @@ app.engine('hbs', engine({
         },
         formatYMD(date) {
             return moment(date).format('MMMM DD, YYYY');  // Định dạng ngày theo format
+        },
+        formatDate_thu(inputDate) {
+            moment.locale('vi');
+            const date = moment(inputDate);
+            const formattedDate = date.format('dddd, DD/MM/YYYY');
+            return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
+        },
+        formatDate_nothu(inputDate) {
+            const date = moment(inputDate);
+            const formattedDate = date.format('DD/MM/YYYY');
+            return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
         }
+
     },
 }));
 
