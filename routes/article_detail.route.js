@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/',async function (req, res)
 {
     const id =  +req.query.id || 0;
-    const list = await articleDetailService.findAll(); 
+    const list = await articleDetailService.getNewestArticles(); 
     const article = await articleDetailService.findArticleById(id);
     const tagList = await articleDetailService.findTagByArticleId(id);
     // console.log(list);

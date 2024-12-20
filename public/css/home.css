@@ -79,7 +79,12 @@
     cursor: pointer;
 }
 
-.top_category {
+.top_category a{
+    color: #222222;
+}
+.top_category a:hover {
+    color: #065e9d;
+    text-decoration: none;
 }
 
 .top_category_name > a{
@@ -100,7 +105,7 @@
 
 
 .top_category_content_image{
-    height: 130px;
+    height: 145px;
     width: 240px;
 }
 
@@ -124,8 +129,20 @@
     padding: 0 5px;
 }
 
+.top_article_content a {
+    color: #222222;
+    font-family: "Gill Sans", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.top_article_content a:hover {
+    color: #065e9d;
+    text-decoration: none;
+}
+
 .top_article_content_image{
-    height: 50px;
+    height: 60px;
     width: 100px;
 }
 
