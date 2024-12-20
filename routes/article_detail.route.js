@@ -23,8 +23,8 @@ router.get('/', async function (req, res) {
             errorMessage = "Đây là bài viết premium, vui lòng đăng nhập để xem nội dung!";
             error = true;
         }
-        else if (req.session.authUser.role_id == 4 && req.session.authUser.subscription_expiration < new Date()) {
-            errorMessage = "Tài khoản của bạn đã gói premium, vui lòng gia hạn để xem tiếp các bài viết premium!";
+        else if (req.session.authUser.role_id == 4 && new Date(req.session.authUser.subscription_expiration) < new Date()) {
+            errorMessage = "Tài khoản của bạn đã hết gói premium, vui lòng gia hạn để xem tiếp các bài viết premium!";
             error = true;
         }
     }
