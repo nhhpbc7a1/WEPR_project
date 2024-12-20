@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import check from '../middlewares/auth.route.js'
 import moment from 'moment';
 import googleAuthService from '../services/googleAuthService.js';
-
+import FacebookAuthService from '../services/facebookAuth.service.js';
 const router = express.Router();
 
 router.get('/signup', async function (req, res) {
@@ -153,6 +153,38 @@ router.get('/auth/google/callback', async function (req, res) {
     } catch (error) {
         console.error('Lỗi xác thực Google Callback:', error);
         res.status(400).render('login', { showErrors: true });
+    }
+});
+router.post('/auth/facebook', async function (req, res) {
+    const { accessToken } = req.body;
+    console.log(accessToken)
+    try {
+     
+        const userPayload = await FacebookAuthService.getUserData(accessToken);
+        
+        let user = await accountService.findByEmail(userPayload.email);
+
+        if (!user) {
+            // Nếu chưa có người dùng, tạo mới
+            const newUser = {
+                username: userPayload.name,
+                email: userPayload.email,
+                password: '', 
+                role_id: 4,   
+            };
+            const userId = await accountService.add_user(newUser);
+            user = { ...newUser, id: userId };
+        }
+
+        req.session.auth = true;
+        req.session.authUser = user;
+
+        const retUrl = req.session.retUrl || '/';
+        res.redirect(retUrl);
+
+    } catch (error) {
+        console.error('Lỗi xác thực Facebook:', error);
+        return res.status(400).render('login', { showErrors: true });
     }
 });
 

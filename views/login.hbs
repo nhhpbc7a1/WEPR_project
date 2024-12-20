@@ -36,23 +36,24 @@
     <!-- Cột bên phải -->
     <div style="width: 50%; padding: 30px; background-color: #f8f9fa;">
       <h2 style="color: #333; font-size: 24px; margin-bottom: 20px;">Đăng nhập tài khoản với</h2>
-      <button
-        style="width: 100%; padding: 10px; margin-bottom: 15px; background-color: #4267B2; color: white; font-size: 14px; border: none; border-radius: 4px; cursor: pointer;">
+        <button
+        id="facebook-login-btn"
+         style="width: 100%; padding: 10px; margin-bottom: 15px; background-color: #4267B2; color: white; font-size: 14px; border: none; border-radius: 4px; cursor: pointer;">
         Facebook
       </button>
       
       <!-- Nút Google Login (Google Identity Services sẽ render nó) -->
-      <div id="google-login" style="padding: 10px; margin-bottom: 15px; background-color: #DB4437; color: white; font-size: 14px; border: none; border-radius: 4px;"></div>
+        <button 
+    id="google-login-btn" 
+    style="width: 100%; padding: 10px; margin-bottom: 15px; background-color: #DB4437; color: white; font-size: 14px; border: none; border-radius: 4px; cursor: pointer;">
+     Google
+  </button>
 
       <!-- Form ẩn để xử lý Google Login -->
       <form id="frmGoogleLogin" action="/account/auth/google" method="POST" style="display: none;">
         <input type="hidden" name="id_token" id="google-id-token">
       </form>
 
-      <button
-        style="width: 100%; padding: 10px; background-color: #333; color: white; font-size: 14px; border: none; border-radius: 4px; cursor: pointer;">
-        Apple
-      </button>
     </div>
   </div>
 </div>
@@ -62,8 +63,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script>
-  // Xử lý phản hồi từ Google Identity Services
-  function handleCredentialResponse(response) {
+   function handleCredentialResponse(response) {
     console.log('Encoded JWT ID token:', response.credential);
 
     // Gửi token tới backend
@@ -74,23 +74,16 @@
     googleLoginForm.submit();
   }
 
-  // Khởi tạo Google Identity Services khi trang tải xong
   window.onload = function () {
     google.accounts.id.initialize({
       client_id: '27591522593-3vh6610g3n58hreubc5o3eatbv52ohi7.apps.googleusercontent.com',
       callback: handleCredentialResponse
     });
 
-    // Hiển thị nút Google Sign-In
-    google.accounts.id.renderButton(
-      document.getElementById('google-login'),
-      { 
-        theme: '',  // Chỉ hiển thị nút outline mà không có ảnh đại diện
-        size: 'large',     // Kích thước lớn cho nút
-        text: 'Đăng nhập bằng google', // Hiển thị "Sign in with Google"
-        width: '100%'   
-      }
-    );
+    // Sự kiện click vào nút Google login
+    document.getElementById('google-login-btn').addEventListener('click', function() {
+      google.accounts.id.prompt(); // Gọi Google Sign-In
+    });
   };
 
   // Xử lý form đăng nhập thông thường
@@ -103,5 +96,47 @@
       event.preventDefault(); // Ngăn form gửi dữ liệu
     }
   });
+</script>
+<script>
+
+  document.getElementById('facebook-login-btn').addEventListener('click', function() {
+  FB.login(function(response) {
+  if (response.authResponse) {
+    const accessToken = response.authResponse.accessToken;
+    $.post('/account/auth/facebook', { accessToken: accessToken })
+      .done(function() {
+        window.location.href = '/';
+      })
+      .fail(function(error) {
+        alert('Lỗi đăng nhập với Facebook! Chi tiết: ' + error.responseText); 
+      });
+  } else {
+    alert('Đăng nhập với Facebook thất bại!');  
+  }
+}, {scope: 'email, public_profile'});
+
+  });
+
+   window.fbAsyncInit = function () { 
+    FB.init({
+      appId      : '451779097775725',  
+      cookie     : true, 
+      xfbml      : true, 
+      version    : 'v21.0'  
+    }); 
+
+    FB.AppEvents.logPageView();  
+  };
+
+  (function(d, s, id){
+    var js, fjs = d.getElementsByTagName(s)[0]; 
+    if (d.getElementById(id)) { 
+      return; 
+    } 
+    js = d.createElement(s); 
+    js.id = id; 
+    js.src = "https://connect.facebook.net/en_US/sdk.js"; 
+    fjs.parentNode.insertBefore(js, fjs); 
+  })(document, 'script', 'facebook-jssdk');
 </script>
 {{/section}}
