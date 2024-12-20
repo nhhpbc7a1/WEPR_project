@@ -1,3 +1,7 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/public/css/article_detail.css">
+{{/section}}
+
 <div class="container">
     <div class="row">
         <div class="col-9 mx-auto">
@@ -12,10 +16,28 @@
             </div>
             <div>
                 <div>
-                    <h1 style="font-weight: bold;" class="text-center">{{articleDetail.title}}</h1>
+                    <h1 style="font-weight: bold;" class="text-center">{{articleDetail.title}}
+                        {{#if articleDetail.is_premium}}
+                        <span class="premium_block">
+                            <i class="fa-solid fa-crown"></i> Premium
+                        </span>
+                        {{/if}}
+                    </h1>
                 </div>
                 <div class="">
+                    {{#if error}}
+                    <div class="container">
+                        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                            <strong>Không đủ quyền truy cập!</strong> {{errorMessage}}
+                        </div>
+                    </div>
+                    {{else}}
                     {{{articleDetail.content}}}
+                    {{/if}}
                 </div>
                 <div class="text-right font-weight-bold mt-3 ">{{articleDetail.pen_name}}</div>
             </div>
@@ -85,6 +107,11 @@
                             <h5 class="top_article_content_title">
                                 <a href="/article_detail?id={{article_id}}">
                                     {{title}}
+                                    {{#if is_premium}}
+                                    <span class="premium_block_mini">
+                                        <i class="fa-solid fa-crown"></i> Premium
+                                    </span>
+                                    {{/if}}
                                 </a>
                             </h5>
 

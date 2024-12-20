@@ -11,6 +11,7 @@ import session from 'express-session';
 import { authAdmin } from './middlewares/auth.route.js';
 import { authEditor } from './middlewares/auth.route.js';
 import { authWriter } from './middlewares/auth.route.js';
+import { authSubscriber } from './middlewares/auth.route.js';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
@@ -142,6 +143,7 @@ app.get('/', async function (req, res) {
         mostViewedArticles: mostViewedArticles,
         newestArticles: newestArticles,
         newestInCategories: newestInCategories,
+        nowDate: new Date(),
     });
 
 });
@@ -151,6 +153,9 @@ app.use('/article_list', article_listRouter);
 
 import article_detailRouter from './routes/article_detail.route.js'
 app.use('/article_detail', article_detailRouter);
+
+import subscriberRouter from './routes/subscriber/subscriber.route.js'
+app.use('/subscriber', authSubscriber, subscriberRouter);
 
 import writerRouter from './routes/writer/writer.route.js'
 app.use('/writer', authWriter, writerRouter);

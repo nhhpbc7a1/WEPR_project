@@ -4,6 +4,8 @@ export default {
   async findAll() {
     try {
       let articles = await db('Articles')
+        .where('Articles.status', 'published')
+        .andWhere('Articles.published_date', '>=', db.raw('DATE_SUB(NOW(), INTERVAL 10000 DAY)'))
         .leftJoin('Comments', 'Articles.article_id', 'Comments.article_id')
         .select(
           'Articles.*',
@@ -22,6 +24,8 @@ export default {
   async countByCategoryId(categoryId) {
     try {
       const result = await db('Articles')
+        .where('Articles.status', 'published')
+        .andWhere('Articles.published_date', '>=', db.raw('DATE_SUB(NOW(), INTERVAL 10000 DAY)'))
         .where('category_id', categoryId)
         .count('* as total')
         .first();
@@ -34,6 +38,8 @@ export default {
   async findPageByCategoryId(categoryId, limit, offset) {
     try {
       const articles = await db('Articles')
+        .where('Articles.status', 'published')
+        .andWhere('Articles.published_date', '>=', db.raw('DATE_SUB(NOW(), INTERVAL 10000 DAY)'))
         .leftJoin('Comments', 'Articles.article_id', 'Comments.article_id')
         .select(
           'Articles.*',
@@ -55,7 +61,10 @@ export default {
   },
   async countAll() {
     try {
-      const result = await db('Articles').count('* as total').first();
+      const result = await db('Articles')
+        .where('Articles.status', 'published')
+        .andWhere('Articles.published_date', '>=', db.raw('DATE_SUB(NOW(), INTERVAL 10000 DAY)'))
+        .count('* as total').first();
       return result.total;
     } catch (error) {
       console.error('Error counting all articles', error);
@@ -65,6 +74,8 @@ export default {
   async findPageAll(limit, offset) {
     try {
       const articles = await db('Articles')
+        .where('Articles.status', 'published')
+        .andWhere('Articles.published_date', '>=', db.raw('DATE_SUB(NOW(), INTERVAL 10000 DAY)'))
         .leftJoin('Comments', 'Articles.article_id', 'Comments.article_id')
         .select(
           'Articles.*',
@@ -85,6 +96,8 @@ export default {
   async searchArticlesByTitleCount(title) {
     try {
       const result = await db('Articles')
+        .where('Articles.status', 'published')
+        .andWhere('Articles.published_date', '>=', db.raw('DATE_SUB(NOW(), INTERVAL 10000 DAY)'))
         .where('Articles.title', 'like', `%${title}%`)
         .count('* as total')
         .first();
@@ -98,6 +111,8 @@ export default {
     try {
       // Truy vấn danh sách bài viết và đếm số lượng bình luận
       const articles = await db('Articles')
+        .where('Articles.status', 'published')
+        .andWhere('Articles.published_date', '>=', db.raw('DATE_SUB(NOW(), INTERVAL 10000 DAY)'))
         .leftJoin('Comments', 'Articles.article_id', 'Comments.article_id')
         .select(
           'Articles.*',
@@ -140,8 +155,9 @@ export default {
   },
   async getNewestArticles() {
     return await db('Articles as A')
-      .where('A.published_date', '>=', db.raw('DATE_SUB(NOW(), INTERVAL 10000 DAY)'))
-      .select('A.title', 'C.category_name', 'A.published_date', 'A.image_url', 'A.article_id', 'A.abstract', 'A.category_id')
+      .where('A.status', 'published')
+      .andWhere('A.published_date', '>=', db.raw('DATE_SUB(NOW(), INTERVAL 10000 DAY)'))
+      .select('A.title', 'C.category_name', 'A.published_date', 'A.image_url', 'A.article_id', 'A.abstract', 'A.category_id', 'A.is_premium')
       .join('Categories as C', 'A.category_id', 'C.category_id')
       .orderBy('A.published_date', 'desc')
       .limit(5);

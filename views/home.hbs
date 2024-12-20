@@ -22,7 +22,13 @@
                                         href="/article_list/byCategory?id={{category_id}}">{{category_name}}</a>
                                     <a class="ml-3 home_slider_time">{{formatDate_thu published_date}}</a>
                                 </div>
-                                <a class="home_slider_title" href="/article_detail?id={{article_id}}">{{title}}</a>
+                                <a class="home_slider_title" href="/article_detail?id={{article_id}}">{{title}}
+                                    {{#if is_premium}}
+                                    <span class="premium_block_mini">
+                                        <i class="fa-solid fa-crown"></i> Premium
+                                    </span>
+                                    {{/if}}
+                                </a>
                             </div>
                         </div>
                         {{/each}}
@@ -47,7 +53,13 @@
                         <img class="list_grid_image" src="{{image_url}}" alt="">
                     </a>
                     <div class="ml-3" style="flex:1;">
-                        <a class="list_grid_title" href="/article_detail?id={{article_id}}">{{title}}</a>
+                        <a class="list_grid_title" href="/article_detail?id={{article_id}}">{{title}}
+                            {{#if is_premium}}
+                            <span class="premium_block_mini">
+                                <i class="fa-solid fa-crown"></i> Premium
+                            </span>
+                            {{/if}}
+                        </a>
                         <p class="list_grid_abstract">
                             {{abstract}}
                         </p>
@@ -82,6 +94,11 @@
                             <h5 class="top_article_content_title">
                                 <a href="/article_detail?id={{article_id}}">
                                     {{title}}
+                                    {{#if is_premium}}
+                                    <span class="premium_block_mini">
+                                        <i class="fa-solid fa-crown"></i> Premium
+                                    </span>
+                                    {{/if}}
                                 </a>
                             </h5>
 
@@ -122,6 +139,11 @@
                             <h1 class="top_category_content_title">
                                 <a href="/article_detail?id={{article_id}}">
                                     {{title}}
+                                    {{#if is_premium}}
+                                    <span class="premium_block_mini">
+                                        <i class="fa-solid fa-crown"></i> Premium
+                                    </span>
+                                    {{/if}}
                                 </a>
                             </h1>
                             <p class="top_category_content_abstract">
