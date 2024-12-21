@@ -8,20 +8,22 @@
 {{/section}}
 
 <form action="" method="post">
-
-    <div class="container-fluid" style="padding: 40px;">
+    <a name="" id="" class=" mb-5 ml-3" href="/admin/tag/list" role="button">
+        <img src="/public/images/icon/back.png" alt="" width="50px">                               
+    </a>
+    <div class="container-fluid" style="padding: 20px 40px;">
         <div class="row">
             <div class="col-12">
                 <div class="card info_part">
                     <div class="card-header">
-                        <h4>Add Tags Information</h4>
+                        <h4>Tags information</h4>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
                                     <div class="form-group">
-                                        <label for="txtCatName">Name</label>
+                                        <label for="txtCatName" style="font-weight: 600; font-size:large">Name</label>
                                         <input type="text" name="tag_name" id="txtCatName" class="form-control"
                                             value="{{tag.tag_name}}">
                                     </div>
@@ -31,19 +33,12 @@
                     </div>
                 </div>
 
-                <div class=" text-muted action_block">
-                    <a name="" id="" class="btn btn-outline-success" href="/admin/tag/list" role="button">
-                        <i class="bi bi-skip-backward-fill"></i>
-                        List
-                    </a>
-                    <button type="submit" class="btn btn-primary ml-3" formaction="/admin/tag/add">
-                        <i class="bi bi-check2"></i>
-                        save
+                <div class="button-container_Add mt-5">
+                    <button type="submit" class="btnSaveEdit btnActionEdit " formaction="/admin/tag/add">
+                        <img src="/public/images/icon/icons8-save-100.png" alt="" width="20%" >
+                        Save
                     </button>
-
                 </div>
-
-            </div>
         </div>
     </div>
 </form>
