@@ -64,7 +64,9 @@
 </script>
 {{/section}}
 
-
+<a name="" id="" class=" mb-5 ml-3" href="/admin/category/list" role="button">
+    <img src="/public/images/icon/back.png" alt="" width="50px">                               
+</a>
 <form id="frmAdduser" action="" method="post">
     <div class="container col-6" style="padding: 40px;">
         <div class="card">
@@ -84,19 +86,19 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="txtPassword">Mật khẩu</label>
+                    <label for="txtPassword">Password</label>
                     <input type="password" name="password" id="txtPassword" class="form-control" placeholder=""
                         value="{{this.user.password}}">
                 </div>
 
                 <div class="form-group">
-                    <label for="txtPasswordConfirm">Xác nhận mật khẩu</label>
+                    <label for="txtPasswordConfirm">Confirm password</label>
                     <input type="password" id="txtPasswordConfirm" class="form-control" placeholder=""
                         value="{{this.user.password}}">
                 </div>
 
                 <div class="form-group">
-                    <label for="txtName">Họ tên</label>
+                    <label for="txtName">Fullname</label>
                     <input type="text" name="fullname" id="txtName" class="form-control" placeholder=""
                         value="{{this.user.fullname}}">
                 </div>
@@ -118,17 +120,12 @@
                     <input type="text" name="raw_dob" id="txtBirthday" class="form-control"
                         value="{{this.user.birth_date}}">
                 </div>
-
             </div>
-            <div class="card-footer text-muted">
-                <a name="" id="" class="btn btn-outline-success" href="/admin/user" role="button">
-                    <i class="bi bi-skip-backward-fill"></i>
-                </a>
-                <button type="submit" class="btn btn-primary">
-                    <i class="bi bi-check2"></i>
-                    save
+            <div class="button-container_Add mt-5 mb-3">
+                <button type="submit" class="btnSaveEdit btnActionEdit ">
+                    <img src="/public/images/icon/icons8-save-100.png" alt="" width="20%" >
+                    Save
                 </button>
-
             </div>
         </div>
     </div>

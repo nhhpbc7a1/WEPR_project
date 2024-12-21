@@ -36,7 +36,7 @@
                 name: "Action",
                 formatter: (cell, row) => {
                     return gridjs.html(`                        
-                        <a class="btn btn-sm btn-primary" href="/admin/category/edit?id=${row.cells[0].data}" role="button">
+                        <a class="btn btn-sm btn-success" href="/admin/category/edit?id=${row.cells[0].data}" role="button">
                             <i class="bi bi-pencil-square"></i>
                         </a>`);
                 }
@@ -50,13 +50,13 @@
         sort: true,
         language: {
             search: {
-                placeholder: 'Tìm kiếm...'
+                placeholder: 'Search'
             },
             pagination: {
-                previous: 'Trước',
-                next: 'Sau',
-                showing: 'Hiển thị',
-                results: () => 'kết quả'
+                previous: 'Previous',
+                next: 'Next',
+                showing: 'Show',
+                results: () => 'results'
             }
         },
         style: {

@@ -13,8 +13,13 @@
                     <div class="swiper-wrapper">
                         {{#each featuredArticles}}
                         <div class="swiper-slide">
-                            <a href="/article_detail?id={{article_id}}" style="width: 100%; height: 100%;">
+                            <a href="/article_detail?id={{article_id}}" style="width: 100%; height: 100%;" class="premium_container">
                                 <img class="d-block w-100" src="{{image_url}}" alt="First slide">
+                                    {{#if is_premium}}
+                                    <span class="premium_block">
+                                        <img src="/public/images/icon/smallwhitecrown.png" alt="" class="imgPremiumMain">
+                                    </span>
+                                    {{/if}}
                             </a>
                             <div class="swiper-caption" style="height: 120px;">
                                 <div class="">
@@ -23,11 +28,6 @@
                                     <a class="ml-3 home_slider_time">{{formatDate_thu published_date}}</a>
                                 </div>
                                 <a class="home_slider_title" href="/article_detail?id={{article_id}}">{{title}}
-                                    {{#if is_premium}}
-                                    <span class="premium_block_mini">
-                                        <i class="fa-solid fa-crown"></i> Premium
-                                    </span>
-                                    {{/if}}
                                 </a>
                             </div>
                         </div>
@@ -43,22 +43,21 @@
 
             <h1 class="my_sider_title">Tin mới</h1>
             {{#each newestInCategories}}
-
             <hr>
             <div class="container list_grid">
                 <div class="">
                 </div>
-                <div class="row d-flex">
-                    <a href="/article_detail?id={{article_id}}">
+                <div class="row d-flex premium_container">
+                    <a href="/article_detail?id={{article_id}}" class="premium_container">
                         <img class="list_grid_image" src="{{image_url}}" alt="">
+                        {{#if is_premium}}
+                            <span class="premium_top10">
+                                <img src="/public/images/icon/whiteCrown.png" alt="" class="imgPremiumMain">
+                            </span>
+                        {{/if}}
                     </a>
                     <div class="ml-3" style="flex:1;">
                         <a class="list_grid_title" href="/article_detail?id={{article_id}}">{{title}}
-                            {{#if is_premium}}
-                            <span class="premium_block_mini">
-                                <i class="fa-solid fa-crown"></i> Premium
-                            </span>
-                            {{/if}}
                         </a>
                         <p class="list_grid_abstract">
                             {{abstract}}
@@ -85,20 +84,20 @@
                     {{#each mostViewedArticles}}
                     <div class="row top_article_content d-flex">
                         <div class="">
-                            <a href="/article_detail?id={{article_id}}">
+                            <a href="/article_detail?id={{article_id}}" class="premium_mostRead_container" >
                                 <img class="top_article_content_image " src="{{image_url}}" alt="">
+                                {{#if is_premium}}
+                                <span class="premium_block_mini mb-1">
+                                    <img src="/public/images/icon/crown.png" alt="" width="30%">
+                                     Premium
+                                </span>
+                                {{/if}}
                             </a>
                         </div>
-
                         <div class="ml-3" style="flex:1;">
                             <h5 class="top_article_content_title">
                                 <a href="/article_detail?id={{article_id}}">
                                     {{title}}
-                                    {{#if is_premium}}
-                                    <span class="premium_block_mini">
-                                        <i class="fa-solid fa-crown"></i> Premium
-                                    </span>
-                                    {{/if}}
                                 </a>
                             </h5>
 
@@ -109,7 +108,7 @@
                             </div>
                         </div>
                     </div>
-                    <hr>
+                    <hr class="mt-4">
                     {{/each}}
 
                 </div>
@@ -128,10 +127,15 @@
                     <div class="row top_category_name">
                         <a href="/article_list/byCategory?id={{category_id}}">{{category_name}}</a>
                     </div>
-                    <div class="row top_category_content d-flex">
-                        <div class="">
-                            <a href="/article_detail?id={{article_id}}">
+                    <div class="row top_category_content d-flex ">
+                        <div class="premium_container">
+                            <a href="/article_detail?id={{article_id}}" class="">
                                 <img class="top_category_content_image " src="{{image_url}}" alt="">
+                                {{#if is_premium}}
+                                <span class=" premium_top10">
+                                    <img src="/public/images/icon/smallwhitecrown.png" alt="" class="imgPremiumMain" width="10%">
+                                </span>
+                                {{/if}}
                             </a>
                         </div>
 
@@ -139,11 +143,6 @@
                             <h1 class="top_category_content_title">
                                 <a href="/article_detail?id={{article_id}}">
                                     {{title}}
-                                    {{#if is_premium}}
-                                    <span class="premium_block_mini">
-                                        <i class="fa-solid fa-crown"></i> Premium
-                                    </span>
-                                    {{/if}}
                                 </a>
                             </h1>
                             <p class="top_category_content_abstract">
