@@ -21,7 +21,7 @@
 }
 .button-container_Edit{
     display: flex; /* Sử dụng Flexbox để dễ dàng căn chỉnh */
-    justify-content: flex-end; /* Căn tất cả phần tử con sang trái */
+    justify-content: flex-start; /* Căn tất cả phần tử con sang trái */
     gap: 10px;
 }
 .btnBackToList{
@@ -46,5 +46,7 @@
     color:  rgb(74, 98, 138);
     width: 180px;
     height: 60px;
+    background-color: white;
+    margin-left: 10px;
 
 }

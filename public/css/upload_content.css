@@ -1,11 +1,11 @@
 .box_newArticle{
-    border: 1px solid rgb(74, 98, 138);
+    border: 1px solid white;
     border-radius: 3px;
     width: 100px;
     height: 30px;
     text-align: center;
     align-items: center;
-    color: rgb(74, 98, 138);
+    color: white;
     font-weight: 500;
 }
 .btnAction{
@@ -59,6 +59,7 @@
     color: white;
     padding: 7px 10px;
     font-size: small;
+    
 }
 #articleImg{
     display: none;

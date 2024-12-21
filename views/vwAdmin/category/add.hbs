@@ -10,14 +10,15 @@
 <form action="" method="post">
 
     <a name="" id="" class=" mb-5 ml-3" href="/admin/category/list" role="button">
-        <img src="/public/images/icon/back.png" alt="" width="50px">                               
+        <img src="/public/images/icon/back.png" alt="" width="40px">                               
     </a>
     <div class="container-fluid" style="padding: 0px 40px;">
         <div class="row mt-3">
             <div class="col-12">
-                <div class="card info_part">
-                    <div class="card-header">
-                        <h4>Catergories Information</h4>
+                <div class="card info_part" style="font-weight: 500;">
+                    <div class="card-header d-flex" style="background-color: rgb(74, 98, 138);">
+                        <h5 style="color: white;" class="mr-3 mt-1">Add Catergories Information</h5>
+                        <img src="/public/images/icon/add.png" alt="" width="35px" height="35px">
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -32,7 +33,7 @@
                                 <div class="form-group">
                                     <label for=""  style="font-weight: 600; font-size:large">Parent category</label>
                                     <div class="form-group">
-                                        <label for=""></label>
+                                        {{!-- <label for=""></label> --}}
                                         <select class="form-control" name="parent_category_id" id="">
                                             <option>Root</option>
                                             {{#each parentCat}}
