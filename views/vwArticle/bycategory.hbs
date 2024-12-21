@@ -15,6 +15,7 @@
         <div class="col-lg-8">
             <!-- Phần tìm kiếm -->
             <h1>Tìm Kiếm</h1>
+            <hr>
             <div class="border p-4 bg-light rounded" style="display: none;">
                 <form>
                     <div class="form-row align-items-end">
@@ -67,10 +68,10 @@
             </div>
 
             <!-- Phần kết quả -->
-            <div class="mt-4">
+            {{!-- <div class="mt-4">
                 <button class="btn btn-secondary btn-sm mr-2">Mới nhất</button>
                 <button class="btn btn-primary btn-sm">Liên quan</button>
-            </div>
+            </div> --}}
 
             <div class="mt-3">
                 <!-- Bài viết -->
@@ -78,18 +79,24 @@
                 <div class="row border-bottom py-3">
                     <div class="col-md-8">
                         <h5><a href="/article_detail?id={{this.article_id}}"
-                                class="text-dark featured-article-title">{{this.title}}</a></h5>
-                        {{#each tags}}
-                        <span class="badge bg-primary me-1">{{tag_name}}</span>
-                        {{/each}}
+                                class="text-dark featured-article-title">{{this.title}}
+                                {{#if is_premium}}
+                                <span class="premium_block_mini">
+                                    <i class="fa-solid fa-crown"></i> Premium
+                                </span>
+                                {{/if}}
+                            </a></h5>
                         <p class="text-muted">{{this.abstract}}</p>
                         <small class="text-muted">
-                            Đăng ngày: {{formatDate this.published_date}}
+                            Đăng ngày: {{formatDate_thu this.published_date}}
                         </small>
                         <div>
-
                             <small class="text-muted">{{this.commentsCount}} bình luận</small>
                         </div>
+                        {{#each tags}}
+                        <span class="my_tags"><i class="fa-solid fa-tag"></i>{{tag_name}}</span>
+                        {{/each}}
+
                     </div>
                     <div class="col-md-4">
                         <img src="{{this.image_url}}" alt="Ảnh bài viết" class="img-fluid rounded">
@@ -127,11 +134,13 @@
                     {{else}}
                     {{#if active}}
                     <li class="page-item active">
-                        <a class="page-link" href="?id={{../categoryId}}?page={{value}}" aria-label="Trang {{value}}">{{value}}</a>
+                        <a class="page-link" href="?id={{../categoryId}}?page={{value}}"
+                            aria-label="Trang {{value}}">{{value}}</a>
                     </li>
                     {{else}}
                     <li class="page-item">
-                        <a class="page-link" href="?id={{../categoryId}}?page={{value}}" aria-label="Trang {{value}}">{{value}}</a>
+                        <a class="page-link" href="?id={{../categoryId}}?page={{value}}"
+                            aria-label="Trang {{value}}">{{value}}</a>
                     </li>
                     {{/if}}
                     {{/if}}
@@ -158,63 +167,43 @@
         </div>
 
         <!-- Cột quảng cáo -->
-        <div class="col-lg-4">
-            <h5 class="font-weight-bold">Danh mục nổi bật</h5>
-            <div class="accordion" id="categoryAccordion">
-                <div class="card">
-                    <div class="card-header" id="headingOne">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link text-dark" type="button" data-toggle="collapse"
-                                data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                Thế giới
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
-                        data-parent="#categoryAccordion">
-                        <div class="card-body">
-                            Nội dung chi tiết về mục "Thế giới".
-                        </div>
-                    </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-header my_sider_title">
+                    Mới nhất
                 </div>
-                <div class="card">
-                    <div class="card-header" id="headingTwo">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link text-dark collapsed" type="button" data-toggle="collapse"
-                                data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                Kinh doanh
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
-                        data-parent="#categoryAccordion">
-                        <div class="card-body">
-                            Nội dung chi tiết về mục "Kinh doanh".
+                <div class="card-body">
+                    {{#each newestArticles}}
+                    <div class="row top_article_content d-flex">
+                        <div class="">
+                            <a href="/article_detail?id={{article_id}}">
+                                <img class="top_article_content_image " src="{{image_url}}" alt="">
+                            </a>
                         </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Phần danh mục nổi bật: Bài viết được tìm kiếm nhiều -->
-            <div class="mt-4">
-                <h5 class="font-weight-bold">Bài viết nổi bật</h5>
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <a href="#" class="text-dark">Nước Mỹ chia rẽ trong bầu cử</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#" class="text-dark">Kinh doanh điện thoại thông minh: Xu hướng năm 2024</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#" class="text-dark">Lao động Gen Z và sự thay đổi trong thị trường việc làm</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#" class="text-dark">Đầu tư vào thị trường bất động sản tại Việt Nam</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#" class="text-dark">Những sự kiện thể thao đáng chú ý trong năm 2024</a>
-                    </li>
-                </ul>
+                        <div class="ml-3" style="flex:1;">
+                            <h5 class="top_article_content_title">
+                                <a href="/article_detail?id={{article_id}}">
+                                    {{title}}
+                                    {{#if is_premium}}
+                                    <span class="premium_block_mini">
+                                        <i class="fa-solid fa-crown"></i> Premium
+                                    </span>
+                                    {{/if}}
+                                </a>
+                            </h5>
+
+                            <div class="row ml-1">
+                                <p class="top_article_content_time">{{formatDate_nothu published_date}}</p>
+                                <a class="top_article_content_time ml-3"
+                                    href="/article_list/byCategory?id={{category_id}}">{{category_name}}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    {{/each}}
+
+                </div>
             </div>
         </div>
     </div>

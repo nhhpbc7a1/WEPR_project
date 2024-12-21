@@ -4,6 +4,8 @@ export default {
   async findAll() {
     try {
       let articles = await db('Articles')
+        .where('Articles.status', 'published')
+        .andWhere('Articles.published_date', '>=', db.raw('DATE_SUB(NOW(), INTERVAL 10000 DAY)'))
         .leftJoin('Comments', 'Articles.article_id', 'Comments.article_id')
         .select(
           'Articles.*',
@@ -12,7 +14,7 @@ export default {
         )
         .groupBy('Articles.article_id');
       for (let article of articles)
-        article.tags = await db('tags').join('Article_tags','article_tags.tag_id','tags.tag_id').where('article_tags.article_id', article.article_id);
+        article.tags = await db('tags').join('Article_tags', 'article_tags.tag_id', 'tags.tag_id').where('article_tags.article_id', article.article_id);
       return articles;
     } catch (error) {
       console.error('Error fetching articles with tags and comments count:', error);
@@ -22,6 +24,8 @@ export default {
   async countByCategoryId(categoryId) {
     try {
       const result = await db('Articles')
+        .where('Articles.status', 'published')
+        .andWhere('Articles.published_date', '>=', db.raw('DATE_SUB(NOW(), INTERVAL 10000 DAY)'))
         .where('category_id', categoryId)
         .count('* as total')
         .first();
@@ -34,6 +38,8 @@ export default {
   async findPageByCategoryId(categoryId, limit, offset) {
     try {
       const articles = await db('Articles')
+        .where('Articles.status', 'published')
+        .andWhere('Articles.published_date', '>=', db.raw('DATE_SUB(NOW(), INTERVAL 10000 DAY)'))
         .leftJoin('Comments', 'Articles.article_id', 'Comments.article_id')
         .select(
           'Articles.*',
@@ -45,7 +51,7 @@ export default {
         .offset(offset);
 
       for (let article of articles)
-        article.tags = await db('tags').join('Article_tags','article_tags.tag_id','tags.tag_id').where('article_tags.article_id', article.article_id);
+        article.tags = await db('tags').join('Article_tags', 'article_tags.tag_id', 'tags.tag_id').where('article_tags.article_id', article.article_id);
       return articles;
 
     } catch (error) {
@@ -55,7 +61,10 @@ export default {
   },
   async countAll() {
     try {
-      const result = await db('Articles').count('* as total').first();
+      const result = await db('Articles')
+        .where('Articles.status', 'published')
+        .andWhere('Articles.published_date', '>=', db.raw('DATE_SUB(NOW(), INTERVAL 10000 DAY)'))
+        .count('* as total').first();
       return result.total;
     } catch (error) {
       console.error('Error counting all articles', error);
@@ -65,6 +74,8 @@ export default {
   async findPageAll(limit, offset) {
     try {
       const articles = await db('Articles')
+        .where('Articles.status', 'published')
+        .andWhere('Articles.published_date', '>=', db.raw('DATE_SUB(NOW(), INTERVAL 10000 DAY)'))
         .leftJoin('Comments', 'Articles.article_id', 'Comments.article_id')
         .select(
           'Articles.*',
@@ -74,7 +85,7 @@ export default {
         .limit(limit)
         .offset(offset);
       for (let article of articles)
-        article.tags = await db('tags').join('Article_tags','article_tags.tag_id','tags.tag_id').where('article_tags.article_id', article.article_id);
+        article.tags = await db('tags').join('Article_tags', 'article_tags.tag_id', 'tags.tag_id').where('article_tags.article_id', article.article_id);
       return articles;
 
     } catch (error) {
@@ -85,6 +96,8 @@ export default {
   async searchArticlesByTitleCount(title) {
     try {
       const result = await db('Articles')
+        .where('Articles.status', 'published')
+        .andWhere('Articles.published_date', '>=', db.raw('DATE_SUB(NOW(), INTERVAL 10000 DAY)'))
         .where('Articles.title', 'like', `%${title}%`)
         .count('* as total')
         .first();
@@ -98,6 +111,8 @@ export default {
     try {
       // Truy vấn danh sách bài viết và đếm số lượng bình luận
       const articles = await db('Articles')
+        .where('Articles.status', 'published')
+        .andWhere('Articles.published_date', '>=', db.raw('DATE_SUB(NOW(), INTERVAL 10000 DAY)'))
         .leftJoin('Comments', 'Articles.article_id', 'Comments.article_id')
         .select(
           'Articles.*',
@@ -107,20 +122,20 @@ export default {
         .groupBy('Articles.article_id') // Đảm bảo GROUP BY cho COUNT
         .limit(limit)
         .offset(offset);
-  
+
       if (articles.length === 0) {
         return [];
       }
-  
+
       // Lấy tất cả article_id từ danh sách bài viết
       const articleIds = articles.map(article => article.article_id);
-  
+
       // Truy vấn tất cả tags liên quan đến các bài viết
       const tags = await db('tags')
         .join('Article_tags', 'Article_tags.tag_id', 'tags.tag_id')
         .whereIn('Article_tags.article_id', articleIds)
         .select('Article_tags.article_id', 'tags.tag_id', 'tags.tag_name'); // Lấy article_id, tag_id và tag_name
-  
+
       // Gán tags vào từng bài viết
       articles.forEach(article => {
         article.tags = tags
@@ -130,14 +145,22 @@ export default {
             tag_name: tag.tag_name
           })); // Tạo đối tượng tag gồm tag_id và tag_name
       });
-  
+
       return articles;
-  
+
     } catch (error) {
       console.error('Error fetching paginated articles by search title:', error);
       throw new Error('Unable to fetch paginated articles');
     }
-  }
-      
+  },
+  async getNewestArticles() {
+    return await db('Articles as A')
+      .where('A.status', 'published')
+      .andWhere('A.published_date', '>=', db.raw('DATE_SUB(NOW(), INTERVAL 10000 DAY)'))
+      .select('A.title', 'C.category_name', 'A.published_date', 'A.image_url', 'A.article_id', 'A.abstract', 'A.category_id', 'A.is_premium')
+      .join('Categories as C', 'A.category_id', 'C.category_id')
+      .orderBy('A.published_date', 'desc')
+      .limit(5);
+  },
 
 }
