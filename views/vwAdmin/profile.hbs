@@ -64,64 +64,62 @@
 </script>
 {{/section}}
 
-<a name="" id="" class=" mb-5 ml-3" href="/admin/category/list" role="button">
-    <img src="/public/images/icon/back.png" alt="" width="50px">                               
-</a>
 <form id="frmAdduser" action="" method="post">
-    <div class="container col-6" style="padding: 40px;">
+    <div class="container col-8" >
         <div class="card">
-            <div class="card-header">
-                <h4>Profile</h4>
+            <div class="card-header profile_container_header d-flex">
+                <h4 class="mr-3 mt-2">Profile</h4>
+                <img src="/public/images/icon/icons8-pencil-40.png" alt="" width="4%">
             </div>
-            <div class="card-body">
-                <div class="form-group">
+            <div class="card-body profile_container_body ml-4 "style="font-weight: 600; " >
+                <div class="form-group d-flex justify-content-between mb-4">
                     <label for="txtUser_id">User ID</label>
-                    <input type="text" name="user_id" id="txtUser_id" class="form-control" placeholder="" readonly
+                    <input type="text" name="user_id" id="txtUser_id" class="form-control custom_input_profile mr-5 " placeholder="" readonly
                         value="{{this.user.user_id}}">
                 </div>
-                <div class="form-group">
+                <div class="form-group d-flex justify-content-between mb-4">
                     <label for="txtUsername">Username</label>
-                    <input type="text" name="username" id="txtUsername" class="form-control" placeholder=""
+                    <input type="text" name="username" id="txtUsername" class="form-control custom_input_profile mr-5" placeholder=""
                         value="{{this.user.username}}">
                 </div>
 
-                <div class="form-group">
+                <div class="form-group d-flex justify-content-between mb-4">
                     <label for="txtPassword">Password</label>
-                    <input type="password" name="password" id="txtPassword" class="form-control" placeholder=""
+                    <input type="password" name="password" id="txtPassword" class="form-control custom_input_profile mr-5"  placeholder=""
                         value="{{this.user.password}}">
                 </div>
 
-                <div class="form-group">
+                <div class="form-group d-flex justify-content-between mb-4">
                     <label for="txtPasswordConfirm">Confirm password</label>
-                    <input type="password" id="txtPasswordConfirm" class="form-control" placeholder=""
+                    <input type="password" id="txtPasswordConfirm" class="form-control custom_input_profile mr-5" placeholder=""
                         value="{{this.user.password}}">
                 </div>
 
-                <div class="form-group">
+                <div class="form-group d-flex justify-content-between mb-4 ">
                     <label for="txtName">Fullname</label>
-                    <input type="text" name="fullname" id="txtName" class="form-control" placeholder=""
+                    <input type="text" name="fullname" id="txtName" class="form-control custom_input_profile mr-5" placeholder=""
                         value="{{this.user.fullname}}">
                 </div>
 
-                <div class="form-group">
+                <div class="form-group d-flex justify-content-between mb-4">
                     <label for="txtEmail">Email</label>
-                    <input type="text" name="email" id="txtEmail" class="form-control" placeholder=""
+                    <input type="text" name="email" id="txtEmail" class="form-control custom_input_profile mr-5" placeholder=""
                         value="{{this.user.email}}">
                 </div>
 
-                <div class="form-group">
+                <div class="form-group d-flex justify-content-between mb-4">
                     <label for="txtPhone">Phone number</label>
-                    <input type="text" name="phone_number" id="txtPhone" class="form-control" placeholder=""
+                    <input type="text" name="phone_number" id="txtPhone" class="form-control custom_input_profile mr-5" placeholder=""
                         value="{{this.user.phone_number}}">
                 </div>
 
-                <div class="form-group">
+                <div class="form-group d-flex justify-content-between ">
                     <label for="txtBirthday">Birthday</label>
-                    <input type="text" name="raw_dob" id="txtBirthday" class="form-control"
+                    <input type="text" name="raw_dob" id="txtBirthday" class="form-control custom_input_profile mr-5"
                         value="{{this.user.birth_date}}">
                 </div>
             </div>
-            <div class="button-container_Add mt-5 mb-3">
+            <div class="button-container_Add mb-5">
                 <button type="submit" class="btnSaveEdit btnActionEdit ">
                     <img src="/public/images/icon/icons8-save-100.png" alt="" width="20%" >
                     Save
