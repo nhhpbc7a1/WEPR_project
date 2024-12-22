@@ -12,23 +12,3 @@
     font-weight: 800;
 
 }
-.custom_input_profile{
-    width: 400px;
-    height: 45px;
-    display: inline-block;
-    justify-content: flex-end;
-    border: 1px solid rgb(122, 178, 211);
-    color: rgb(26, 72, 99);
-}
-.profile_container_body{
-    color: rgb(74, 98, 138);
-    font-size: large;
-}
-.profile_container_header{
-    color: white;
-    background-color: rgb(74, 98, 138);
-    margin-bottom: 20px;
-    display: inline-block;
-    justify-content: center;
-    align-items: center;
-}
