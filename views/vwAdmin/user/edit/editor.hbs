@@ -92,19 +92,19 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="txtPassword">Mật khẩu</label>
+                    <label for="txtPassword">Password</label>
                     <input type="password" name="password" id="txtPassword" class="form-control" placeholder=""
                         value="{{this.user.password}}">
                 </div>
 
                 <div class="form-group">
-                    <label for="txtPasswordConfirm">Xác nhận mật khẩu</label>
+                    <label for="txtPasswordConfirm">Confirm password</label>
                     <input type="password" id="txtPasswordConfirm" class="form-control" placeholder=""
                         value="{{this.user.password}}">
                 </div>
 
                 <div class="form-group">
-                    <label for="txtName">Họ tên</label>
+                    <label for="txtName">Fullname</label>
                     <input type="text" name="fullname" id="txtName" class="form-control" placeholder=""
                         value="{{this.user.fullname}}">
                 </div>
@@ -129,7 +129,7 @@
 
                 <hr>
                 <div class="form-group">
-                    <label for="">Phân công</label>
+                    <label for="">Role</label>
                     <select id="my-multiselect" name="categories[]" multiple="multiple" style="width:100%;">
                         {{#each categories}}
                         <option value="{{category_id}}" {{#if (contain_assignment ../oldCategories this.category_id)}} selected
@@ -143,11 +143,11 @@
             </div>
             <div class="card-footer text-muted">
                 <a name="" id="" class="btn btn-outline-success" href="/admin/user" role="button">
-                    <i class="bi bi-skip-backward-fill"></i>
+                Back
                 </a>
                 <button type="submit" class="btn btn-primary">
                     <i class="bi bi-check2"></i>
-                    save
+                    Save
                 </button>
 
             </div>

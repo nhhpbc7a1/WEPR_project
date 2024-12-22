@@ -134,13 +134,12 @@ body {
     margin-right: 10px; /* Khoảng cách giữa logo và chữ */
 }
 
-.btn.facebook {
-    background-color: #4267B2;
-    color: white;
+.btnFacebook {
+    border: 1px solid rgb(1, 101, 225);
+    width: 200px;
 }
 
 .btn.google {
-    background-color: #DB4437;
     color: white;
 }
 

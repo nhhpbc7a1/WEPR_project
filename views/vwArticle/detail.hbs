@@ -18,12 +18,12 @@
                 <div>
                     <div class="d-flex justify-content-end">
                         {{#if articleDetail.is_premium}}
-                        <span class="premium_block">
-                            <i class="fa-solid fa-crown"></i> 
+                        <span class="premium_detailArticle">
+                            <img src="/public/images/icon/crown.png" alt="" width="25%">Premium
                         </span>
                         {{/if}}
                     </div>
-                    <h1 style="font-weight: bold;" class="text-center">{{articleDetail.title}}
+                    <h1 style="font-weight: bold;" class="text-left mt-3 mb-3">{{articleDetail.title}}
                     </h1>
                 </div>
                 <div class="">
@@ -99,9 +99,14 @@
                     {{#each articles}}
                     <div class="row top_article_content d-flex">
                         <div class="col-5">
-                            <a href="/article_detail?id={{article_id}}">
+                            <a href="/article_detail?id={{article_id}}" class="premium_container">
                                 <img class="top_article_content_image " src="{{image_url}}" alt=""
                                     style="width: 100%;height:100%;">
+                                    {{#if is_premium}}
+                                    <span class="premium_topfive">
+                                        <img src="/public/images/icon/whiteCrown.png" alt="" width="60%">
+                                    </span>
+                                    {{/if}}
                             </a>
                         </div>
 
@@ -109,11 +114,6 @@
                             <h5 class="top_article_content_title">
                                 <a href="/article_detail?id={{article_id}}">
                                     {{title}}
-                                    {{#if is_premium}}
-                                    <span class="premium_block_mini">
-                                        <i class="fa-solid fa-crown"></i> Premium
-                                    </span>
-                                    {{/if}}
                                 </a>
                             </h5>
 

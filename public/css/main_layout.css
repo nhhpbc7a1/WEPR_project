@@ -198,36 +198,57 @@
   /* Màu viền khi hover */
 }
 
-.premium_block {
-  color: orange;
-  font-size: 24px;
-  border: 1px solid orange;
-  padding: 4px 8px;
-  border-radius: 4px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05), 0 6px 20px 0 rgba(0, 0, 0, 0.05);
-  background-color: transparent;
-
-  display: inline-flex;
-  align-items: center;
+.premium_container{
+  position: relative;
+  padding: 0px;
 }
-
-.premium_block i {
-  /* margin-right: 6px; */
+.premium_mostRead_container {
+  position: relative;
+  display: inline-block;
 }
-
 .premium_block_mini {
-  color: yellow;
-  font-size: 16px;
-  border: 1px solid yellow;
-  padding: 2px 4px;
-  border-radius: 4px;
-  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05), 0 6px 20px 0 rgba(0, 0, 0, 0.05); */
-
+  position: absolute;
+  bottom: -40px; /* Điều chỉnh vị trí cách dưới ảnh */
+  left: 45%;
+  padding-right: 25px;
+  padding-left: 3px;
+  padding-top:3px ;
+  padding-bottom: 3px;
+  transform: translateX(-50%);
+  border-radius: 5px;
+  font-size: 14px;
+  color: rgb(255, 193, 69);
   display: inline-flex;
-  /* background-color: rgba(0, 0, 0, 1); */
   align-items: center;
-}
+  border: 1px solid  rgb(255, 193, 69);
+  gap: 10px;
 
-.premium_block_mini i {
-  margin-right: 4px;
+}
+.premium_block {
+  font-size: 24px;
+  border-radius: 100%;
+  padding: 7px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05), 0 6px 20px 0 rgba(0, 0, 0, 0.05);
+  background-color: rgb(255, 193, 69);
+  display: inline-flex;
+  align-items: center;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+}
+.imgPremiumMain{
+  width: 15px;
+}
+.premium_top10{
+  font-size: 16px;
+  border-radius: 100%;
+  padding: 3px;
+  background-color: rgb(255, 193, 69);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }

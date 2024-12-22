@@ -164,7 +164,7 @@ import editorRouter from './routes/editor/editor.route.js'
 app.use('/editor', authEditor, editorRouter);
 
 import adminRouter from './routes/admin/admin.route.js'
-app.use('/admin', authAdmin, adminRouter);
+app.use('/admin',authAdmin, adminRouter);
 
 import accountRouter from './routes/account.route.js'
 app.use('/account', accountRouter);
