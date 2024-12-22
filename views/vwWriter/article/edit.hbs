@@ -70,12 +70,12 @@
     // Trước khi submit form, cập nhật dữ liệu CKEditor vào textarea ẩn
     document.querySelector('#frmEditArticle').addEventListener('submit', (e) => {
         e.preventDefault();
-        document.querySelector('#form_edit_content').value = editorInstance.getData();
-
-        if (['published', 'reviewed', 'rejected'].includes('{{article.status}}')) {
-            alert('Can not edit the article of this status');
+        if ('{{article.status}}' != 'draft') {
+            alert("This article's status is not 'Draft'. Editing is not permitted.");
             return;
-        }        
+        }
+
+        document.querySelector('#form_edit_content').value = editorInstance.getData();
         document.querySelector('#frmEditArticle').submit();
     });
         })
@@ -186,13 +186,17 @@
 </script>
 
 {{/section}}
-<div class="container-fluid" style="padding: 40px;">
+<a name="" id="" class=" ml-3" href="/writer/article" role="button">
+    <img src="/public/images/icon/back.png" alt="" width="50px">
+</a>
+
+<div class="container-fluid" style="padding: 20px 40px;">
     <div class="row">
         <div class="col-12">
-            <div class="card info_part">
-                <div class="card-header d-flex custom_colorHeader">
-                    <h4 class="title_page">Edit Information</h4>
-                    <div class="box_newArticle ml-2">Article #{{article.article_id}}</div>
+            <div class="card info_part" style="font-weight: 500;">
+                <div class="card-header d-flex" style="background-color: rgb(74, 98, 138);">
+                    <h5 style="color: white;" class="mr-3 mt-1">Edit Article Information</h5>
+                    <img src="/public/images/icon/icons8-pencil-40.png" alt="" width="25px" height="25px" class="mt-1">
                 </div>
                 <div class="card-body">
 
@@ -240,7 +244,7 @@
                                     <div class="form-group">
                                         <label class="mr-4">Category</label></br>
                                         <div class="mb-3">
-                                            <select id="category1" class="form-control custom_select">
+                                            <select id="category1" class="form-control custom_select w-70">
                                                 <option value="" class="pt-2">Choose level 1</option>
                                             </select>
                                         </div>
@@ -269,12 +273,6 @@
                                                 article.is_featured 1}}checked{{/ifEquals}} class="custom_checkbox">
                                         </div>
                                     </div>
-                                    {{!-- <div class="form-group">
-                                        <label for="txtPublishedDate">Published Date</label>
-                                        <input type="text" name="raw_published_date" id="txtPublishedDate"
-                                            class="form-control">
-                                    </div> --}}
-
                                 </div>
                             </div>
                             <hr>
@@ -288,16 +286,16 @@
                             <div id="editor"></div><br>
 
 
-                            <div class="mt-5 d-flex justify-content-end">
-                                <a name="" id="" class="btn btn-outline-success" href="/writer/article" role="button">
-                                    <i class="bi bi-skip-backward-fill"></i>
-                                    List
-                                </a>
-
-                                <button type="submit" class="ml-3 btn btn-primary">
+                            <div class="button-container_Edit mt-5">
+                                <button type="submit" class="btnSaveEdit btnActionEdit ">
+                                    <img src="/public/images/icon/icons8-save-100.png" alt="" width="20%">
                                     Save
                                 </button>
-
+                                <a name="" id="" class="btnDeleteArticle btnActionEdit"
+                                    href="/writer/article/del?id={{article.article_id}}" role="button">
+                                    <img src="/public/images/icon/trash.png" alt="" width="20%">
+                                    Delete
+                                </a>
                             </div>
 
                             <!-- Thẻ textarea ẩn để lưu dữ liệu từ CKEditor -->

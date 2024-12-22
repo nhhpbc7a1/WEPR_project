@@ -4,7 +4,14 @@ $(document).ready(function () {
             timepicker: false,
             format: 'd/m/Y',
             mask: true
-        }).val(formatDate(new Date(userData.birth_date), 'MMMM DD, YYYY'));
+        })
+
+        var is_editing = true;
+        if (userData == null)
+            is_editing = false;
+        
+        if (is_editing) 
+            $('#txtBirthday').val(formatDate(new Date(userData.birth_date), 'DD/MM/YYYY'));
 
 
         if (userType === "writer") {
@@ -16,7 +23,10 @@ $(document).ready(function () {
                 timepicker: true,
                 format: 'd/m/Y h:i',
                 mask: true
-            }).val(formatDate(userData.subscription_expiration, 'DD/MM/YYYY hh:mm'));;
+            })
+            
+            if (is_editing) 
+                $('#txtExpiration').val(formatDate(userData.subscription_expiration, 'DD/MM/YYYY hh:mm'));;
         }
 
         $('#frmUser').on('submit', function (e) {
@@ -46,12 +56,12 @@ $(document).ready(function () {
 
             // Kiểm tra username
             $.getJSON('/account/is-available?username=' + username, function (data) {
-                if (data && username !== userData.username) {
+                if (data && (username !== userData.username || !is_editing)) {
                     alert('This username have been used for another account. Please try another email.');
                 } else {
                     // Kiểm tra email
                     $.getJSON('/account/is-available-email?email=' + email, function (data) {
-                        if (data && email !== userData.email) {
+                        if (data && (email !== userData.email || !is_editing)) {
                             alert('This email have been used for another account. Please try another email.');
                         } else {
                             // Nếu không có lỗi, submit form

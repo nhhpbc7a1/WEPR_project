@@ -33,7 +33,11 @@ app.engine('hbs', engine({
         },
 
         json(context) {
-            return JSON.stringify(context);
+            if (context === undefined || context === null) {
+                return "null"; // Hoặc return "";
+            } else {
+                return JSON.stringify(context);
+            }
         },
         ifEquals(arg1, arg2, options) {
             return arg1 == arg2 ? options.fn(this) : options.inverse(this);
@@ -61,7 +65,7 @@ app.engine('hbs', engine({
             return moment(date).format('MMMM DD, YYYY');  // Định dạng ngày theo format
         },
         formatDate_x(inputDate, format) {
-            moment.locale('vi'); 
+            moment.locale('vi');
             const date = moment(inputDate);
             const formattedDate = date.format(format);
             return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
@@ -82,7 +86,7 @@ app.engine('hbs', engine({
             const formattedDate = date.format('dddd, D/M/YYYY, HH:mm (Z)');
             // Viết hoa chữ cái đầu
             return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
-        },        
+        },
         formatDate_nothu(inputDate) {
             const date = moment(inputDate);
             const formattedDate = date.format('DD/MM/YYYY');
@@ -165,7 +169,7 @@ import editorRouter from './routes/editor/editor.route.js'
 app.use('/editor', authEditor, editorRouter);
 
 import adminRouter from './routes/admin/admin.route.js'
-app.use('/admin',authAdmin, adminRouter);
+app.use('/admin', authAdmin, adminRouter);
 
 import accountRouter from './routes/account.route.js'
 app.use('/account', accountRouter);

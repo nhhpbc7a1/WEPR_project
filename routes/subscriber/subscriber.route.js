@@ -28,9 +28,8 @@ router.post('/profile', async function (req, res) {
         subscription_expiration: ymd_expiration,
         role_id: 4,
     } 
-    req.session.authUser = await manage_userService.findUserByID(id);
-    console.log(newInfo);
     await manage_userService.edit(id, newInfo);
+    req.session.authUser = await manage_userService.findUserByID(id);
 
     res.redirect('/subscriber/profile');
 });
