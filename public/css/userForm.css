@@ -5,7 +5,12 @@
     justify-content: flex-end;
     border: 1px solid rgb(122, 178, 211);
     color: rgb(26, 72, 99);
+    border-radius: 0.25rem;
 }
+.custom_input_profile_no_border{
+    border: none !important;
+}
+
 .profile_container_body{
     color: rgb(74, 98, 138);
     font-size: large;
