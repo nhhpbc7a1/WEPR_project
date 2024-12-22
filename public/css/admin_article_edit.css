@@ -42,11 +42,12 @@
 
 }
 .btnDeleteArticle{
-    border: 2px solid  rgb(74, 98, 138);
-    color:  rgb(74, 98, 138);
+    border: 2px solid  rgb(253, 122, 122);
+    color:  white;
     width: 180px;
     height: 60px;
-    background-color: white;
+    background-color:rgb(253, 122, 122);
     margin-left: 10px;
+    gap: 10px;
 
 }
