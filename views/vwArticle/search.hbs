@@ -95,7 +95,8 @@
                         <img src="{{this.image_url}}" alt="Ảnh bài viết" class="img-fluid">
                         {{#if is_premium}}
                         <span class="premium_top10">
-                            <img src="/public/images/icon/smallwhitecrown.png" alt="" class="imgPremiumMain" width="10%">
+                            <img src="/public/images/icon/smallwhitecrown.png" alt="" class="imgPremiumMain"
+                                width="10%">
                         </span>
                         {{/if}}
 
@@ -160,21 +161,22 @@
                     {{#each newestArticles}}
                     <div class="row top_article_content d-flex">
                         <div class="">
-                            <a href="/article_detail?id={{article_id}}">
+                            <a href="/article_detail?id={{article_id}}" class="premium_mostRead_container">
                                 <img class="top_article_content_image " src="{{image_url}}" alt="">
+                                {{#if is_premium}}
+                                <span class="premium_block_mini mb-1">
+                                    <img src="/public/images/icon/crown.png" alt="" width="30%">
+                                    Premium
+                                </span>
+                                {{/if}}
+
                             </a>
                         </div>
 
                         <div class="ml-3" style="flex:1;">
                             <h5 class="top_article_content_title">
-                                <a href="/article_detail?id={{article_id}}" class="premium_mostRead_container">
+                                <a href="/article_detail?id={{article_id}}">
                                     {{title}}
-                                    {{#if is_premium}}
-                                        <span class="premium_block_mini mb-1">
-                                            <img src="/public/images/icon/crown.png" alt="" width="30%">
-                                            Premium
-                                        </span>
-                                    {{/if}}
                                 </a>
                             </h5>
 
@@ -187,7 +189,6 @@
                     </div>
                     <hr>
                     {{/each}}
-
                 </div>
             </div>
         </div>
