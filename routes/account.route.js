@@ -45,9 +45,8 @@ router.get('/is-available', async function (req, res) {
 
 router.get('/is-available-email', async function (req, res) {
     const email = req.query.email;
-
     const user = await accountService.findByEmail(email);
-    if (user) {
+    if (user && email == '') {
         return res.json(true);
     }
 

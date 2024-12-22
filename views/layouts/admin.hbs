@@ -88,7 +88,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
                     aria-expanded="true" aria-controls="collapseTwo">
-                   <img src="/public/images/icon/icons8-tag-100.png" alt="" width="13%">
+                    <img src="/public/images/icon/icons8-tag-100.png" alt="" width="13%">
                     <span style="font-size:medium; font-weight:700" class="ml-2">Tag</span>
                 </a>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -286,6 +286,9 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/moment@2.30.1/moment.min.js"></script>
     <script>
+        function formatDate(date,format) {
+            return moment(date).format(format);  // Định dạng ngày theo format
+        }
         function formatYMD(date) {
             return moment(date).format('DD/MM/YYYY');  // Định dạng ngày theo format
         }

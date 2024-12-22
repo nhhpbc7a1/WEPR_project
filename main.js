@@ -23,6 +23,7 @@ app.use(express.urlencoded({
 app.engine('hbs', engine({
     extname: '.hbs',
     defaultLayout: 'main',
+    partialsDir: __dirname + '/views/partials',
     helpers: {
         format_price(value) {
             return numeral(value).format('0,000') + ' VNĐ';
