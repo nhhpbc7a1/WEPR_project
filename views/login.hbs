@@ -4,19 +4,22 @@
     Sai tên tài khoản hoặc mật khẩu!
   </div>
   {{/if}}
-  <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; display: flex; background: #fff; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+  <div
+    style="font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; display: flex; background: #fff; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
     <!-- Cột bên trái -->
     <div style="width: 50%; padding: 30px; border-right: 1px solid #ddd;">
-      <h2 style="color: #333; font-size: 24px; margin-bottom: 20px; color:rgb(74, 98, 138); font-weight:600"; class="text-center">Đăng nhập Trendlens</h2>
-      <p style="font-size: 14px; color: #555; margin-bottom: 20px;">Để sử dụng đầy đủ tính năng đọc báo và tham gia cộng đồng hơn 8 triệu thành viên</p>
+      <h2 style="color: #333; font-size: 24px; margin-bottom: 20px; color:rgb(74, 98, 138); font-weight:600" ;
+        class="text-center">Đăng nhập Trendlens</h2>
+      <p style="font-size: 14px; color: #555; margin-bottom: 20px;">Để sử dụng đầy đủ tính năng đọc báo và tham gia cộng
+        đồng hơn 8 triệu thành viên</p>
       <form id="frmLogin" action="/account/login" method="POST">
         <div style="margin-bottom: 20px;">
           <input id="txtUsername" type="text" name="username" placeholder="Nhập username" required
-            style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; box-sizing: border-box;" >
+            style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; box-sizing: border-box;">
         </div>
         <div style="margin-bottom: 20px;">
           <input id="txtPassword" type="password" name="raw_password" placeholder="Nhập mật khẩu" required
-            style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; box-sizing: border-box;" >
+            style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; box-sizing: border-box;">
         </div>
         <button type="submit" class="mb-3"
           style="width: 100%; padding: 10px; background-color:rgb(74, 98, 138); color: white; font-size: 18px; font-weight:bold ; border: none; border-radius: 4px; cursor: pointer;">
@@ -36,36 +39,37 @@
     <!-- Cột bên phải -->
     <div style="width: 50%; padding: 30px; background-color: #f8f9fa;">
       <h2 style="color: #333; font-size: 24px; margin-bottom: 20px;">Đăng nhập tài khoản với</h2>
-        <button
-        id="facebook-login-btn"
-         style="width: 100%; padding: 10px; margin-bottom: 15px; background-color: #4267B2; color: white; font-size: 14px; border: none; border-radius: 4px; cursor: pointer;">
+      <button id="facebook-login-btn"
+        style="width: 100%; padding: 10px; margin-bottom: 15px; color: rgb(1, 101, 225); font-size: 16px; font-weight:bold; border: 1px solid rgb(1, 101, 225); border-radius: 4px; cursor: pointer;">
+        <img src="/public/images/icon/icons8-facebook-50.png" alt="" width="30px">
         Facebook
       </button>
-      
       <!-- Nút Google Login (Google Identity Services sẽ render nó) -->
-        <button 
-    id="google-login-btn" 
-    style="width: 100%; padding: 10px; margin-bottom: 15px; background-color: #DB4437; color: white; font-size: 14px; border: none; border-radius: 4px; cursor: pointer;">
-     Google
-  </button>
+      <button id="google-login-btn"
+        style="width: 100%; padding: 10px; margin-bottom: 15px; color: rgb(226, 24, 24); font-size: 16px; font-weight:bold; border: 1px solid rgb(226, 24, 24); border-radius: 4px; cursor: pointer;">
+        <img src="/public/images/icon/icons8-google-50.png" alt="" width="30px">
+        Google
+      </button>
 
-        <!-- Nút Google Login (Google Identity Services sẽ render nó) -->
-        {{!-- <div id="rgb(226, 24, 24)" style="padding: 10px; margin-bottom: 15px; color: rgb(51, 49, 49); font-size: 16px;border: 1px solid rgb(226, 24, 24);font-weigth:bold; border: none; border-radius: 4px;"></div> --}}
-
-
-        <!-- Form ẩn để xử lý Google Login -->
-        {{!-- <form id="frmGoogleLogin" action="/account/auth/google" method="POST" style="display: none;">
-          <input type="hidden" name="id_token" id="google-id-token">
-        </form> --}}
-        <button
-          style="width: 100%; padding: 10px; font-size: 16px;font-weight:bold; border: 1px solid black; border-radius: 4px; cursor: pointer;">
-          <img src="/public/images/icon/icons8-apple-40.png" alt="" width="30px">
-          Apple
-        </button>
+      {{!-- Nút google render bị ẩn đi --}}
+      <div id="google-login"
+        style="display: none">
       </div>
 
+      <!-- Form ẩn để xử lý Google Login -->
+      <form id="frmGoogleLogin" action="/account/auth/google" method="POST" style="display: none;">
+        <input type="hidden" name="id_token" id="google-id-token">
+      </form>
+
+      <button
+        style="width: 100%; padding: 10px; font-size: 16px;font-weight:bold; border: 1px solid black; border-radius: 4px; cursor: pointer;">
+        <img src="/public/images/icon/icons8-apple-40.png" alt="" width="30px">
+        Apple
+      </button>
     </div>
+
   </div>
+</div>
 </div>
 
 {{#section 'js'}}
@@ -73,7 +77,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script>
-   function handleCredentialResponse(response) {
+  let googleButtonElement; // Biến toàn cục để lưu trữ đối tượng nút Google
+  function handleCredentialResponse(response) {
     console.log('Encoded JWT ID token:', response.credential);
 
     // Gửi token tới backend
@@ -91,8 +96,33 @@
     });
 
     // Sự kiện click vào nút Google login
-    document.getElementById('google-login-btn').addEventListener('click', function() {
-      google.accounts.id.prompt(); // Gọi Google Sign-In
+
+    google.accounts.id.renderButton(
+      document.getElementById('google-login'),
+      {
+        theme: 'outline',
+        size: 'large',
+        text: 'Đăng nhập bằng Google',
+        width: '300'
+      },
+    );
+
+    // Chờ cho nút Google được render xong rồi mới truy vấn
+    setTimeout(() => {
+      googleButtonElement = document.querySelector('#google-login div[role="button"]');
+      if (googleButtonElement) {
+        console.log("Nút Google đã được render:", googleButtonElement);
+      } else {
+        console.error("Không tìm thấy nút Google!");
+      }
+    }, 500); // Chờ 500ms (có thể điều chỉnh thời gian chờ nếu cần)
+
+    document.getElementById('google-login-btn').addEventListener('click', function () {
+      if (googleButtonElement) {
+        googleButtonElement.click(); // Gọi click() trên element của nút Google
+      } else {
+        console.error("Nút Google chưa được render hoặc không tìm thấy!");
+      }
     });
   };
 
@@ -109,44 +139,44 @@
 </script>
 <script>
 
-  document.getElementById('facebook-login-btn').addEventListener('click', function() {
-  FB.login(function(response) {
-  if (response.authResponse) {
-    const accessToken = response.authResponse.accessToken;
-    $.post('/account/auth/facebook', { accessToken: accessToken })
-      .done(function() {
-        window.location.href = '/';
-      })
-      .fail(function(error) {
-        alert('Lỗi đăng nhập với Facebook! Chi tiết: ' + error.responseText); 
-      });
-  } else {
-    alert('Đăng nhập với Facebook thất bại!');  
-  }
-}, {scope: 'email, public_profile'});
+  document.getElementById('facebook-login-btn').addEventListener('click', function () {
+    FB.login(function (response) {
+      if (response.authResponse) {
+        const accessToken = response.authResponse.accessToken;
+        $.post('/account/auth/facebook', { accessToken: accessToken })
+          .done(function () {
+            window.location.href = '/';
+          })
+          .fail(function (error) {
+            alert('Lỗi đăng nhập với Facebook! Chi tiết: ' + error.responseText);
+          });
+      } else {
+        alert('Đăng nhập với Facebook thất bại!');
+      }
+    }, { scope: 'email, public_profile' });
 
   });
 
-   window.fbAsyncInit = function () { 
+  window.fbAsyncInit = function () {
     FB.init({
-      appId      : '451779097775725',  
-      cookie     : true, 
-      xfbml      : true, 
-      version    : 'v21.0'  
-    }); 
+      appId: '451779097775725',
+      cookie: true,
+      xfbml: true,
+      version: 'v21.0'
+    });
 
-    FB.AppEvents.logPageView();  
+    FB.AppEvents.logPageView();
   };
 
-  (function(d, s, id){
-    var js, fjs = d.getElementsByTagName(s)[0]; 
-    if (d.getElementById(id)) { 
-      return; 
-    } 
-    js = d.createElement(s); 
-    js.id = id; 
-    js.src = "https://connect.facebook.net/en_US/sdk.js"; 
-    fjs.parentNode.insertBefore(js, fjs); 
+  (function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {
+      return;
+    }
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
   })(document, 'script', 'facebook-jssdk');
 </script>
 {{/section}}

@@ -99,10 +99,14 @@ router.post('/auth/google', async function (req, res) {
         console.log(userPayload);
         let user = await accountService.findByEmail(userPayload.email);
         
+        const newUsername = await accountService.generateUsername();
+        console.log(newUsername);
+
         if (!user) {
             // Nếu chưa có người dùng, tạo mới
             const newUser = {
-                username: userPayload.name,
+                username: newUsername,
+                fullname: userPayload.name,
                 email: userPayload.email,
                 password: '', 
                 role_id: 4,   
@@ -134,9 +138,12 @@ router.get('/auth/google/callback', async function (req, res) {
     
         let user = await accountService.findByEmail(userPayload.email);
 
+        const newUsername = await accountService.generateUsername();
+
         if (!user) {
             const newUser = {
-                username: userPayload.name,
+                username: newUsername,
+                fullname: userPayload.name,
                 email: userPayload.email,
                 password: '',
                 role_id: 4,
