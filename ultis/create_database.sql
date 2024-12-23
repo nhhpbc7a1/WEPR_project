@@ -14,7 +14,7 @@ CREATE TABLE Users (
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     fullname VARCHAR(100), -- Thông tin cá nhân dùng chung
-    email VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
     phone_number VARCHAR(20),
     birth_date DATE,
     role_id INT NOT NULL, -- Phân biệt vai trò
@@ -57,6 +57,7 @@ CREATE TABLE Articles (
     is_premium BOOLEAN DEFAULT FALSE,
     is_featured BOOLEAN DEFAULT FALSE,
     writer_id INT DEFAULT 1,
+    article_created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     -- FOREIGN KEY (image_id) REFERENCES Images(image_id),
     FOREIGN KEY (category_id) REFERENCES Categories(category_id),
     FOREIGN KEY (writer_id) REFERENCES Users(user_id)
@@ -117,3 +118,6 @@ CREATE TABLE Article_Views (
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
     FOREIGN KEY (article_id) REFERENCES Articles(article_id)
 );
+
+ALTER TABLE Articles
+ADD FULLTEXT INDEX title_abstract_content_fulltext (title, abstract, content);

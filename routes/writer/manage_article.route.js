@@ -20,6 +20,7 @@ router.get('/', function (req, res) {
 router.get('/list', async function (req, res) {
     const writer_id = req.session.authUser.user_id;
     const articles = await manage_articleService.findAllOfWriterID(writer_id);
+    res.locals.title = 'List articles';
     res.render('vwWriter/article/list', {
         articles: articles
     });
@@ -37,6 +38,7 @@ router.get('/add', async function (req, res) {
     const parent_categories = await manage_articleService.findAllParentCategory();
     const child_categories = await manage_articleService.findAllChildCategory();
     const tags = await manage_articleService.getAllTags();
+    res.locals.title = 'Add article';
 
     res.render('vwWriter/article/add', {
         parent_categories: parent_categories,
@@ -52,6 +54,8 @@ router.get('/edit', async function (req, res) {
     const article = await manage_articleService.findByID(id);
     const tags = await manage_articleService.getAllTags();
     const oldTags = await manage_articleService.getTagsByArticleID(id);
+    res.locals.title = 'Edit article #'+id ;
+
     console.log(article);
     res.render('vwWriter/article/edit', {
         article: article,

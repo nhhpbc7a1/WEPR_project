@@ -13,6 +13,12 @@ router.get('/profile', async function (req, res) {
     });
 });
 
+router.get('/pay', async function (req, res) {
+    const id = req.session.authUser.user_id;
+    const user = await manage_userService.addSubscriptionDays(id);
+    res.redirect('/subscriber/profile')
+});
+
 router.post('/profile', async function (req, res) {
     const id = req.session.authUser.user_id;
     const encrypted_password = await bcrypt.hash(req.body.password, 8);

@@ -13,13 +13,14 @@
                     <div class="swiper-wrapper">
                         {{#each featuredArticles}}
                         <div class="swiper-slide">
-                            <a href="/article_detail?id={{article_id}}" style="width: 100%; height: 100%;" class="premium_container">
+                            <a href="/article_detail?id={{article_id}}" style="width: 100%; height: 100%;"
+                                class="premium_container">
                                 <img class="d-block w-100" src="{{image_url}}" alt="First slide">
-                                    {{#if is_premium}}
-                                    <span class="premium_block">
-                                        <img src="/public/images/icon/smallwhitecrown.png" alt="" class="imgPremiumMain">
-                                    </span>
-                                    {{/if}}
+                                {{#if is_premium}}
+                                <span class="premium_block">
+                                    <img src="/public/images/icon/smallwhitecrown.png" alt="" class="imgPremiumMain">
+                                </span>
+                                {{/if}}
                             </a>
                             <div class="swiper-caption" style="height: 120px;">
                                 <div class="">
@@ -42,7 +43,7 @@
             </div>
 
             <h1 class="my_sider_title">Tin mới</h1>
-            {{#each newestInCategories}}
+            {{#each newestArticles}}
             <hr>
             <div class="container list_grid">
                 <div class="">
@@ -51,9 +52,9 @@
                     <a href="/article_detail?id={{article_id}}" class="premium_container">
                         <img class="list_grid_image" src="{{image_url}}" alt="">
                         {{#if is_premium}}
-                            <span class="premium_top10">
-                                <img src="/public/images/icon/whiteCrown.png" alt="" class="imgPremiumMain">
-                            </span>
+                        <span class="premium_top10">
+                            <img src="/public/images/icon/whiteCrown.png" alt="" class="imgPremiumMain">
+                        </span>
                         {{/if}}
                     </a>
                     <div class="ml-3" style="flex:1;">
@@ -62,10 +63,18 @@
                         <p class="list_grid_abstract">
                             {{abstract}}
                         </p>
-                        <div class="row ml-3">
-                            <p class="list_grid_date">{{formatDate_nothu published_date}}</p>
-                            <a class="list_grid_category ml-3"
-                                href="/article_list/byCategory?id={{category_id}}">{{category_name}}</a>
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex">
+                                <p class="list_grid_date">{{formatDate_nothu published_date}}</p>
+                                <a class="list_grid_category ml-3" href="/article_list/byCategory?id={{category_id}}">
+                                    {{category_name}}
+                                </a>
+                            </div>
+                            <div class="view_count_block ml-3">
+                                {{view_count}}
+                                <i class="bi bi-eye mr-1"></i>
+                            </div>
+
                         </div>
                     </div>
 
@@ -84,28 +93,36 @@
                     {{#each mostViewedArticles}}
                     <div class="row top_article_content d-flex">
                         <div class="">
-                            <a href="/article_detail?id={{article_id}}" class="premium_mostRead_container" >
+
+                            <a href="/article_detail?id={{article_id}}" class="premium_mostRead_container">
                                 <img class="top_article_content_image " src="{{image_url}}" alt="">
                                 {{#if is_premium}}
                                 <span class="premium_block_mini mb-1">
                                     <img src="/public/images/icon/crown.png" alt="" width="30%">
-                                     Premium
+                                    Premium
                                 </span>
                                 {{/if}}
                             </a>
                         </div>
                         <div class="ml-3" style="flex:1;">
+
                             <h5 class="top_article_content_title">
                                 <a href="/article_detail?id={{article_id}}">
                                     {{title}}
                                 </a>
                             </h5>
 
-                            <div class="row ml-1">
+                            <div class="d-flex justify-content-between">
                                 <p class="top_article_content_time">{{formatDate_nothu published_date}}</p>
-                                <a class="top_article_content_time ml-3"
-                                    href="/article_list/byCategory?id={{category_id}}">{{category_name}}</a>
+                                <div class="view_count_block ml-3">
+                                    {{view_count}}
+                                    <i class="bi bi-eye mr-1"></i>
+                                </div>
                             </div>
+                            <a class="top_article_content_time" href="/article_list/byCategory?id={{category_id}}">
+                                {{category_name}}
+                            </a>
+
                         </div>
                     </div>
                     <hr class="mt-4">
@@ -133,7 +150,8 @@
                                 <img class="top_category_content_image " src="{{image_url}}" alt="">
                                 {{#if is_premium}}
                                 <span class=" premium_top10">
-                                    <img src="/public/images/icon/smallwhitecrown.png" alt="" class="imgPremiumMain" width="10%">
+                                    <img src="/public/images/icon/smallwhitecrown.png" alt="" class="imgPremiumMain"
+                                        width="10%">
                                 </span>
                                 {{/if}}
                             </a>
@@ -148,9 +166,16 @@
                             <p class="top_category_content_abstract">
                                 {{abstract}}
                             </p>
-                            <p class="top_category_content_time">
-                                {{formatDate_nothu published_date}}
-                            </p>
+                            <div class="d-flex justify-content-between">
+                                <p class="top_category_content_time">
+                                    {{formatDate_nothu published_date}}
+                                </p>
+                                <div class="view_count_block ml-3">
+                                    {{view_count}}
+                                    <i class="bi bi-eye mr-1"></i>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>

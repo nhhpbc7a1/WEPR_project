@@ -6,15 +6,12 @@ const router = express.Router();
 
 router.get('/', async function (req, res) {
     const id = +req.query.id || 0;
-    const list = await articleDetailService.getNewestArticles();
     const article = await articleDetailService.findArticleById(id);
     const tagList = await articleDetailService.findTagByArticleId(id);
-    // console.log(list);
     const commentList = await articleDetailService.findCommentByArticleId(id);
     const parentCat = await articleDetailService.findParentCategory(article.parent_category_id);
-    // console.log(article);
-    // console.log(commentList);
-    // console.log(tagList);
+    const list = await articleDetailService.getSimilarArticles(article.category_id, 5);
+
     let errorMessage = ""; 
     let error = false;
     if (article.is_premium) {
@@ -29,9 +26,15 @@ router.get('/', async function (req, res) {
         }
     }
     
+    await articleDetailService.add_article_view({
+        user_id: 1,
+        article_id: id,
+    });
+
     res.render('vwArticle/detail', {
         articles: list,
         articleDetail: article,
+        comment_count: commentList.length,
         comments: commentList,
         tags: tagList,
         parentCat: parentCat,
@@ -39,9 +42,6 @@ router.get('/', async function (req, res) {
         error: error
     })
 });
-// router.get('/add', function(req, res){
-//     res.render('vwCategory/add');
-// })
 
 router.post('/', async function (req, res) {
     const data = req.body;
@@ -53,9 +53,6 @@ router.post('/', async function (req, res) {
         content: data.commentContent,
     }
     const ret = await articleDetailService.addComment(comment);
-    // console.log(ret);
-    console.log(comment);
-    // console.log(req.body);
     res.redirect(`/article_detail?id=${id}`);
 })
 

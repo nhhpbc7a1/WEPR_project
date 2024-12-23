@@ -68,9 +68,10 @@
                         required value="{{user.birth_date}}">
                 </div>
                 <div class="form-group d-flex justify-content-between mb-4">
-                    <label for="txtExpiration">Ngày hết hạn Premium</label>
-                    <input type="text" name="raw_expiration" id="txtExpiration"
-                        class="form-control custom_input_profile mr-5" placeholder="" required value="{{user.expiry_date}}">
+                    <label for="txtExpirationn">Ngày hết hạn Premium</label>
+                    <input type="text" name="raw_expiration" id="txtExpirationn" readonly
+                        class="form-control custom_input_profile mr-5" placeholder="" required
+                        value="{{formatDate_x user.subscription_expiration 'DD/MM/YYYY hh:mm'}}">
                 </div>
             </div>
             <div class="button-container_Add mb-5">
@@ -78,6 +79,10 @@
                     <img src="/public/images/icon/icons8-save-100.png" alt="" width="20%">
                     Lưu thay đổi
                 </button>
+                <a name="" id="" class="ml-3 btnSaveEdit btnActionEdit" href="/subscriber/pay" role="button">
+                    <i class="fa-solid fa-money-bill"></i>
+                    Gia hạn 10 ngày
+                </a>
             </div>
         </div>
     </div>

@@ -14,7 +14,7 @@
         <!-- Cột tìm kiếm -->
         <div class="col-lg-8">
             <!-- Phần tìm kiếm -->
-            <h1>Tìm Kiếm</h1>
+            <h2>Danh mục <b>{{currentCategory.category_name}}</b></h2>
             <hr>
             <div class="border p-4 bg-light rounded" style="display: none;">
                 <form>
@@ -89,7 +89,11 @@
                             <small class="text-muted">{{this.commentsCount}} bình luận</small>
                         </div>
                         {{#each tags}}
-                        <span class="my_tags"><i class="fa-solid fa-tag"></i>{{tag_name}}</span>
+                        <span class="my_tags"><i class="fa-solid fa-tag"></i>
+                            <a href="/article_list/byTag?id={{tag_id}}">
+                                {{tag_name}}
+                            </a>
+                        </span>
                         {{/each}}
 
                     </div>
@@ -113,7 +117,7 @@
                     <!-- Nút Previous -->
                     {{#if prevPage}}
                     <li class="page-item">
-                        <a class="page-link" href="?id={{categoryId}}?page={{prevPage}}" aria-label="Trang trước">
+                        <a class="page-link" href="?id={{categoryId}}&page={{prevPage}}" aria-label="Trang trước">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
@@ -134,12 +138,12 @@
                     {{else}}
                     {{#if active}}
                     <li class="page-item active">
-                        <a class="page-link" href="?id={{../categoryId}}?page={{value}}"
+                        <a class="page-link" href="?id={{../categoryId}}&page={{value}}"
                             aria-label="Trang {{value}}">{{value}}</a>
                     </li>
                     {{else}}
                     <li class="page-item">
-                        <a class="page-link" href="?id={{../categoryId}}?page={{value}}"
+                        <a class="page-link" href="?id={{../categoryId}}&page={{value}}"
                             aria-label="Trang {{value}}">{{value}}</a>
                     </li>
                     {{/if}}
@@ -149,7 +153,7 @@
                     <!-- Nút Next -->
                     {{#if nextPage}}
                     <li class="page-item">
-                        <a class="page-link" href="?id={{this.categoryId}}?page={{nextPage}}" aria-label="Trang sau">
+                        <a class="page-link" href="?id={{this.categoryId}}&page={{nextPage}}" aria-label="Trang sau">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
