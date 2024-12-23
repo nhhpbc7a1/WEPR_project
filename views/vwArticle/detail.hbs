@@ -51,13 +51,15 @@
     <div class="row tags">Tags:
         {{#each tags}}
         <span class="tagKeyWord">
-            {{tag_name}}
+            <a href="/article_list/bytag?id={{tag_id}}">
+                {{tag_name}}
+            </a>
         </span>
         {{/each}}
     </div>
     <div class="row mx-auto d-flex justify-content-between mb-5 mt-3">
         <div class="col-6">
-            <h4>Ý kiến</h4>
+            <h4>Ý kiến ({{comment_count}})</h4>
             <form action="" method="post">
                 <div class="input-group mt-4">
                     <input type="text" class="form-control" placeholder="Họ tên" name="commenterName">
@@ -93,7 +95,7 @@
         <div class="col-6">
             <div class="card">
                 <div class="card-header my_sider_title">
-                    Mới nhất
+                    Chuyên mục {{articleDetail.category_name}}
                 </div>
                 <div class="card-body">
                     {{#each articles}}
@@ -102,11 +104,11 @@
                             <a href="/article_detail?id={{article_id}}" class="premium_container">
                                 <img class="top_article_content_image " src="{{image_url}}" alt=""
                                     style="width: 100%;height:100%;">
-                                    {{#if is_premium}}
-                                    <span class="premium_topfive">
-                                        <img src="/public/images/icon/whiteCrown.png" alt="" width="60%">
-                                    </span>
-                                    {{/if}}
+                                {{#if is_premium}}
+                                <span class="premium_topfive">
+                                    <img src="/public/images/icon/whiteCrown.png" alt="" width="60%">
+                                </span>
+                                {{/if}}
                             </a>
                         </div>
 
@@ -117,11 +119,16 @@
                                 </a>
                             </h5>
 
-                            <div class="row ml-1">
+                            <div class="d-flex justify-content-between">
                                 <p class="top_article_content_time">{{formatDate_nothu published_date}}</p>
-                                <a class="top_article_content_time ml-3"
-                                    href="/article_list/byCategory?id={{category_id}}">{{category_name}}</a>
+                                <div class="view_count_block ml-3">
+                                    {{view_count}}
+                                    <i class="bi bi-eye mr-1"></i>
+                                </div>
                             </div>
+                            <a class="top_article_content_time" href="/article_list/byCategory?id={{category_id}}">
+                                {{category_name}}
+                            </a>
                         </div>
                     </div>
                     <hr>
@@ -175,5 +182,22 @@
 <style>
     figure {
         text-align: center;
+    }
+
+    figure img {
+        width: 100%;
+        height: auto;
+    }
+
+    figure.media {
+        width: 100%;
+        display: table;
+        /* Important for some browsers */
+    }
+
+    figure.media iframe {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        /* Maintain 16:9 aspect ratio */
     }
 </style>

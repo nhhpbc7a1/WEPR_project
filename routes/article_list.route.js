@@ -40,10 +40,13 @@ router.get('/byCategory', async function (req, res) {
     const currentPage = parseInt(req.query.page, 10) || 1;
     const offset = (currentPage - 1) * limit;
     const newestArticles = await articleService.getNewestArticles();
+    const currentCategory = await articleService.findCategoryByID(categoryId);
     try {
         // Đếm tổng số bài viết trong danh mục
         const totalRows = await articleService.countByCategoryId(categoryId);
         const totalPages = Math.ceil(totalRows.total / limit);
+        // console.log(totalRows.total, totalPages);
+        // console.log(currentPage, limit, offset);
 
         const pageNumbers = [];
         for (let i = 1; i <= totalPages; i++) {
@@ -60,6 +63,7 @@ router.get('/byCategory', async function (req, res) {
             empty: articles.length === 0,
             pageNumbers,
             categoryId: categoryId,
+            currentCategory: currentCategory,
             currentPage,
             newestArticles: newestArticles,
         });
@@ -68,6 +72,46 @@ router.get('/byCategory', async function (req, res) {
         res.status(500).send('Internal Server Error');
     }
 });
+
+router.get('/byTag', async function (req, res) {
+    const tagId = req.query.id || 0;
+    const limit = 4;
+    const currentPage = parseInt(req.query.page, 10) || 1;
+    const offset = (currentPage - 1) * limit;
+    const newestArticles = await articleService.getNewestArticles();
+    const currentTag = await articleService.findTagByID(tagId);
+    try {
+        // Đếm tổng số bài viết trong danh mục
+        const totalRows = await articleService.countByTagId(tagId);
+        const totalPages = Math.ceil(totalRows.total / limit);
+        console.log(totalRows.total, totalPages);
+        console.log(currentPage, limit, offset);
+
+        const pageNumbers = [];
+        for (let i = 1; i <= totalPages; i++) {
+            pageNumbers.push({
+                value: i,
+                active: i === currentPage
+            });
+        }
+
+        const articles = await articleService.findPageByTagId(tagId, limit, offset);
+
+        res.render('vwArticle/bytag', {
+            articles,
+            empty: articles.length === 0,
+            pageNumbers,
+            tagId: tagId,
+            currentTag: currentTag,
+            currentPage,
+            newestArticles: newestArticles,
+        });
+    } catch (error) {
+        console.error('Error fetching paginated articles by category:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 
 router.get('/search', async function (req, res) {
     const limit = 4;

@@ -1,8 +1,52 @@
 <div class="container-fluid">
+    <!-- Status blocks -->
+    <div class="row mb-4">
+        <div class="col-md-3 mb-2">
+            <div class="card status-card" data-status="draft">
+                <div class="card-body">
+                    <h5 class="card-title">Draft</h5>
+                    <p class="card-text" id="draft-count">0</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-2">
+            <div class="card status-card" data-status="reviewed">
+                <div class="card-body">
+                    <h5 class="card-title">Reviewed</h5>
+                    <p class="card-text" id="reviewed-count">0</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-2">
+            <div class="card status-card" data-status="published">
+                <div class="card-body">
+                    <h5 class="card-title">Published</h5>
+                    <p class="card-text" id="published-count">0</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-2">
+            <div class="card status-card" data-status="rejected">
+                <div class="card-body">
+                    <h5 class="card-title">Rejected</h5>
+                    <p class="card-text" id="rejected-count">0</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="status-filter" class="form-label"><b>Filter by Status:</b></label>
+        <select id="status-filter" class="form-select form-control">
+            <option value="">All</option>
+            <option value="draft">Draft</option>
+            <option value="reviewed">Reviewed</option>
+            <option value="published">Published</option>
+            <option value="rejected">Rejected</option>
+        </select>
+    </div>
     <!-- DataTales Example -->
     <div id="table-wrapper"></div>
-
-
 </div>
 
 {{#section 'css'}}
@@ -12,7 +56,23 @@
         overflow: hidden;
         text-overflow: ellipsis;
         max-width: 200px;
-        /* Giới hạn chiều rộng tối đa */
+    }
+    .status-card {
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .status-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .status-card.active {
+        background-color: #4a628a;
+        color: white;
+    }
+    .card-text {
+        font-size: 24px;
+        font-weight: bold;
+        margin: 0;
     }
 </style>
 {{/section}}
@@ -23,16 +83,35 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 <script>
-    // Lấy dữ liệu từ this.categorie đã chuyển sang JSON
     const articleData = {{{ json this.articles }}};
+    const data = articleData.map(item => [item.article_id, item.category_name, item.title, item.article_created_at, item.status, item.is_featured, item.is_premium]);
 
-    // Chuyển đổi dữ liệu từ đối tượng thành mảng để sử dụng trong Grid.js
-    const data = articleData.map(item => [item.article_id, item.category_name, item.title, item.pen_name, item.status, item.is_featured, item.is_premium]);
+    // Calculate status counts
+    const statusCounts = articleData.reduce((acc, item) => {
+        acc[item.status] = (acc[item.status] || 0) + 1;
+        return acc;
+    }, {});
 
-    console.log(data);
-    // Khởi tạo bảng Grid.js
-    new gridjs.Grid({
-        columns: ["#", "Category", "Title", "Author", "Status", 
+    // Update status counts in cards
+    Object.keys(statusCounts).forEach(status => {
+        const countElement = document.getElementById(`${status}-count`);
+        if (countElement) {
+            countElement.textContent = statusCounts[status];
+        }
+    });
+
+    // Grid.js initialization
+    const grid = new gridjs.Grid({
+        columns: ["#", "Category", "Title",
+            {
+                name: "Created At",
+                formatter: (cell, row) => {
+                    return gridjs.html(`
+                    ${formatDate(new Date(row.cells[3].data),'DD/MM/yyyy hh:mm:ss')}
+                    `);
+                }
+            },
+            "Status",
             {
                 name: "Highlighted",
                 formatter: (cell, row) => {
@@ -86,10 +165,56 @@
             td: {
                 height: '120px'
             }
-
-
         }
     }).render(document.getElementById("table-wrapper"));
 
+    // Function to filter data
+    function filterByStatus(status) {
+        const filteredData = status 
+            ? data.filter(row => row[4] === status) 
+            : data;
+        grid.updateConfig({
+            data: filteredData
+        }).forceRender();
+    }
+
+    // Handle status card clicks
+    document.querySelectorAll('.status-card').forEach(card => {
+        card.addEventListener('click', function() {
+            const status = this.dataset.status;
+            
+            // Remove active class from all cards
+            document.querySelectorAll('.status-card').forEach(c => c.classList.remove('active'));
+            
+            // Add active class to clicked card
+            if (status) {
+                this.classList.add('active');
+            }
+
+            // Update select dropdown
+            const statusFilter = document.getElementById('status-filter');
+            statusFilter.value = status;
+
+            // Filter data
+            filterByStatus(status);
+        });
+    });
+
+    // Handle select change
+    const statusFilter = document.getElementById('status-filter');
+    statusFilter.addEventListener('change', () => {
+        const selectedStatus = statusFilter.value;
+        
+        // Remove active class from all cards
+        document.querySelectorAll('.status-card').forEach(card => card.classList.remove('active'));
+        
+        // Add active class to corresponding card
+        if (selectedStatus) {
+            document.querySelector(`.status-card[data-status="${selectedStatus}"]`).classList.add('active');
+        }
+
+        // Filter data
+        filterByStatus(selectedStatus);
+    });
 </script>
 {{/section}}

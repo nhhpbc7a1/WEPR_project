@@ -18,12 +18,15 @@ router.get('/list', function (req, res) {
 
 router.get('/', async function (req, res) {
     const list = await manage_userService.findAll();
+    res.locals.title = 'List users';
+
     res.render('vwAdmin/user/list', {
         users: list
     });
 });
 
 router.get('/add/admin', async function (req, res) {
+    res.locals.title = 'Add user';
     res.render('vwAdmin/user/add/admin');
 });
 router.post('/add/admin', async function (req, res) {

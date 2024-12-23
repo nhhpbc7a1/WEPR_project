@@ -10,6 +10,7 @@
 
 
 
+
 .huy_navbar {
   background-color: #fff;
   /* box-shadow: var(--box-shadow); */
@@ -251,4 +252,38 @@
   position: absolute;
   top: 10px;
   right: 10px;
+}
+
+.view_count_block {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.view_count_block {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.view_count_block i{
+  margin-left: 4px;
+  margin-top: 1px;
+}
+
+.my_tags {
+  color: #aaa;
+  border: solid 1px #aaa;
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 12px;
+  margin-right: 12px;
+}
+
+.my_tags i{
+  margin-right: 4px;
+}
+
+.my_tags a{
+  color: #aaa;
 }

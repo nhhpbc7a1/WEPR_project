@@ -19,6 +19,7 @@ router.get('/', function (req, res) {
 
 router.get('/list', async function (req, res) {
     const articles = await manage_articleService.findAll();
+    res.locals.title = 'List articles';
     res.render('vwAdmin/article/list', {
         articles: articles
     });
@@ -36,6 +37,7 @@ router.get('/add', async function (req, res) {
     const parent_categories = await manage_articleService.findAllParentCategory();
     const child_categories = await manage_articleService.findAllChildCategory();
     const tags = await manage_articleService.getAllTags();
+    res.locals.title = 'Add article';
 
     res.render('vwAdmin/article/add', {
         parent_categories: parent_categories,

@@ -32,11 +32,11 @@
         const userList = {{{ json this.users }}};
 
         // Chuyển đổi dữ liệu từ đối tượng thành mảng để sử dụng trong Grid.js
-        const data = userList.map(item => [item.user_id, item.fullname, item.role_name, item.email]);
+        const data = userList.map(item => [item.user_id, item.username, item.role_name, item.email]);
 
         // Khởi tạo bảng Grid.js
         new gridjs.Grid({
-            columns: ["ID", "Name", "Role", "Email",
+            columns: ["ID", "Username", "Role", "Email",
                 {
                     name: "Action",
                     formatter: (cell, row) => {

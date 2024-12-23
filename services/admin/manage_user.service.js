@@ -46,4 +46,39 @@ export default {
             .where('user_id', id)
             .update(entity);
     },
+    async addSubscriptionDays(userId, daysToAdd = 7) { // Default to 7 days
+        if (!Number.isInteger(userId) || userId <= 0) {
+            throw new Error('Invalid user ID');
+        }
+
+        try {
+            await db.transaction(async trx => { // Using a transaction
+                const user = await trx('users') // Use trx instead of db
+                    .where('user_id', userId)
+                    .first();
+
+                if (!user) {
+                    throw new Error('User not found');
+                }
+
+                const { subscription_expiration } = user;
+                let startDate = new Date();
+
+                if (subscription_expiration && subscription_expiration > startDate) {
+                    startDate = new Date(subscription_expiration);
+                }
+
+                const newExpirationDate = new Date(startDate);
+                newExpirationDate.setDate(startDate.getDate() + daysToAdd);
+
+                await trx('users') // Use trx instead of db
+                    .where('user_id', userId)
+                    .update({ subscription_expiration: newExpirationDate });
+            });
+
+        } catch (error) {
+            console.error('Error adding subscription days:', error);
+            throw new Error('Failed to add subscription days');
+        }
+    }
 }

@@ -3,10 +3,15 @@
 {{/section}}
 {{#section 'js'}}
 <script src="/public/js/userForm.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 <script>
-    var userData = {{{json user}}};
+    var userData = {{{ json user }}};
     $(document).ready(function () {
         initializeUserForm("editor");
+        $('#my-multiselect').select2();
+        $('#my-multiselect').next('.select2-container').addClass('custom_input_profile mr-5');
+        $('.select2-container .select2-selection').addClass('custom_input_profile_no_border');
     });
 </script>
 
@@ -22,6 +27,18 @@
             <div class="card-body profile_container_body ml-4 " style="font-weight: 600; ">
                 {{> userForm user_id=user.user_id username=user.username password=user.password fullname=user.fullname
                 email=user.email phone_number=user.phone_number birth_date=user.birth_date userType="editor"}}
+                <div class="form-group d-flex justify-content-between mb-4">
+                    <label for="">Role</label>
+                    <select id="my-multiselect" name="categories[]" multiple="multiple" disabled
+                        class="form-control custom_input_profile mr-5" required>
+                        {{#each categories}}
+                        <option value="{{category_id}}" {{#if (contain_assignment ../oldCategories this.category_id)}}
+                            selected {{/if}}>
+                            {{category_name}}
+                        </option>
+                        {{/each}}
+                    </select>
+                </div>
             </div>
             <div class="button-container_Add mb-5">
                 <button type="submit" class="btnSaveEdit btnActionEdit ">
