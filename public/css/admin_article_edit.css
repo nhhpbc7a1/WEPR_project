@@ -1,0 +1,53 @@
+.btnActionEdit{
+    display: flex; /* Kích hoạt Flexbox cho nút */
+    justify-content: center; /* Căn giữa nội dung theo chiều ngang */
+    align-items: center; /* Căn giữa nội dung theo chiều dọc */
+    text-align: center;
+    font-weight: 500;
+    font-size: large;
+    border-radius: 5px;
+
+}
+.button-container {
+    display: flex;
+    justify-content: space-between; /* Căn đều các phần tử */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    gap: 10px; /* Khoảng cách giữa các nút (tùy chỉnh) */
+}
+.button-container_Add {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.button-container_Edit{
+    display: flex; /* Sử dụng Flexbox để dễ dàng căn chỉnh */
+    justify-content: flex-start; /* Căn tất cả phần tử con sang trái */
+    gap: 10px;
+}
+.btnBackToList{
+    background-color: rgb(122, 178, 211);
+    width: 100px;
+    height: 50px;
+    color: white;
+
+}
+.btnSaveEdit{
+    height: 60px;
+    text-align: center;
+    width: 180px;
+    border: 1px solid rgb(74, 98, 138);
+    background-color: rgb(74, 98, 138);
+    color: white;
+    gap: 10px;
+
+}
+.btnDeleteArticle{
+    border: 2px solid  rgb(253, 122, 122);
+    color:  white;
+    width: 180px;
+    height: 60px;
+    background-color:rgb(253, 122, 122);
+    margin-left: 10px;
+    gap: 10px;
+
+}

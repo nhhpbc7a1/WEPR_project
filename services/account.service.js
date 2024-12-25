@@ -33,5 +33,12 @@ export default {
         return db('users')
            .where('user_id', id)
            .update(entity);
+    },
+    async generateUsername() {
+        while (true) {
+            const username = 'user' + Math.floor(Math.random() * 1000000000);
+            const user = await this.findByUsername(username);
+            if (!user) return username;
+        }
     }
 };

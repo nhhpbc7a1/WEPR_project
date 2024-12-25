@@ -1,0 +1,227 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/public/css/list.css">
+{{/section}}
+
+{{#section 'js'}}
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+{{/section}}
+
+
+<div class="container my-5">
+    <div class="row">
+        <!-- Cột tìm kiếm -->
+        <div class="col-lg-8">
+            <!-- Phần tìm kiếm -->
+            <div class="d-flex">
+                <h1>
+                    Tìm Kiếm
+                    <span class="my_tags"><i class="fa-solid fa-tag"></i>
+                        <a href="/article_list/byTag?id={{currentTag.tag_id}}">
+                            {{currentTag.tag_name}}
+                        </a>
+                    </span>
+                </h1>
+            </div>
+
+            <hr>
+            <div class="border p-4 bg-light rounded" style="display: none;">
+                <form>
+                    <div class="form-row align-items-end">
+                        <div class="col">
+                            <label for="country">Quốc gia</label>
+                            <select id="country" class="form-control">
+                                <option selected>Tất cả</option>
+                                <option>Mỹ</option>
+                                <option>Singapore</option>
+                                <option>Việt Nam</option>
+                                <option>Lào</option>
+                                <option>Campuchia</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row align-items-end">
+                        <div class="col-md-3">
+                            <label for="keyword">Từ khóa</label>
+                            <input type="text" id="keyword" class="form-control" placeholder="Nhập từ khóa">
+                        </div>
+                        <div class="col-md-2">
+                            <label for="time">Thời gian</label>
+                            <select id="time" class="form-control">
+                                <option selected>Tất cả</option>
+                                <option>Mới nhất</option>
+                                <option>Cũ hơn</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="tag">Chuyên mục</label>
+                            <select id="tag" class="form-control">
+                                <option selected>Tất cả</option>
+                                <option>Kinh doanh</option>
+                                <option>Thể thao</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="post-type">Dạng bài</label>
+                            <select id="post-type" class="form-control">
+                                <option selected>Tất cả</option>
+                                <option>Tin tức</option>
+                                <option>Bài viết</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="submit" class="btn btn-primary btn-block">Tìm kiếm</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Phần kết quả -->
+            {{!-- <div class="mt-4">
+                <button class="btn btn-secondary btn-sm mr-2">Mới nhất</button>
+                <button class="btn btn-primary btn-sm">Liên quan</button>
+            </div> --}}
+
+            <div class="mt-3">
+                <!-- Bài viết -->
+                {{#each articles}}
+                <div class="row border-bottom py-3">
+                    <div class="col-md-8">
+                        <h5><a href="/article_detail?id={{this.article_id}}"
+                                class="text-dark featured-article-title">{{this.title}}
+                            </a></h5>
+                        <p class="text-muted">{{this.abstract}}</p>
+                        <small class="text-muted">
+                            Đăng ngày: {{formatDate_thu this.published_date}}
+                        </small>
+                        <div>
+                            <small class="text-muted">{{this.commentsCount}} bình luận</small>
+                        </div>
+                        {{#each tags}}
+                        <span class="my_tags"><i class="fa-solid fa-tag"></i>
+                            <a href="/article_list/byTag?id={{tag_id}}">
+                                {{tag_name}}
+                            </a>
+                        </span>
+                        {{/each}}
+
+                    </div>
+                    <div class="col-md-4 premium_container">
+                        <img src="{{this.image_url}}" alt="Ảnh bài viết" class="img-fluid">
+                        {{#if is_premium}}
+                        <span class=" premium_top10">
+                            <img src="/public/images/icon/smallwhitecrown.png" alt="" class="imgPremiumMain"
+                                width="10%">
+                        </span>
+                        {{/if}}
+                    </div>
+                </div>
+                {{/each}}
+                <!-- Các bài viết khác... -->
+            </div>
+            <!-- Phân trang -->
+            {{#if pageNumbers}}
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center mt-4">
+
+                    <!-- Nút Previous -->
+                    {{#if prevPage}}
+                    <li class="page-item">
+                        <a class="page-link" href="?id={{tagId}}&page={{prevPage}}" aria-label="Trang trước">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {{else}}
+                    <li class="page-item disabled">
+                        <span class="page-link" aria-label="Trang trước">
+                            <span aria-hidden="true">&laquo;</span>
+                        </span>
+                    </li>
+                    {{/if}}
+
+                    <!-- Hiển các trang gần nhất -->
+                    {{#each pageNumbers}}
+                    {{#if isEllipsis}}
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                    {{else}}
+                    {{#if active}}
+                    <li class="page-item active">
+                        <a class="page-link" href="?id={{../tagId}}&page={{value}}"
+                            aria-label="Trang {{value}}">{{value}}</a>
+                    </li>
+                    {{else}}
+                    <li class="page-item">
+                        <a class="page-link" href="?id={{../tagId}}&page={{value}}"
+                            aria-label="Trang {{value}}">{{value}}</a>
+                    </li>
+                    {{/if}}
+                    {{/if}}
+                    {{/each}}
+
+                    <!-- Nút Next -->
+                    {{#if nextPage}}
+                    <li class="page-item">
+                        <a class="page-link" href="?id={{this.tagId}}&page={{nextPage}}" aria-label="Trang sau">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    {{else}}
+                    <li class="page-item disabled">
+                        <span class="page-link" aria-label="Trang sau">
+                            <span aria-hidden="true">&raquo;</span>
+                        </span>
+                    </li>
+                    {{/if}}
+
+                </ul>
+            </nav>
+            {{/if}}
+        </div>
+
+        <!-- Cột quảng cáo -->
+        <div class="col-4">
+            <div class="card">
+                <div class="card-header my_sider_title">
+                    Mới nhất
+                </div>
+                <div class="card-body">
+                    {{#each newestArticles}}
+                    <div class="row top_article_content d-flex">
+                        <div class="">
+                            <a href="/article_detail?id={{article_id}}" class="premium_mostRead_container">
+                                <img class="top_article_content_image " src="{{image_url}}" alt="">
+                                {{#if is_premium}}
+                                <span class="premium_block_mini mb-1">
+                                    <img src="/public/images/icon/crown.png" alt="" width="30%">
+                                    Premium
+                                </span>
+                                {{/if}}
+
+                            </a>
+                        </div>
+
+                        <div class="ml-3" style="flex:1;">
+                            <h5 class="top_article_content_title">
+                                <a href="/article_detail?id={{article_id}}">
+                                    {{title}}
+                                </a>
+                            </h5>
+
+                            <div class="row ml-1">
+                                <p class="top_article_content_time">{{formatDate_nothu published_date}}</p>
+                                <a class="top_article_content_time ml-3"
+                                    href="/article_list/byCategory?id={{category_id}}">{{category_name}}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    {{/each}}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

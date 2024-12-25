@@ -20,6 +20,7 @@ router.get('/', function (req, res) {
 router.get('/list', async function (req, res) {
     const writer_id = req.session.authUser.user_id;
     const articles = await manage_articleService.findAllOfWriterID(writer_id);
+    res.locals.title = 'List articles';
     res.render('vwWriter/article/list', {
         articles: articles
     });
@@ -37,6 +38,7 @@ router.get('/add', async function (req, res) {
     const parent_categories = await manage_articleService.findAllParentCategory();
     const child_categories = await manage_articleService.findAllChildCategory();
     const tags = await manage_articleService.getAllTags();
+    res.locals.title = 'Add article';
 
     res.render('vwWriter/article/add', {
         parent_categories: parent_categories,
@@ -52,6 +54,8 @@ router.get('/edit', async function (req, res) {
     const article = await manage_articleService.findByID(id);
     const tags = await manage_articleService.getAllTags();
     const oldTags = await manage_articleService.getTagsByArticleID(id);
+    res.locals.title = 'Edit article #'+id ;
+
     console.log(article);
     res.render('vwWriter/article/edit', {
         article: article,
@@ -104,7 +108,7 @@ router.post('/upload-image', upload.single('upload'), (req, res) => {
 router.use(express.json());
 router.post('/add', upload_main_img.single('main_image'), async function (req, res) {
     const ymd_published_date = moment(req.body.raw_published_date, 'DD/MM/YYYY HH:mm').format('YYYY-MM-DD HH:mm');
-    
+
     // Thông tin bài viết
     const entity = {
         title: req.body.title,
@@ -139,6 +143,7 @@ router.post('/edit', upload_main_img.single('main_image'), async function (req, 
     // Thông tin bài viết
     const id = +req.body.article_id || 0;
     const ymd_published_date = moment(req.body.raw_published_date, 'DD/MM/YYYY HH:mm').format('YYYY-MM-DD HH:mm');
+    const article = await manage_articleService.findByID(id);
     const entity = {
         title: req.body.title,
         abstract: req.body.abstract,
@@ -152,20 +157,20 @@ router.post('/edit', upload_main_img.single('main_image'), async function (req, 
     };
     console.log(entity);
 
-
-    await manage_articleService.patch(id, entity);
-    const image = req.file; // Ảnh tải lên
-    const imagePath = await handleFileUpload(req, 'articles', id);
-    if (image) {
-        entity.image_url = imagePath;
+    if (article.status == 'draft') {
         await manage_articleService.patch(id, entity);
-    }
+        const image = req.file; // Ảnh tải lên
+        const imagePath = await handleFileUpload(req, 'articles', id);
+        if (image) {
+            entity.image_url = imagePath;
+            await manage_articleService.patch(id, entity);
+        }
 
+        const tags = req.body.tags || [];
 
-    const tags = req.body.tags || [];
-
-    if (tags.length > 0) {
-        await manage_articleService.updateTags(id, tags);
+        if (tags.length > 0) {
+            await manage_articleService.updateTags(id, tags);
+        }
     }
 
     res.redirect('/writer/article/');
@@ -173,7 +178,10 @@ router.post('/edit', upload_main_img.single('main_image'), async function (req, 
 
 router.get('/del', upload.single('image'), async function (req, res) {
     const id = +req.query.id || 0;
-    await manage_articleService.del(id);
+    const article = await manage_articleService.findByID(id);
+    if (article.status == 'draft') {
+        await manage_articleService.del(id);
+    }
     res.redirect('/writer/article');
 });
 

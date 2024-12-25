@@ -23,6 +23,7 @@ app.use(express.urlencoded({
 app.engine('hbs', engine({
     extname: '.hbs',
     defaultLayout: 'main',
+    partialsDir: __dirname + '/views/partials',
     helpers: {
         format_price(value) {
             return numeral(value).format('0,000') + ' VNĐ';
@@ -32,7 +33,11 @@ app.engine('hbs', engine({
         },
 
         json(context) {
-            return JSON.stringify(context);
+            if (context === undefined || context === null) {
+                return "null"; // Hoặc return "";
+            } else {
+                return JSON.stringify(context);
+            }
         },
         ifEquals(arg1, arg2, options) {
             return arg1 == arg2 ? options.fn(this) : options.inverse(this);
@@ -60,7 +65,7 @@ app.engine('hbs', engine({
             return moment(date).format('MMMM DD, YYYY');  // Định dạng ngày theo format
         },
         formatDate_x(inputDate, format) {
-            moment.locale('vi'); 
+            moment.locale('vi');
             const date = moment(inputDate);
             const formattedDate = date.format(format);
             return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
@@ -81,7 +86,7 @@ app.engine('hbs', engine({
             const formattedDate = date.format('dddd, D/M/YYYY, HH:mm (Z)');
             // Viết hoa chữ cái đầu
             return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
-        },        
+        },
         formatDate_nothu(inputDate) {
             const date = moment(inputDate);
             const formattedDate = date.format('DD/MM/YYYY');
@@ -173,3 +178,8 @@ app.use('/account', accountRouter);
 app.listen(3000, function () {
     console.log('Server is running at http://localhost:3000');
 });
+
+
+
+// 6LcynaMqAAAAAAPYVUVSXJSUNkNj7ggkTVWJIxlj
+// 6LcynaMqAAAAALy_DhSeh1s1dVepKLOSD-QGr1Fc

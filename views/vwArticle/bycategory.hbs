@@ -14,7 +14,7 @@
         <!-- Cột tìm kiếm -->
         <div class="col-lg-8">
             <!-- Phần tìm kiếm -->
-            <h1>Tìm Kiếm</h1>
+            <h2>Danh mục <b>{{currentCategory.category_name}}</b></h2>
             <hr>
             <div class="border p-4 bg-light rounded" style="display: none;">
                 <form>
@@ -80,11 +80,6 @@
                     <div class="col-md-8">
                         <h5><a href="/article_detail?id={{this.article_id}}"
                                 class="text-dark featured-article-title">{{this.title}}
-                                {{#if is_premium}}
-                                <span class="premium_block_mini">
-                                    <i class="fa-solid fa-crown"></i> Premium
-                                </span>
-                                {{/if}}
                             </a></h5>
                         <p class="text-muted">{{this.abstract}}</p>
                         <small class="text-muted">
@@ -94,12 +89,21 @@
                             <small class="text-muted">{{this.commentsCount}} bình luận</small>
                         </div>
                         {{#each tags}}
-                        <span class="my_tags"><i class="fa-solid fa-tag"></i>{{tag_name}}</span>
+                        <span class="my_tags"><i class="fa-solid fa-tag"></i>
+                            <a href="/article_list/byTag?id={{tag_id}}">
+                                {{tag_name}}
+                            </a>
+                        </span>
                         {{/each}}
 
                     </div>
-                    <div class="col-md-4">
-                        <img src="{{this.image_url}}" alt="Ảnh bài viết" class="img-fluid rounded">
+                    <div class="col-md-4 premium_container">
+                        <img src="{{this.image_url}}" alt="Ảnh bài viết" class="img-fluid">
+                        {{#if is_premium}}
+                        <span class=" premium_top10">
+                            <img src="/public/images/icon/smallwhitecrown.png" alt="" class="imgPremiumMain" width="10%">
+                        </span>
+                        {{/if}}
                     </div>
                 </div>
                 {{/each}}
@@ -113,7 +117,7 @@
                     <!-- Nút Previous -->
                     {{#if prevPage}}
                     <li class="page-item">
-                        <a class="page-link" href="?id={{categoryId}}?page={{prevPage}}" aria-label="Trang trước">
+                        <a class="page-link" href="?id={{categoryId}}&page={{prevPage}}" aria-label="Trang trước">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
@@ -134,12 +138,12 @@
                     {{else}}
                     {{#if active}}
                     <li class="page-item active">
-                        <a class="page-link" href="?id={{../categoryId}}?page={{value}}"
+                        <a class="page-link" href="?id={{../categoryId}}&page={{value}}"
                             aria-label="Trang {{value}}">{{value}}</a>
                     </li>
                     {{else}}
                     <li class="page-item">
-                        <a class="page-link" href="?id={{../categoryId}}?page={{value}}"
+                        <a class="page-link" href="?id={{../categoryId}}&page={{value}}"
                             aria-label="Trang {{value}}">{{value}}</a>
                     </li>
                     {{/if}}
@@ -149,7 +153,7 @@
                     <!-- Nút Next -->
                     {{#if nextPage}}
                     <li class="page-item">
-                        <a class="page-link" href="?id={{this.categoryId}}?page={{nextPage}}" aria-label="Trang sau">
+                        <a class="page-link" href="?id={{this.categoryId}}&page={{nextPage}}" aria-label="Trang sau">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
@@ -176,8 +180,15 @@
                     {{#each newestArticles}}
                     <div class="row top_article_content d-flex">
                         <div class="">
-                            <a href="/article_detail?id={{article_id}}">
+                            <a href="/article_detail?id={{article_id}}" class="premium_mostRead_container">
                                 <img class="top_article_content_image " src="{{image_url}}" alt="">
+                                {{#if is_premium}}
+                                <span class="premium_block_mini mb-1">
+                                    <img src="/public/images/icon/crown.png" alt="" width="30%">
+                                     Premium
+                                </span>
+                                {{/if}}
+
                             </a>
                         </div>
 
@@ -185,11 +196,6 @@
                             <h5 class="top_article_content_title">
                                 <a href="/article_detail?id={{article_id}}">
                                     {{title}}
-                                    {{#if is_premium}}
-                                    <span class="premium_block_mini">
-                                        <i class="fa-solid fa-crown"></i> Premium
-                                    </span>
-                                    {{/if}}
                                 </a>
                             </h5>
 

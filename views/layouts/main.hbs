@@ -39,7 +39,7 @@
         </div>
         <div class="huy_navbar_right d-flex align-items-center">
           <input type="text" id="myInput" placeholder="Tìm kiếm..." onkeydown="handleSearch(event)">
-          <button class="btn btn-primary" onclick="executeSearch()">
+          <button class="custom_btnSearch" onclick="executeSearch()">
             <i class="bi bi-search"></i>
           </button>
           {{#if auth}}
@@ -189,6 +189,9 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdn.jsdelivr.net/npm/moment@2.30.1/moment.min.js"></script>
   <script>
+    function formatDate(date, format) {
+      return moment(date).format(format);  // Định dạng ngày theo format
+    }
     function formatYMD(date) {
       return moment(date).format('DD/MM/YYYY');  // Định dạng ngày theo format
     }

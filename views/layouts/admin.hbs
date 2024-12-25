@@ -30,6 +30,8 @@
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
     <link rel="stylesheet" href="/public/css/upload_content.css">
+    <link rel="stylesheet" href="/public/css/admin_article_edit.css">
+    <link rel="stylesheet" href="/public/css/admin_user_list.css">
     {{{_sections.css}}}
 </head>
 
@@ -51,13 +53,6 @@
 
             <!-- Divider -->
 
-            <!-- Nav Item - Dashboard -->
-
-            <li class="nav-item active mt-5 ">
-                <a class="nav-link" href="/admin/">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
 
 
             <!-- Divider -->
@@ -86,7 +81,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
                     aria-expanded="true" aria-controls="collapseTwo">
-                   <img src="/public/images/icon/icons8-tag-100.png" alt="" width="13%">
+                    <img src="/public/images/icon/icons8-tag-100.png" alt="" width="13%">
                     <span style="font-size:medium; font-weight:700" class="ml-2">Tag</span>
                 </a>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -118,6 +113,10 @@
                 <div id="collapseFive" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="/admin/user">List</a>
+                        <a class="collapse-item" href="/admin/user/add/admin">Add admin</a>
+                        <a class="collapse-item" href="/admin/user/add/editor">Add editor</a>
+                        <a class="collapse-item" href="/admin/user/add/writer">Add writer</a>
+                        <a class="collapse-item" href="/admin/user/add/subscriber">Add subscriber</a>
                     </div>
                 </div>
             </li>
@@ -127,13 +126,6 @@
             <hr class="sidebar-divider">
 
             <!-- Heading -->
-
-            <!-- Nav Item - Charts -->
-            {{!-- <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Shop 's information</span></a>
-            </li> --}}
 
 
         </ul>
@@ -191,7 +183,7 @@
                             <div class="dropdown-menu">
                                 <button class="dropdown-item" type="button">
                                     <a class="" href="/admin/profile">
-                                        <i class="bi bi-shop-window"></i>
+                                        <i class="bi bi-person"></i>
                                         Profile
                                     </a>
                                 </button>
@@ -220,9 +212,6 @@
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
-                    </div>
                 </div>
             </footer>
             <!-- End of Footer -->
@@ -237,26 +226,6 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Bootstrap core JavaScript-->
 
@@ -287,6 +256,9 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/moment@2.30.1/moment.min.js"></script>
     <script>
+        function formatDate(date,format) {
+            return moment(date).format(format);  // Định dạng ngày theo format
+        }
         function formatYMD(date) {
             return moment(date).format('DD/MM/YYYY');  // Định dạng ngày theo format
         }

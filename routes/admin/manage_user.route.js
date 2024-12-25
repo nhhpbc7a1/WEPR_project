@@ -12,15 +12,21 @@ router.use((req, res, next) => {
     next(); // Chuyển sang middleware/route handler tiếp theo
 });
 
+router.get('/list', function (req, res) {
+    res.redirect('/admin/user');
+})
+
 router.get('/', async function (req, res) {
     const list = await manage_userService.findAll();
-    console.log(list);
+    res.locals.title = 'List users';
+
     res.render('vwAdmin/user/list', {
         users: list
     });
 });
 
 router.get('/add/admin', async function (req, res) {
+    res.locals.title = 'Add user';
     res.render('vwAdmin/user/add/admin');
 });
 router.post('/add/admin', async function (req, res) {
@@ -36,7 +42,6 @@ router.post('/add/admin', async function (req, res) {
         role_id: 1,
     } 
 
-    console.log(newAdmin);
     await manage_userService.add(newAdmin);
     res.redirect('/admin/user');
 });
@@ -61,7 +66,6 @@ router.post('/add/editor', async function (req, res) {
         role_id: 2,
     } 
 
-    console.log(newEditor);
     const new_id = await manage_userService.add(newEditor);
 
     const categories = req.body.categories || [];
@@ -90,7 +94,6 @@ router.post('/add/writer', async function (req, res) {
         pen_name: req.body.pen_name,
     } 
 
-    console.log(newWriter);
     await manage_userService.add(newWriter);
     res.redirect('/admin/user');
 });
@@ -114,7 +117,6 @@ router.post('/add/subscriber', async function (req, res) {
         role_id: 4,
     } 
 
-    console.log(newAdmin);
     await manage_userService.add(newAdmin);
     res.redirect('/admin/user');
 });

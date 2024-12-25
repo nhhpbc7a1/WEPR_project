@@ -17,7 +17,9 @@ router.get('/', function (req, res) {
 });
 
 router.get('/list', async function (req, res) {
-    const articles = await manage_articleService.findAll();
+    const editor_id = req.session.authUser.user_id;
+    const articles = await manage_articleService.getArticlesAssignedToEditor(editor_id);
+    res.locals.title = 'Assigned Articles List';
     res.render('vwEditor/article/list', {
         articles: articles
     });
@@ -38,6 +40,7 @@ router.get('/edit', async function (req, res) {
     const article = await manage_articleService.findByID(id);
     const tags = await manage_articleService.getAllTags();
     const oldTags = await manage_articleService.getTagsByArticleID(id);
+    res.locals.title = 'Reviewing article #'+id;
     console.log(article);
     res.render('vwEditor/article/edit', {
         article: article,

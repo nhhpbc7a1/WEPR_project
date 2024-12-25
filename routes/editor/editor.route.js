@@ -3,23 +3,31 @@ import manage_articleRouter from './manage_article.route.js'
 import moment from 'moment';
 import bcrypt from 'bcryptjs';
 import accountService from '../../services/account.service.js'
+import manage_userService from '../../services/admin/manage_user.service.js';
 
 const router = express.Router();
 
 router.use((req, res, next) => {
     res.locals.layout = 'editor';
     next();
-  });
+});
 
-router.get('/',async function (req, res){
+router.get('/', async function (req, res) {
     res.redirect('/editor/article');
 });
 
 router.get('/profile', async function (req, res) {
-    const user = req.session.authUser;
+    const id = +req.session.authUser.user_id || 0;
+    const categories = await manage_userService.getAllCategories();
+    const user = await manage_userService.findUserByID(id);
+    const oldCategories = await manage_userService.getOldCategoriesOfEditor(id);
+    console.log(oldCategories);
     res.render('vwEditor/profile', {
+        oldCategories: oldCategories,
+        categories: categories,
         user: user,
     });
+
 });
 
 router.post('/profile', async function (req, res) {
@@ -33,7 +41,7 @@ router.post('/profile', async function (req, res) {
         phone_number: req.body.phone_number,
         email: req.body.email,
         birth_date: ymd_dob,
-    } 
+    }
 
     console.log(newEditor);
     await accountService.editUserByID(id, newEditor);

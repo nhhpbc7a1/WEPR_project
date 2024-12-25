@@ -1,22 +1,27 @@
 <div class="container-fluid" style="padding: 40px;">
-    <div class="row d-flex align-items-center justify-content-end">
-        <div class="col-12">
-            <img src="/admin/images/homepage_admin/ecom_logo.png" alt="" style="width: 50px;">
+    <div class="row d-flex align-items-center justify-content-end ">
+        <div class="ml-4">
+            <a name="" id="" class="btnAddRole" href="/admin/user/add/admin" role="button">            
+            <i class="bi bi-plus"></i>
+            Add admin</a>
         </div>
-        <div class="col-2">
-            <a name="" id="" class="btn btn-primary" href="/admin/user/add/admin" role="button">Thêm admin</a>
+        <div class="ml-4">
+            <a name="" id="" class="btnAddRole" href="/admin/user/add/editor" role="button">
+            <i class="bi bi-plus"></i>
+            Add editor</a>
         </div>
-        <div class="col-2">
-            <a name="" id="" class="btn btn-primary" href="/admin/user/add/editor" role="button">Thêm editor</a>
+        <div class="ml-4">
+            <a name="" id="" class="btnAddRole" href="/admin/user/add/writer" role="button">
+            <i class="bi bi-plus"></i>
+            Add writer</a>
         </div>
-        <div class="col-2">
-            <a name="" id="" class="btn btn-primary" href="/admin/user/add/writer" role="button">Thêm writer</a>
-        </div>
-        <div class="col-2">
-            <a name="" id="" class="btn btn-primary" href="/admin/user/add/subscriber" role="button">Thêm subscriber</a>
+        <div class="ml-4">
+            <a name="" id="" class="btnAddRole" href="/admin/user/add/subscriber" role="button">
+            <i class="bi bi-plus"></i>
+            Add subscriber</a>
         </div>
     </div>
-    <hr>
+    <hr class="mt-5">
     <div id="table-wrapper"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gridjs/6.2.0/gridjs.umd.js"
@@ -27,16 +32,16 @@
         const userList = {{{ json this.users }}};
 
         // Chuyển đổi dữ liệu từ đối tượng thành mảng để sử dụng trong Grid.js
-        const data = userList.map(item => [item.user_id, item.fullname, item.role_name, item.email]);
+        const data = userList.map(item => [item.user_id, item.username, item.role_name, item.email]);
 
         // Khởi tạo bảng Grid.js
         new gridjs.Grid({
-            columns: ["ID", "Tên", "Vai trò", "Email",
+            columns: ["ID", "Username", "Role", "Email",
                 {
-                    name: "Hành động",
+                    name: "Action",
                     formatter: (cell, row) => {
                         return gridjs.html(`                        
-                        <a class="btn btn-sm btn-primary" href="/admin/user/edit/${row.cells[2].data}?id=${row.cells[0].data}" role="button">
+                        <a class="btn btn-sm btn-success" href="/admin/user/edit/${row.cells[2].data}?id=${row.cells[0].data}" role="button">
                             <i class="bi bi-pencil-square"></i>
                         </a>`);
                     }
@@ -50,13 +55,13 @@
             sort: true,
             language: {
                 search: {
-                    placeholder: 'Tìm kiếm...'
+                    placeholder: 'Search'
                 },
                 pagination: {
-                    previous: 'Trước',
-                    next: 'Sau',
-                    showing: 'Hiển thị',
-                    results: () => 'kết quả'
+                    previous: 'Previous',
+                    next: 'Next',
+                    showing: 'Show',
+                    results: () => 'results'
                 }
             },
             style: {

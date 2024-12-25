@@ -91,3 +91,29 @@
     content: "/";
     margin: 0 4px;
 }
+.premium_detailArticle{
+    border:2px solid  rgb(255, 193, 69);
+    border-radius: 5px;
+    padding: 5px;
+    color:  rgb(255, 193, 69);
+    font-weight: 500;
+    display: flex; /* Sử dụng Flexbox để dễ dàng căn chỉnh */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    gap: 10px; 
+    font-size: large;
+}
+.premium_container{
+    position: relative;
+}
+.premium_topfive  {
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+    background-color: rgb(255, 193, 69);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -35px;
+    right: 10px;
+  }

@@ -62,21 +62,26 @@
         })
         .then(editor => {
             editorInstance = editor;
+            editor.isReadOnly = true;
 
             // Đổ dữ liệu cũ vào editor
             const oldContent = {{{ json article.content }}};
-    editor.setData(oldContent);
+            editor.setData(oldContent);
 
-    // Trước khi submit form, cập nhật dữ liệu CKEditor vào textarea ẩn
-    document.querySelector('#frmEditArticle').addEventListener('submit', (e) => {
-        e.preventDefault();
-        document.querySelector('#form_edit_content').value = editorInstance.getData();
-        document.querySelector('#frmEditArticle').submit();
-    });
+            // Trước khi submit form, cập nhật dữ liệu CKEditor vào textarea ẩn
+            document.querySelector('#frmEditArticle').addEventListener('submit', (e) => {
+                e.preventDefault();
+                if ('{{article.status}}' == 'published') {
+                    alert("This article's status is 'Published'. Editing is not permitted.");
+                    return;
+                }
+                document.querySelector('#form_edit_content').value = editorInstance.getData();
+                document.querySelector('#frmEditArticle').submit();
+            });
         })
         .catch (error => {
         console.error('Lỗi khi khởi tạo CKEditor:', error);
-    });
+});
 
 </script>
 <script>
@@ -181,13 +186,17 @@
 </script>
 
 {{/section}}
-<div class="container-fluid" style="padding: 40px;">
+<a name="" id="" class=" ml-3" href="/editor/article" role="button">
+    <img src="/public/images/icon/back.png" alt="" width="50px">
+</a>
+
+<div class="container-fluid" style="padding: 20px 40px;">
     <div class="row">
         <div class="col-12">
-            <div class="card info_part">
-                <div class="card-header d-flex custom_colorHeader">
-                    <h4 class="title_page">Edit Information</h4>
-                    <div class="box_newArticle ml-2">Article #{{article.article_id}}</div>
+            <div class="card info_part" style="font-weight: 500;">
+                <div class="card-header d-flex" style="background-color: rgb(74, 98, 138);">
+                    <h5 style="color: white;" class="mr-3 mt-1">Edit Article Information</h5>
+                    <img src="/public/images/icon/icons8-pencil-40.png" alt="" width="25px" height="25px" class="mt-1">
                 </div>
                 <div class="card-body">
 
@@ -200,29 +209,28 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label>Article's image (5:3)</label>
-                                        <div class="btnUploadImage">
+                                        <div class="btnUploadImage" style="pointer-events: none;">
                                             <img class="custom_image"
                                                 src="/public/images/icon/icons8-upload-image-64.png" style="width: 12%;"
                                                 id="preview_image">
                                             <span>Upload new image by</span>
                                             <label for="articleImg" class="custom_chooseFile">Choosing file</label>
-                                            <input type="file" name="main_image" id="articleImg"
+                                            <input type="file" name="main_image" id="articleImg" disabled
                                                 onchange="previewImage(event)">
                                         </div>
-
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label>Title</label>
-                                        <textarea name="title" rows="3" required
+                                        <textarea name="title" rows="3" required readonly
                                             class="form-control">{{article.title}}</textarea>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="">Tags</label>
                                         <select id="my-multiselect" name="tags[]" multiple="multiple"
-                                            style="width:100%;">
+                                            style="width:100%;" disabled>
                                             {{#each tags}}
                                             <option value="{{tag_id}}" {{#if (contain_taglink ../oldTags this.tag_id)}}
                                                 selected {{/if}}>
@@ -235,13 +243,13 @@
                                     <div class="form-group">
                                         <label class="mr-4">Category</label></br>
                                         <div class="mb-3">
-                                            <select id="category1" class="form-control custom_select">
+                                            <select id="category1" class="form-control custom_select w-70" disabled>
                                                 <option value="" class="pt-2">Choose level 1</option>
                                             </select>
                                         </div>
                                         <div>
                                             <select id="category2" class="form-control custom_select "
-                                                name="category_id">
+                                                name="category_id" disabled>
                                                 <option value="">Choose level 2</option>
                                             </select>
                                         </div>
@@ -253,7 +261,8 @@
                                                 Premium article
                                             </label>
                                             <input type="checkbox" name="is_premium" id="isPremium" {{#ifEquals
-                                                article.is_premium 1}}checked{{/ifEquals}} class="custom_checkbox">
+                                                article.is_premium 1}}checked{{/ifEquals}} class="custom_checkbox"
+                                                disabled>
                                         </div>
 
                                         <div class="form-group mt-3">
@@ -261,13 +270,17 @@
                                                 Featured article
                                             </label>
                                             <input type="checkbox" name="is_featured" id="isFeatured" {{#ifEquals
-                                                article.is_featured 1}}checked{{/ifEquals}} class="custom_checkbox">
+                                                article.is_featured 1}}checked{{/ifEquals}} class="custom_checkbox"
+                                                disabled>
                                         </div>
                                     </div>
-
                                     <div class="form-group">
-                                        <label for="">Trạng thái bài viết</label>
-                                        <select name="status" id="" class="form-control">
+                                        <label for="status">Article's status</label>
+                                        <select name="status" id="status" class="form-control">
+                                            <option value="draft" {{#ifEquals article.status "draft"
+                                                }}selected{{/ifEquals}}>
+                                                draft
+                                            </option>
                                             <option value="reviewed" {{#ifEquals article.status "reviewed"
                                                 }}selected{{/ifEquals}}>
                                                 reviewed
@@ -277,7 +290,7 @@
                                                 rejected
                                             </option>
                                         </select>
-                                    </div>                                    
+                                    </div>
                                     <div class="form-group">
                                         <label for="txtPublishedDate">Published Date</label>
                                         <input type="text" name="raw_published_date" id="txtPublishedDate"
@@ -289,28 +302,22 @@
                             <hr>
                             <div class="form-group mt-5">
                                 <label>Abstract</label>
-                                <textarea name="abstract" rows="3" required
+                                <textarea name="abstract" rows="3" required readonly
                                     class="form-control">{{article.abstract}}</textarea>
                             </div>
 
                             <label>Content</label>
-                            <div id="editor"></div><br>
+                            <div id="editor" style="pointer-events: none;"></div><br>
 
-
-                            <div class="mt-5 d-flex justify-content-end">
-                                <a name="" id="" class="btn btn-outline-success" href="/editor/article" role="button">
-                                    <i class="bi bi-skip-backward-fill"></i>
-                                    List
-                                </a>
-
-                                <button type="submit" class="ml-3 btn btn-primary">
+                            <div class="button-container_Edit mt-5">
+                                <button type="submit" class="btnSaveEdit btnActionEdit ">
+                                    <img src="/public/images/icon/icons8-save-100.png" alt="" width="20%">
                                     Save
                                 </button>
-
                             </div>
 
                             <!-- Thẻ textarea ẩn để lưu dữ liệu từ CKEditor -->
-                            <textarea id="form_edit_content" name="content" style="display:none;"></textarea>
+                            <textarea id="form_edit_content" name="content" style="display:none;" readonly></textarea>
                         </form>
                     </div>
                 </div>

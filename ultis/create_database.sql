@@ -57,6 +57,7 @@ CREATE TABLE Articles (
     is_premium BOOLEAN DEFAULT FALSE,
     is_featured BOOLEAN DEFAULT FALSE,
     writer_id INT DEFAULT 1,
+    article_created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     -- FOREIGN KEY (image_id) REFERENCES Images(image_id),
     FOREIGN KEY (category_id) REFERENCES Categories(category_id),
     FOREIGN KEY (writer_id) REFERENCES Users(user_id)
@@ -117,3 +118,6 @@ CREATE TABLE Article_Views (
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
     FOREIGN KEY (article_id) REFERENCES Articles(article_id)
 );
+
+ALTER TABLE Articles
+ADD FULLTEXT INDEX title_abstract_content_fulltext (title, abstract, content);
