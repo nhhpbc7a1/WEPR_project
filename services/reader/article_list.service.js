@@ -61,10 +61,16 @@ export default {
         .limit(limit)
         .offset(offset);
 
-      for (let article of articles)
-        article.tags = await db('tags').join('Article_tags', 'article_tags.tag_id', 'tags.tag_id').where('article_tags.article_id', article.article_id);
-      return articles;
+      const articleIds = articles.map(article => article.article_id);
+      const tags = await db('tags')
+        .join('Article_tags', 'Article_tags.tag_id', 'tags.tag_id')
+        .whereIn('Article_tags.article_id', articleIds);
 
+      articles.forEach(article => {
+        article.tags = tags.filter(tag => tag.article_id === article.article_id);
+      });
+
+      return articles;
     } catch (error) {
       console.error('Error fetching paginated articles by category:', error);
       throw new Error('Unable to fetch paginated articles by category');
@@ -244,7 +250,7 @@ export default {
   },
   findCategoryByID(id) {
     return db('Categories')
-     .where('category_id', id)
-     .first();
+      .where('category_id', id)
+      .first();
   }
 }
