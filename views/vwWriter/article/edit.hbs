@@ -68,28 +68,35 @@
     editor.setData(oldContent);
 
     // Trước khi submit form, cập nhật dữ liệu CKEditor vào textarea ẩn
-    document.querySelector('#frmEditArticle').addEventListener('submit', (e) => {
-        e.preventDefault();
-        const submittedButton = e.submitter; // Lấy button submit được nhấn
-        const formaction = submittedButton.value;
-        if ('{{article.status}}' != 'draft' && formaction == 'save') {
-            alert("This article's status is not 'Draft'. Editing is not permitted.");
-            return;
+    document.querySelector('#frmEditArticle').addEventListener('click', (e) => {
+        
+        const clickedElement = e.target;
+
+        // Check if the clicked element or its parent is the submit button
+        if (clickedElement.closest('.btnSaveEdit')) {
+            e.preventDefault();
+            const formaction = clickedElement.closest('.btnSaveEdit').value;
+            if ('{{article.status}}' != 'draft' && formaction == 'save') {
+                alert("This article's status is not 'Draft'. Editing is not permitted.");
+                return;
+            }
+
+            document.querySelector('#form_edit_content').value = editorInstance.getData();
+
+            // Submit form
+            const form = document.querySelector('#frmEditArticle');
+
+            if (formaction == 'resubmit') {
+                form.action = "/writer/article/add";
+                
+            } else {
+                form.action = "";
+            }
+            
+            form.submit();
         }
-
-        document.querySelector('#form_edit_content').value = editorInstance.getData();
-
-        // Gán formaction vào một input hidden (nếu cần dùng formaction ở server)
-        const formactionInput = document.createElement('input');
-        formactionInput.type = 'hidden';
-        formactionInput.name = 'formaction';
-        formactionInput.value = formaction;
-        document.querySelector('#frmEditArticle').appendChild(formactionInput);
-
-        // Submit form
-        document.querySelector('#frmEditArticle').submit();
     });
-            })
+    })
         .catch (error => {
         console.error('Lỗi khi khởi tạo CKEditor:', error);
     });
@@ -299,20 +306,18 @@
 
                             <div class="button-container_Edit mt-5">
                                 {{#if (eq article.status 'draft')}}
-                                <button type="submit" class="btnSaveEdit btnActionEdit ">
+                                <button type="submit" class="btnSaveEdit btnActionEdit" value="save">
                                     <img src="/public/images/icon/icons8-save-100.png" alt="" width="20%">
                                     Save
                                 </button>
                                 {{/if}}
                                 {{#if (eq article.status 'rejected')}}
-                                <button type="submit" class="btnSaveEdit btnActionEdit" formaction="/writer/article/add">
+                                <button type="submit" class="btnSaveEdit btnActionEdit" value="resubmit">
                                     <img src="/public/images/icon/icons8-save-100.png" alt="" width="20%">
                                     Resubmit
                                 </button>
                                 {{/if}}
-
                             </div>
-
                             <!-- Thẻ textarea ẩn để lưu dữ liệu từ CKEditor -->
                             <textarea id="form_edit_content" name="content" style="display:none;"></textarea>
                         </form>

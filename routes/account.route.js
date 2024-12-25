@@ -116,8 +116,23 @@ router.post('/login', async function (req, res) {
 
     req.session.auth = true;
     req.session.authUser = user;
-    const retUrl = req.session.retUrl || '/';
-    res.redirect(retUrl);
+    let redirectUrl = '/'; // Default redirect URL
+
+    switch (user.role_id) {
+        case 1:
+            redirectUrl = '/admin'; // URL for admin
+            break;
+        case 2:
+            redirectUrl = '/editor'; // URL for editor
+            break;
+        case 3:
+            redirectUrl = '/writer'; // URL for writer
+            break;
+        case 4:
+            redirectUrl = '/subscriber'; // URL for subscriber (or any default for regular users)
+            break;
+    }    
+    res.redirect(redirectUrl);
 });
 
 router.get('/profile', check, function (req, res) {
