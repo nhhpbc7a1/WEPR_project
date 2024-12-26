@@ -14,7 +14,7 @@ CREATE TABLE Users (
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     fullname VARCHAR(100), -- Thông tin cá nhân dùng chung
-    email VARCHAR(100) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL,
     phone_number VARCHAR(20),
     birth_date DATE,
     role_id INT NOT NULL, -- Phân biệt vai trò

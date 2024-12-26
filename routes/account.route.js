@@ -129,7 +129,7 @@ router.post('/login', async function (req, res) {
             redirectUrl = '/writer'; // URL for writer
             break;
         case 4:
-            redirectUrl = '/subscriber'; // URL for subscriber (or any default for regular users)
+            redirectUrl = '/'; // URL for subscriber (or any default for regular users)
             break;
     }    
     res.redirect(redirectUrl);
